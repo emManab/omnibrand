@@ -80,7 +80,7 @@ export function Home() {
         <div className="flex items-center justify-center gap-2 py-3" aria-label="Featured collection">{heroSlides.map((item, index) => <button key={item.eyebrow} type="button" onClick={() => setHeroIndex(index)} aria-label={`Show featured slide ${index + 1}`} aria-current={heroIndex === index ? "true" : undefined} className={`h-2.5 rounded-full transition-all ${heroIndex === index ? "w-2.5 bg-[#10284c]" : "w-2.5 bg-[#d5dce8] hover:bg-[#91a3bd]"}`} />)}</div>
       </section>
 
-      <section className="mx-auto max-w-[1440px] px-4 py-5 sm:px-6 lg:px-7">
+      <section className="w-full px-4 py-5 sm:px-6 lg:px-10">
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-base font-extrabold tracking-tight text-[#182b48] sm:text-lg">Shop by Category</h2>
         </div>
