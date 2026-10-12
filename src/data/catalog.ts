@@ -35,7 +35,7 @@ export const categories: {
       "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=600&q=80",
   },
   {
-    slug: "gifts",
+    slug: "marketing",
     name: "Posters & Prints",
     short: "Fine art and office",
     image:
