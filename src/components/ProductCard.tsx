@@ -16,7 +16,7 @@ export function ProductCard({ product }: { product: Product }) {
     toast.success(`${product.name} added to cart`);
   }
 
-  return <article className="product-card group flex min-w-0 flex-col rounded-xl border border-[#e9edf4] bg-white p-1.5 shadow-[0_1px_3px_rgba(16,40,76,0.04)] transition duration-200 hover:-translate-y-0.5 hover:border-[#cbdcff] hover:shadow-md sm:p-2">
+  return <article className="product-card group flex min-w-0 flex-col rounded-xl border border-[#e9edf4] bg-white p-1.5 shadow-[0_1px_3px_rgba(16,40,76,0.04)] sm:p-2">
     <div className="relative">
       <Link to={`/product/${product.slug}`} aria-label={`View ${product.name}`} className="block">
         <div className="relative aspect-square overflow-hidden rounded-lg bg-[#f4f6f9]" style={{background:product.accent}}>
@@ -32,7 +32,7 @@ export function ProductCard({ product }: { product: Product }) {
     </Link>
     <div className="mt-auto flex items-end justify-between gap-1 px-0.5 pb-1 pt-1.5">
       <div><p className="text-[0.5625rem] text-muted">From</p><p className="text-[0.75rem] font-extrabold text-[#14284b] sm:text-[0.8125rem]">{formatInr(product.fromPrice)}</p></div>
-      <button type="button" aria-label={`Quick add ${product.name} to cart`} className="mobile-product-add" onClick={addQuickly}><Plus size={19}/></button>
+      <button type="button" aria-label={`Quick add ${product.name} to cart`} className="mobile-product-add transition-transform duration-200 hover:rotate-90 hover:scale-110" onClick={addQuickly}><Plus size={19}/></button>
     </div>
   </article>;
 }
