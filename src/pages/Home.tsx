@@ -5,6 +5,7 @@ import { BadgeCheck, Package, PenLine, Truck, ChevronRight, ChevronLeft, Star } 
 import { categories, products } from "@/data/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductImage } from "@/components/ProductImage";
+import { storefrontImages } from "@/data/storefrontImages";
 
 const tabs = [
   { id: "all", label: "All" },
@@ -98,16 +99,16 @@ export function Home() {
       </section>
 
       <section className="mx-auto grid max-w-[1440px] gap-3 px-4 py-4 sm:grid-cols-2 sm:px-6 lg:px-7">
-        <Promo title="Make a lasting first impression" kicker="Business Cards" to="/catalog?category=business-cards" cta="Shop Business Cards" image="https://images.unsplash.com/photo-1623305465231-d884ce752d59?auto=format&fit=crop&w=900&q=85" tone="from-[#fff0e7] to-[#ffdfcf]"/>
-        <Promo title="Wear your brand proudly" kicker="Custom Apparel" to="/catalog?category=apparel" cta="Shop Apparel" image="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85" tone="from-[#e6f9dc] to-[#c9f1b9]"/>
+        <Promo title="Make a lasting first impression" kicker="Business Cards" to="/catalog?category=business-cards" cta="Shop Business Cards" image={storefrontImages.promos.businessCards} tone="from-[#fff0e7] to-[#ffdfcf]"/>
+        <Promo title="Wear your brand proudly" kicker="Custom Apparel" to="/catalog?category=apparel" cta="Shop Apparel" image={storefrontImages.promos.customApparel} tone="from-[#e6f9dc] to-[#c9f1b9]"/>
       </section>
 
       <ProductRail title="Popular Products" items={shown} tabs={tabs} tab={tab} onTab={setTab} to="/catalog"/>
       <ProductRail title="Trending Now" items={trending} to="/catalog"/>
 
       <section className="mx-auto grid max-w-[1440px] gap-3 px-4 py-4 sm:grid-cols-2 sm:px-6 lg:px-7">
-        <Promo title="Small Details. Big Impact." kicker="Stickers & Labels" to="/catalog?category=stickers" cta="Shop Stickers" image="https://images.unsplash.com/photo-1621252756235-7f37e5e5125e?auto=format&fit=crop&w=900&q=85" tone="from-[#102748] to-[#183c69]" dark/>
-        <Promo title="Custom Packaging for Your Brand" kicker="Packaging & Boxes" to="/catalog?category=packaging" cta="Shop Packaging" image="https://images.unsplash.com/photo-1771848194269-2e3b89b6465b?auto=format&fit=crop&w=900&q=85" tone="from-[#f0f3fa] to-[#e4eafa]"/>
+        <Promo title="Small Details. Big Impact." kicker="Stickers & Labels" to="/catalog?category=stickers" cta="Shop Stickers" image={storefrontImages.promos.stickers} tone="from-[#102748] to-[#183c69]" dark/>
+        <Promo title="Custom Packaging for Your Brand" kicker="Packaging & Boxes" to="/catalog?category=packaging" cta="Shop Packaging" image={storefrontImages.promos.packaging} tone="from-[#f0f3fa] to-[#e4eafa]"/>
       </section>
 
       <ProductRail title="New Arrivals" items={arrivals} to="/catalog"/>
