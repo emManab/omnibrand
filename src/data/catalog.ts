@@ -32,7 +32,7 @@ export const categories: {
     name: "Stickers & Labels",
     short: "Vinyl, kraft, hologram",
     image:
-      "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1621252756235-7f37e5e5125e?auto=format&fit=crop&w=600&q=80",
   },
   {
     slug: "apparel",
@@ -260,7 +260,7 @@ export const products: Product[] = [
     rating: 4.9,
     reviews: 1204,
     image:
-      "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1621252756235-7f37e5e5125e?auto=format&fit=crop&w=900&q=80",
     accent: "#EAF7FF",
     sizes: [
       { id: "50", label: "50 mm", multiplier: 1 },
