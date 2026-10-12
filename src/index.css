@@ -190,3 +190,22 @@ canvas {
 @media (min-width: 768px) {
   .mobile-catalog-hero, .mobile-catalog-controls, .mobile-design-help, .mobile-product-heart, .mobile-product-add { display: none; }
 }
+
+.mobile-reference-home { display: none; }
+@media (max-width: 767px) {
+ .mobile-reference-home { display: block; }
+ .mobile-reference-home .mobile-reference-hero { min-height: 260px; }
+ .mobile-reference-home .mobile-reference-banner { display: grid; grid-template-columns: 1.07fr .93fr; overflow: hidden; min-height: 205px; border-radius: 16px; text-decoration: none; }
+ .mobile-reference-home .mobile-reference-peach { background: linear-gradient(115deg,#fff3eb,#ffdccc); }
+ .mobile-reference-home .mobile-reference-green { background: linear-gradient(115deg,#e7f8e3,#d3f4c4); }
+ .mobile-reference-home .mobile-reference-rail { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 2px 12px; scrollbar-width: none; }
+ .mobile-reference-home .mobile-reference-rail::-webkit-scrollbar { display: none; }
+ .mobile-reference-home .mobile-reference-rail .product-card { flex: 0 0 40%; scroll-snap-align: start; }
+ .mobile-reference-home .mobile-reference-rail .product-card > div:first-child > a:first-child > div { border-radius: 10px; }
+ .mobile-reference-home .mobile-reference-rail .product-card p { font-size: 12px !important; }
+ .mobile-reference-home .mobile-reference-rail .product-card .mobile-product-add { display: grid; }
+}
+@media (max-width: 370px) {
+ .mobile-reference-home .mobile-reference-hero h1 { font-size: 25px; }
+ .mobile-reference-home .mobile-reference-rail .product-card { flex-basis: 45%; }
+}
