@@ -6,7 +6,6 @@ import { storefrontImages } from "@/data/storefrontImages";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductImage } from "@/components/ProductImage";
 
-const image = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=700&q=85`;
 const tiles = categories.map((category) => ({
   label: category.name,
   slug: category.slug,
