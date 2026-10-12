@@ -1,6 +1,6 @@
 import { FormEvent, useMemo, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { HelpCircle, Menu, Search, ShoppingBag, User, X, PackageCheck } from "lucide-react";
+import { HelpCircle, Heart, Menu, Search, ShoppingBag, User, X, PackageCheck } from "lucide-react";
 import { navCategories } from "@/data/catalog";
 import { useCart } from "@/store/cart";
 import { useAuth } from "@/store/auth";
@@ -29,14 +29,14 @@ export function Header() {
   return <header className="sticky top-0 z-40 border-b border-[#e8edf4] bg-white/95 backdrop-blur">
     <div className="mx-auto flex max-w-[1440px] items-center gap-3 px-4 py-2 sm:px-6 lg:px-7">
       <button className="rounded-lg p-1.5 text-ink lg:hidden" onClick={()=>setOpen(v=>!v)} aria-label={open?"Close menu":"Open menu"} aria-expanded={open}>{open?<X size={18}/>:<Menu size={18}/>}</button>
-      <Link to="/" className="flex shrink-0 items-center" aria-label="Printify home"><img src="/printify-logo.png" alt="Printify" width="132" height="30" className="h-[26px] w-auto sm:h-[30px]" /></Link>
+      <Link to="/" className="flex shrink-0 items-center" aria-label="Printify home"><img src="/printify-logo.png" alt="Printify" width="132" height="30" className="h-[30px] w-auto sm:h-[30px]" /></Link>
       <form onSubmit={onSearch} className="mx-2 hidden min-w-0 max-w-[590px] flex-1 md:flex">
         <label className="flex w-full items-center gap-2 rounded-full bg-[#f3f5f9] px-4 py-2">
           <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search for products, templates or ideas..." aria-label="Search products" className="w-full bg-transparent text-[0.75rem] outline-none placeholder:text-[#8490a3] sm:text-[0.8125rem]"/>
           <button type="submit" aria-label="Submit search" className="text-[#65738a] hover:text-[#0875f5]"><Search size={15}/></button>
         </label>
       </form>
-      <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
+      <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">\n        <Link to="/login" aria-label="Wishlist" className="mobile-header-icon"><Heart size={22}/></Link>
         <Link to="/help" className="hidden items-center gap-1 rounded-full px-1.5 py-1.5 text-[0.75rem] font-medium text-[#4b5b73] hover:bg-[#f4f6fa] sm:flex"><HelpCircle size={13}/> Help</Link>
         <Link to={user?"/account":"/login"} className="hidden items-center gap-1 rounded-full px-1.5 py-1.5 text-[0.75rem] font-medium text-[#4b5b73] hover:bg-[#f4f6fa] sm:flex"><PackageCheck size={13}/> Orders</Link>
         <Link to={user?"/account":"/login"} className="flex items-center gap-1 rounded-full px-1.5 py-1.5 text-[0.75rem] font-medium text-[#4b5b73] hover:bg-[#f4f6fa]"><User size={13}/><span className="hidden sm:inline">{user?user.fullName.split(" ")[0]:"Sign in"}</span></Link>
