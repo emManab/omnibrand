@@ -6,6 +6,12 @@ import { useCart } from "@/store/cart";
 import { useAuth } from "@/store/auth";
 import { cn } from "@/lib/cn";
 
+const extraLinks = [
+  { label: "Office Stationery", slug: "stationery" },
+  { label: "Gifts", slug: "gifts" },
+  { label: "Inspiration", slug: "inspiration" },
+];
+
 export function Header() {
   const navigate = useNavigate();
   const items = useCart((s) => s.items);
@@ -13,98 +19,39 @@ export function Header() {
   const count = useMemo(() => items.reduce((n, i) => n + i.quantity, 0), [items]);
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
-
   function onSearch(e: FormEvent) {
     e.preventDefault();
     navigate(`/catalog?q=${encodeURIComponent(q.trim())}`);
     setOpen(false);
   }
+  const navLinkClass = ({ isActive }: { isActive: boolean }) => cn("whitespace-nowrap border-b-2 border-transparent px-2.5 py-2.5 text-[10px] font-semibold text-[#34445e] transition hover:text-[#0875f5] sm:text-[11px]", isActive && "border-[#0875f5] text-[#0875f5]");
 
-  return (
-    <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 lg:gap-5 lg:px-6">
-        <button
-          className="rounded-lg p-2 text-ink lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
-
-        <Link to="/" className="flex shrink-0 items-center gap-2" aria-label="Printify home">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-lg font-extrabold tracking-tight text-white">P</span>
-          <span className="text-xl font-extrabold tracking-tight text-[#14284b]">Printify</span>
-        </Link>
-
-        <form onSubmit={onSearch} className="hidden min-w-0 max-w-xl flex-1 md:flex">
-          <label className="flex w-full items-center gap-2 rounded-full border border-line bg-[#f5f7fb] px-4 py-2.5">
-            <input
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              placeholder="Search for products, templates or ideas..."
-              aria-label="Search products"
-              className="w-full bg-transparent text-sm outline-none placeholder:text-muted"
-            />
-            <button type="submit" aria-label="Submit search" className="text-muted hover:text-brand"><Search size={17} /></button>
-          </label>
-        </form>
-
-        <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
-          <Link to="/help" className="hidden items-center gap-1 rounded-full px-2 py-1.5 text-sm text-muted hover:bg-paper sm:flex">
-            <HelpCircle size={16} /> <span>Help</span>
-          </Link>
-          <Link to={user ? "/account" : "/login"} className="hidden items-center gap-1 rounded-full px-2 py-1.5 text-sm text-muted hover:bg-paper sm:flex">
-            <PackageCheck size={16} /> <span>Orders</span>
-          </Link>
-          <Link
-            to={user ? "/account" : "/login"}
-            className="flex items-center gap-1 rounded-full px-2 py-1.5 text-sm font-medium hover:bg-paper"
-          >
-            <User size={16} />
-            <span className="hidden sm:inline">{user ? user.fullName.split(" ")[0] : "Sign in"}</span>
-          </Link>
-          <Link to="/cart" className="relative flex h-10 items-center gap-2 rounded-xl bg-brand px-3 text-sm font-semibold text-white hover:bg-brand-dark" aria-label={`Cart, ${count} items`}>
-            <ShoppingBag size={17} /><span className="hidden sm:inline">Cart</span>
-            {count > 0 && <span className="grid h-5 min-w-5 place-items-center rounded-full bg-white px-1 text-[11px] font-bold text-brand">{count}</span>}
-          </Link>
-        </div>
+  return <header className="sticky top-0 z-40 border-b border-[#e8edf4] bg-white/95 backdrop-blur">
+    <div className="mx-auto flex max-w-[1440px] items-center gap-3 px-4 py-2 sm:px-6 lg:px-7">
+      <button className="rounded-lg p-1.5 text-ink lg:hidden" onClick={()=>setOpen(v=>!v)} aria-label={open?"Close menu":"Open menu"} aria-expanded={open}>{open?<X size={18}/>:<Menu size={18}/>}</button>
+      <Link to="/" className="shrink-0 text-[20px] font-extrabold leading-none tracking-[-0.06em] text-[#102748] sm:text-[23px]" aria-label="Printify home">Printify</Link>
+      <form onSubmit={onSearch} className="mx-2 hidden min-w-0 max-w-[590px] flex-1 md:flex">
+        <label className="flex w-full items-center gap-2 rounded-full bg-[#f3f5f9] px-4 py-2">
+          <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search for products, templates or ideas..." aria-label="Search products" className="w-full bg-transparent text-[10px] outline-none placeholder:text-[#8490a3] sm:text-[11px]"/>
+          <button type="submit" aria-label="Submit search" className="text-[#65738a] hover:text-[#0875f5]"><Search size={15}/></button>
+        </label>
+      </form>
+      <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
+        <Link to="/help" className="hidden items-center gap-1 rounded-full px-1.5 py-1.5 text-[10px] font-medium text-[#4b5b73] hover:bg-[#f4f6fa] sm:flex"><HelpCircle size={13}/> Help</Link>
+        <Link to={user?"/account":"/login"} className="hidden items-center gap-1 rounded-full px-1.5 py-1.5 text-[10px] font-medium text-[#4b5b73] hover:bg-[#f4f6fa] sm:flex"><PackageCheck size={13}/> Orders</Link>
+        <Link to={user?"/account":"/login"} className="flex items-center gap-1 rounded-full px-1.5 py-1.5 text-[10px] font-medium text-[#4b5b73] hover:bg-[#f4f6fa]"><User size={13}/><span className="hidden sm:inline">{user?user.fullName.split(" ")[0]:"Sign in"}</span></Link>
+        <Link to="/cart" aria-label={`Cart, ${count} items`} className="relative flex items-center gap-1.5 rounded-lg bg-[#0875f5] px-3 py-2 text-[10px] font-bold text-white hover:bg-[#075fd0]"><ShoppingBag size={14}/><span className="hidden sm:inline">Cart</span>{count>0&&<span className="grid h-4 min-w-4 place-items-center rounded-full bg-white px-1 text-[9px] text-[#0875f5]">{count}</span>}</Link>
       </div>
-
-      <nav aria-label="Product categories" className="hidden border-t border-[#f0f2f6] lg:block">
-        <div className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-4 lg:px-6">
-          {navCategories.map((c) => (
-            <NavLink
-              key={c.slug}
-              to={c.slug === "all" ? "/catalog" : `/catalog?category=${c.slug}`}
-              className={({ isActive }) => cn(
-                "whitespace-nowrap border-b-2 border-transparent px-3 py-3 text-[12px] font-medium text-ink/75 hover:text-brand",
-                isActive && "border-brand text-brand",
-              )}
-            >{c.label}</NavLink>
-          ))}
-          <Link to="/catalog?category=stationery" className="whitespace-nowrap border-b-2 border-transparent px-3 py-3 text-[12px] font-medium text-ink/75 hover:text-brand">Office Stationery</Link>
-          <Link to="/catalog?category=inspiration" className="whitespace-nowrap border-b-2 border-transparent px-3 py-3 text-[12px] font-medium text-ink/75 hover:text-brand">Inspiration</Link>
-        </div>
-      </nav>
-
-      {open && (
-        <div className="border-t border-line bg-white px-4 py-4 lg:hidden">
-          <form onSubmit={onSearch} className="mb-3">
-            <label className="flex items-center gap-2 rounded-full border border-line bg-paper px-3 py-2">
-              <Search size={16} />
-              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search products, templates or ideas" aria-label="Search products" className="w-full bg-transparent text-sm outline-none" />
-            </label>
-          </form>
-          <div className="grid gap-1 sm:grid-cols-2">
-            {navCategories.map((c) => (
-              <Link key={c.slug} to={c.slug === "all" ? "/catalog" : `/catalog?category=${c.slug}`} onClick={() => setOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-paper">{c.label}</Link>
-            ))}
-            <Link to="/help" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-paper">Help & support</Link>
-            <Link to="/cart" onClick={() => setOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-paper">Shopping cart ({count})</Link>
-          </div>
-        </div>
-      )}
-    </header>
-  );
+    </div>
+    <nav aria-label="Product categories" className="hidden border-t border-[#f3f5f8] lg:block">
+      <div className="mx-auto flex max-w-[1440px] items-center gap-0.5 overflow-x-auto px-4 sm:px-6 lg:px-7">
+        {navCategories.map(c=><NavLink key={c.slug} to={c.slug==="all"?"/catalog":`/catalog?category=${c.slug}`} className={navLinkClass}>{c.label}</NavLink>)}
+        {extraLinks.map(c=><Link key={c.slug} to={c.slug==="inspiration"?"/catalog":`/catalog?category=${c.slug}`} className="whitespace-nowrap border-b-2 border-transparent px-2.5 py-2.5 text-[10px] font-semibold text-[#34445e] hover:text-[#0875f5] sm:text-[11px]">{c.label}</Link>)}
+      </div>
+    </nav>
+    {open&&<div className="border-t border-[#e8edf4] bg-white px-4 py-4 lg:hidden">
+      <form onSubmit={onSearch} className="mb-3"><label className="flex items-center gap-2 rounded-full border border-[#e6eaf2] bg-[#f5f7fb] px-3 py-2"><Search size={15}/><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search products, templates or ideas" aria-label="Search products" className="w-full bg-transparent text-sm outline-none"/></label></form>
+      <div className="grid gap-1 sm:grid-cols-2">{[...navCategories,...extraLinks].map(c=><Link key={c.slug} to={c.slug==="all"?"/catalog":`/catalog?category=${c.slug}`} onClick={()=>setOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-[#f5f7fb]">{c.label}</Link>)}<Link to="/help" onClick={()=>setOpen(false)} className="rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-[#f5f7fb]">Help & support</Link></div>
+    </div>}
+  </header>;
 }
