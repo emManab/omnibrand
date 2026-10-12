@@ -58,7 +58,7 @@ export function ProductPage() {
         className="overflow-hidden rounded-3xl border border-line"
         style={{ background: product.accent }}
       >
-        <ProductImage src={product.image alt={product.name} className="aspect-square w-full object-cover" />
+        <ProductImage src={product.image} alt={product.name} className="aspect-square w-full object-cover" />
       </div>
       <div>
         <p className="text-sm capitalize text-muted">{product.category.replace("-", " ")}</p>
