@@ -29,7 +29,7 @@ export function Header() {
   return <header className="sticky top-0 z-40 border-b border-[#e8edf4] bg-white/95 backdrop-blur">
     <div className="mx-auto flex max-w-[1440px] items-center gap-3 px-4 py-2 sm:px-6 lg:px-7">
       <button className="rounded-lg p-1.5 text-ink lg:hidden" onClick={()=>setOpen(v=>!v)} aria-label={open?"Close menu":"Open menu"} aria-expanded={open}>{open?<X size={18}/>:<Menu size={18}/>}</button>
-      <Link to="/" className="flex shrink-0 items-center" aria-label="Printify home"><img src="/printify-logo.svg" alt="Printify" width="132" height="30" className="h-[26px] w-auto sm:h-[30px]" /></Link>
+      <Link to="/" className="flex shrink-0 items-center" aria-label="Printify home"><img src="/printify-logo.png" alt="Printify" width="132" height="30" className="h-[26px] w-auto sm:h-[30px]" /></Link>
       <form onSubmit={onSearch} className="mx-2 hidden min-w-0 max-w-[590px] flex-1 md:flex">
         <label className="flex w-full items-center gap-2 rounded-full bg-[#f3f5f9] px-4 py-2">
           <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search for products, templates or ideas..." aria-label="Search products" className="w-full bg-transparent text-[0.75rem] outline-none placeholder:text-[#8490a3] sm:text-[0.8125rem]"/>
