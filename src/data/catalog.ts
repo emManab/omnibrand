@@ -98,7 +98,7 @@ export const products: Product[] = [
     rating: 4.8,
     reviews: 2140,
     image:
-      "https://images.unsplash.com/photo-1623305465231-d884ce752d59?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=900&q=80",
     accent: "#EEF3FF",
     sizes: [
       { id: "85x55", label: "85 × 55 mm", multiplier: 1 },
@@ -131,7 +131,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviews: 1864,
     image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80",
     accent: "#E8F6EE",
     sizes: [
       { id: "s", label: "S", multiplier: 1 },
@@ -198,7 +198,7 @@ export const products: Product[] = [
     rating: 4.6,
     reviews: 640,
     image:
-      "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=900&q=80",
     accent: "#F3EEFF",
     sizes: [
       { id: "a3", label: "A3", multiplier: 1 },
@@ -229,7 +229,7 @@ export const products: Product[] = [
     rating: 4.8,
     reviews: 512,
     image:
-      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?auto=format&fit=crop&w=900&q=80",
     accent: "#EEF2FF",
     sizes: [
       { id: "m", label: "M", multiplier: 1 },
@@ -354,7 +354,7 @@ export const products: Product[] = [
     rating: 4.8,
     reviews: 176,
     image:
-      "https://images.unsplash.com/photo-1771848194269-2e3b89b6465b?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=900&q=80",
     accent: "#FFF7ED",
     sizes: [
       { id: "s", label: "Small 20×12×8 cm", multiplier: 1 },
@@ -413,7 +413,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviews: 221,
     image:
-      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1521369909029-2a9559c67a1c?auto=format&fit=crop&w=900&q=80",
     accent: "#EEF6FF",
     sizes: [{ id: "os", label: "One size", multiplier: 1 }],
     materials: [
@@ -440,7 +440,7 @@ export const products: Product[] = [
     rating: 4.8,
     reviews: 154,
     image:
-      "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&w=900&q=80",
     accent: "#F4F1EA",
     sizes: [
       { id: "a6", label: "A6", multiplier: 0.85 },
@@ -470,7 +470,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviews: 198,
     image:
-      "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=900&q=80",
     accent: "#E8F4FF",
     sizes: [
       { id: "500", label: "500 ml", multiplier: 1 },
