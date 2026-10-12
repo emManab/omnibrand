@@ -209,3 +209,71 @@ canvas {
  .mobile-reference-home .mobile-reference-hero h1 { font-size: 25px; }
  .mobile-reference-home .mobile-reference-rail .product-card { flex-basis: 45%; }
 }
+
+
+/* Premium storefront polish: restrained motion, tactile controls, and calmer surfaces */
+:root {
+  --motion-fast: 160ms;
+  --motion-base: 240ms;
+  --ease-out: cubic-bezier(.2,.75,.25,1);
+}
+::selection { background: #dce8ff; color: #102748; }
+a, button, [role="button"] {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: var(--motion-fast);
+  transition-timing-function: var(--ease-out);
+}
+button:not(:disabled), [role="button"], a { cursor: pointer; }
+button:active:not(:disabled), [role="button"]:active { transform: scale(.98); }
+button:disabled { cursor: not-allowed; opacity: .55; }
+main { isolation: isolate; }
+main section { scroll-margin-top: 6rem; }
+main section h2 { text-wrap: balance; }
+.product-card {
+  border-color: #e8edf5;
+  box-shadow: 0 2px 8px rgba(15,35,70,.035);
+  transition: transform 240ms var(--ease-out), box-shadow 240ms var(--ease-out), border-color 240ms var(--ease-out);
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: #c9d9ff;
+  box-shadow: 0 14px 30px rgba(18,48,104,.10);
+}
+.product-card img { transition: transform 420ms var(--ease-out), filter 240ms ease; }
+.product-card:hover img { transform: scale(1.045); }
+.category-strip a img { transition: transform 360ms var(--ease-out), filter 240ms ease; }
+.category-strip a:hover img { transform: scale(1.055); filter: saturate(1.04); }
+.category-strip a:focus-visible, .product-card a:focus-visible { border-radius: .75rem; }
+.mobile-reference-home a > div img { transition: transform 360ms var(--ease-out); }
+.mobile-reference-home a:hover > div img { transform: scale(1.035); }
+.mobile-reference-rail { scrollbar-width: thin; scrollbar-color: #d6deeb transparent; }
+.mobile-reference-rail::-webkit-scrollbar { height: 5px; }
+.mobile-reference-rail::-webkit-scrollbar-thumb { background: #d6deeb; border-radius: 999px; }
+input, select, textarea {
+  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: #8aafff;
+  box-shadow: 0 0 0 4px rgba(27,77,255,.09);
+}
+@keyframes storefront-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes storefront-soft-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (min-width: 768px) {
+  .hidden.bg-white.md\\:block > section { animation: storefront-enter 520ms var(--ease-out) both; }
+  .hidden.bg-white.md\\:block > section:nth-child(2) { animation-delay: 60ms; }
+  .hidden.bg-white.md\\:block > section:nth-child(3) { animation-delay: 100ms; }
+  .hidden.bg-white.md\\:block > section:nth-child(4) { animation-delay: 140ms; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
