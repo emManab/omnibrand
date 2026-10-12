@@ -32,7 +32,7 @@ export function CartPage() {
         <ul className="mt-6 divide-y divide-line">
           {items.map((item) => (
             <li key={item.id} className="flex gap-4 py-5">
-              <ProductImage src={item.image alt="" className="h-24 w-24 rounded-xl object-cover bg-paper" />
+              <ProductImage src={item.image} alt="" className="h-24 w-24 rounded-xl object-cover bg-paper" />
               <div className="flex-1">
                 <p className="font-medium">{item.name}</p>
                 <p className="mt-1 text-sm text-muted">
