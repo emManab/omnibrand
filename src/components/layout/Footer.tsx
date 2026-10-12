@@ -23,7 +23,7 @@ const cols = [
   {
     title: "Company",
     links: [
-      ["About OmniBrand", "/help"],
+      ["About Printify", "/help"],
       ["Production", "/help"],
       ["For studios", "/help"],
     ],
@@ -46,10 +46,10 @@ export function Footer() {
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand text-sm font-bold text-white">
               O
             </span>
-            <span className="text-lg font-semibold">OmniBrand</span>
+            <span className="text-lg font-semibold">Printify</span>
           </div>
           <p className="mt-3 max-w-xs text-sm leading-6 text-muted">
-            Custom print for businesses that still care how a card feels and how a box opens.
+            Custom printing for businesses, creators and growing brands. Bring your ideas to life on products people love.
           </p>
         </div>
         {cols.map((col) => (
@@ -69,7 +69,7 @@ export function Footer() {
       </div>
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-7xl justify-between px-4 py-4 text-xs text-muted lg:px-6">
-          <span>© {new Date().getFullYear()} OmniBrand. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Printify. All rights reserved.</span>
           <span>Printed in India</span>
         </div>
       </div>
