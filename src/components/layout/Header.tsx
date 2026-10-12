@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ArrowUpRight, Heart, Menu, Search, ShoppingBag, User, X, PackageCheck, ArrowRight } from "lucide-react";
-import { navCategories, products, searchProducts } from "@/data/catalog";
+import { navCategories, products } from "@/data/catalog";
 import { useCart } from "@/store/cart";
 import { useAuth } from "@/store/auth";
 import { cn } from "@/lib/cn";

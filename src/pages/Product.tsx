@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { getProduct } from "@/data/catalog";
@@ -7,6 +7,10 @@ import { formatInr } from "@/lib/money";
 import { useCart } from "@/store/cart";
 import { StarRow } from "@/components/StarRow";
 import { ProductImage } from "@/components/ProductImage";
+import { BulkPriceCalculator } from "@/components/BulkPriceCalculator";
+import { ProductRecommendations } from "@/components/ProductRecommendations";
+import { trackProductView } from "@/components/ProductRecommendations";
+import { LiveChat } from "@/components/LiveChat";
 
 export function ProductPage() {
   const { slug } = useParams();
@@ -23,6 +27,12 @@ export function ProductPage() {
     if (!product) return null;
     return priceFor(product, { quantity, sizeId, materialId, finishId });
   }, [product, quantity, sizeId, materialId, finishId]);
+
+  useEffect(() => {
+    if (product) {
+      trackProductView(product.id);
+    }
+  }, [product]);
 
   if (!product || !quote) {
     return (
@@ -53,6 +63,7 @@ export function ProductPage() {
   }
 
   return (
+    <>
     <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 lg:grid-cols-2 lg:px-6">
       <div
         className="overflow-hidden rounded-3xl border border-line"
@@ -92,6 +103,14 @@ export function ProductPage() {
           <p className="text-sm text-muted">{formatInr(quote.unitPrice)} each · GST extra at checkout</p>
         </div>
 
+        <div className="mt-5">
+          <BulkPriceCalculator
+            basePrice={product.fromPrice}
+            quantities={product.quantities}
+            productName={product.name}
+          />
+        </div>
+
         <div className="mt-5 flex flex-wrap gap-3">
           <button
             onClick={() =>
@@ -112,6 +131,9 @@ export function ProductPage() {
         </div>
       </div>
     </div>
+    <ProductRecommendations currentProduct={product} title="Similar Products" />
+    <LiveChat />
+    </>
   );
 }
 

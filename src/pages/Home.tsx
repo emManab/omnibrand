@@ -1,11 +1,15 @@
 import { FormEvent, useState } from "react";
 import { MobileHome } from "@/components/MobileHome";
 import { Link } from "react-router-dom";
-import { BadgeCheck, Package, PenLine, Truck, ChevronRight, ChevronLeft, Star } from "lucide-react";
+import { BadgeCheck, Truck, PenLine, ChevronRight, ChevronLeft, Star } from "lucide-react";
 import { categories, products } from "@/data/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductImage } from "@/components/ProductImage";
 import { storefrontImages } from "@/data/storefrontImages";
+import { ProductRecommendations } from "@/components/ProductRecommendations";
+import { QuickReorder } from "@/components/QuickReorder";
+import { LiveChat } from "@/components/LiveChat";
+import { TrustBadges } from "@/components/TrustBadges";
 
 const tabs = [
   { id: "all", label: "All" },
@@ -103,7 +107,9 @@ export function Home() {
         <Promo title="Wear your brand proudly" kicker="Custom Apparel" to="/catalog?category=apparel" cta="Shop Apparel" image={storefrontImages.promos.customApparel} tone="from-[#e6f9dc] to-[#c9f1b9]"/>
       </section>
 
+      <QuickReorder />
       <ProductRail title="Popular Products" items={shown} tabs={tabs} tab={tab} onTab={setTab} to="/catalog"/>
+      <ProductRecommendations title="Recommended for You" />
       <ProductRail title="Trending Now" items={trending} to="/catalog"/>
 
       <section className="mx-auto grid max-w-[1440px] gap-3 px-4 py-4 sm:grid-cols-2 sm:px-6 lg:px-7">
@@ -113,16 +119,7 @@ export function Home() {
 
       <ProductRail title="New Arrivals" items={arrivals} to="/catalog"/>
 
-      <section className="mx-auto max-w-[1440px] px-4 py-5 sm:px-6 lg:px-7">
-        <div className="grid gap-3 rounded-2xl bg-[#f3f7ff] p-4 sm:grid-cols-2 lg:grid-cols-4 lg:p-5">
-          {[
-            { icon: PenLine, t: "Easy Online Design", d: "Create with ready templates or upload your own design." },
-            { icon: Truck, t: "Fast Delivery", d: "Reliable shipping across India." },
-            { icon: BadgeCheck, t: "High Quality Print", d: "Vibrant and durable prints." },
-            { icon: Package, t: "No Minimum Orders", d: "Order just what you need." },
-          ].map((f) => <div key={f.t} className="flex items-center gap-3 rounded-xl px-2 py-2"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#d8eaff] text-[#0875f5]"><f.icon size={18}/></span><div><p className="text-[0.8125rem] font-bold text-[#162d50]">{f.t}</p><p className="mt-1 text-[0.75rem] leading-4 text-[#667995]">{f.d}</p></div></div>)}
-        </div>
-      </section>
+      <TrustBadges />
 
       <section className="mx-auto max-w-[1440px] px-4 py-6 sm:px-6 lg:px-7">
         <SectionHeading title="Trusted by Businesses and Creators" to="/help" linkLabel="See All Reviews"/>
@@ -141,6 +138,7 @@ export function Home() {
           {joined ? <p className="text-sm font-semibold">You’re on the list. Thanks for subscribing!</p> : <form onSubmit={subscribe} className="flex w-full gap-1.5 sm:w-[360px]"><input value={email} onChange={e=>setEmail(e.target.value)} type="email" required placeholder="Enter your email address" className="min-w-0 flex-1 rounded-lg bg-white px-3 py-2.5 text-[0.75rem] text-[#14284b] outline-none placeholder:text-slate-400"/><button className="rounded-lg bg-[#0875f5] px-4 py-2.5 text-[0.75rem] font-bold text-white hover:bg-[#075fd0]">Subscribe</button></form>}</div>
         </div>
       </section>
+      <LiveChat />
     </div>
     </>
   );

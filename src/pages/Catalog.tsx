@@ -5,6 +5,7 @@ import { navCategories, products, searchProducts } from "@/data/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { cn } from "@/lib/cn";
 import { ProductImage } from "@/components/ProductImage";
+import { LiveChat } from "@/components/LiveChat";
 
 export function Catalog() {
   const [params, setParams] = useSearchParams();
@@ -131,6 +132,7 @@ export function Catalog() {
         <div><p className="text-lg font-extrabold">Need help with your design?</p><p className="mt-1 text-sm">Use our online design tool or upload your own artwork.</p><span className="mt-3 inline-flex rounded-lg bg-[#102748] px-4 py-2.5 text-sm font-bold text-white">Start Designing <Sparkles size={15} className="ml-2"/></span></div>
         <Sparkles className="mobile-design-help__art" size={62}/>
       </Link>
+      <LiveChat />
     </div>
   );
 }

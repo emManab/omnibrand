@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Printify - Premium Custom Printing</title>
+  <meta name="description" content="High-end custom printing services for business cards, apparel, packaging, and marketing materials with professional design quality">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    :root {
+      --color-primary: #0875f5;
+      --color-primary-dark: #0a5cc5;
+      --color-bg: #ffffff;
+      --color-surface: #fafbfc;
+      --color-text: #102748;
+      --color-text-muted: #34445e;
+      --color-border: rgba(0,0,0,0.05);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --color-bg: #050505;
+        --color-surface: #0a0a0a;
+        --color-text: #ffffff;
+        --color-text-muted: rgba(255,255,255,0.7);
+        --color-border: rgba(255,255,255,0.1);
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --color-bg: #050505;
+      --color-surface: #0a0a0a;
+      --color-text: #ffffff;
+      --color-text-muted: rgba(255,255,255,0.7);
+      --color-border: rgba(255,255,255,0.1);
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      overflow-x: hidden;
+    }
+
+    .ease-premium { transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1); }
+
+    /* Scroll Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(4rem) blur(4px);
+      transition: all 800ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0) blur(0);
+    }
+
+    /* Double Bezel Architecture */
+    .double-bezel-outer {
+      background: rgba(0,0,0,0.03);
+      padding: 0.375rem;
+      border-radius: 2rem;
+      border: 1px solid var(--color-border);
+    }
+    @media (prefers-color-scheme: dark) {
+      .double-bezel-outer { background: rgba(255,255,255,0.03); }
+    }
+
+    .double-bezel-inner {
+      background: var(--color-surface);
+      border-radius: calc(2rem - 0.375rem);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.15);
+    }
+
+    /* Magnetic Button Hover */
+    .magnetic-btn {
+      transition: all 500ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .magnetic-btn:hover {
+      transform: scale(1.02);
+    }
+    .magnetic-btn:active {
+      transform: scale(0.98);
+    }
+    .magnetic-btn .btn-icon {
+      transition: all 500ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .magnetic-btn:hover .btn-icon {
+      transform: translate(0.25rem, -0.125rem) scale(1.05);
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Floating Glass Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 mt-6 px-4 ease-premium duration-700">
+    <div class="max-w-7xl mx-auto">
+      <div class="double-bezel-outer backdrop-blur-2xl">
+        <nav class="double-bezel-inner px-6 py-4 backdrop-blur-xl">
+          <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <a href="/" class="flex items-center gap-3 ease-premium duration-500 hover:opacity-70">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#0875f5] to-[#0a5cc5] flex items-center justify-center">
+                <span class="text-lg font-black text-white">P</span>
+              </div>
+              <span class="hidden sm:block text-xl font-black tracking-tight" style="color: var(--color-text)">Printify</span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden lg:flex items-center gap-8">
+              <a href="#business-cards" class="text-sm font-medium ease-premium duration-500" style="color: var(--color-text-muted)">Business Cards</a>
+              <a href="#apparel" class="text-sm font-medium ease-premium duration-500" style="color: var(--color-text-muted)">Custom Apparel</a>
+              <a href="#stickers" class="text-sm font-medium ease-premium duration-500" style="color: var(--color-text-muted)">Stickers & Labels</a>
+              <a href="#marketing" class="text-sm font-medium ease-premium duration-500" style="color: var(--color-text-muted)">Marketing</a>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-3">
+              <!-- Search -->
+              <div class="hidden md:block relative group">
+                <input
+                  type="search"
+                  placeholder="Search products..."
+                  class="w-48 focus:w-64 rounded-full border px-4 py-2 pl-10 text-sm outline-none ease-premium duration-500"
+                  style="background: rgba(0,0,0,0.03); border-color: var(--color-border)"
+                >
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </div>
+
+              <!-- Cart -->
+              <button class="relative rounded-full p-2.5 ease-premium duration-500 active:scale-95" style="background: rgba(0,0,0,0.05)">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                </svg>
+                <span class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#0875f5] text-white text-[10px] font-bold flex items-center justify-center">3</span>
+              </button>
+
+              <!-- Mobile Menu -->
+              <button class="lg:hidden rounded-full p-2.5 ease-premium duration-500 active:scale-95" style="background: rgba(0,0,0,0.05)">
+                <div class="relative w-5 h-5">
+                  <span class="absolute top-1 left-0 w-5 h-0.5 ease-premium duration-500" style="background: var(--color-text)"></span>
+                  <span class="absolute top-1/2 -translate-y-1/2 left-0 w-5 h-0.5 ease-premium duration-500" style="background: var(--color-text)"></span>
+                  <span class="absolute bottom-1 left-0 w-5 h-0.5 ease-premium duration-500" style="background: var(--color-text)"></span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section - Asymmetric Bento Grid -->
+  <section class="min-h-[100dvh] flex items-center px-4 py-32 sm:py-40">
+    <div class="max-w-7xl mx-auto w-full">
+      <div class="grid lg:grid-cols-12 gap-6 lg:gap-8">
+        <!-- Left: Massive Typography -->
+        <div class="lg:col-span-7 reveal">
+          <!-- Eyebrow Tag -->
+          <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] font-medium mb-6" style="background: rgba(8,117,245,0.1); color: #0875f5">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            Premium Printing
+          </div>
+
+          <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[0.95] mb-6" style="color: var(--color-text)">
+            Your brand,<br/>
+            brilliantly<br/>
+            <span style="color: #0875f5">printed.</span>
+          </h1>
+
+          <p class="text-xl sm:text-2xl mb-12 max-w-xl leading-relaxed" style="color: var(--color-text-muted)">
+            Premium custom printing for business cards, apparel, packaging, and marketing materials. Professional quality, delivered fast.
+          </p>
+
+          <!-- CTA with Button-in-Button Architecture -->
+          <div class="flex flex-wrap gap-4">
+            <button class="magnetic-btn group rounded-full bg-[#0875f5] px-8 py-4 text-white font-bold flex items-center gap-3">
+              <span>Explore Products</span>
+              <div class="btn-icon w-8 h-8 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.2)">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </div>
+            </button>
+
+            <button class="magnetic-btn rounded-full px-8 py-4 font-bold ease-premium duration-500" style="background: rgba(0,0,0,0.05); color: var(--color-text)">
+              View Pricing
+            </button>
+          </div>
+
+          <!-- Trust Indicators -->
+          <div class="flex flex-wrap items-center gap-6 mt-12 text-sm font-medium" style="color: var(--color-text-muted)">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#0875f5]" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>100% Quality Guaranteed</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#0875f5]" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/>
+              </svg>
+              <span>Fast Delivery</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Nested Product Showcase -->
+        <div class="lg:col-span-5 reveal delay-100">
+          <div class="double-bezel-outer">
+            <div class="double-bezel-inner p-8 sm:p-12">
+              <div class="aspect-square rounded-3xl overflow-hidden" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+                <img
+                  src="https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=800&q=90"
+                  alt="Premium business cards showcase"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+
+              <!-- Floating Price Badge -->
+              <div class="mt-6 double-bezel-outer inline-block">
+                <div class="double-bezel-inner px-6 py-3">
+                  <p class="text-xs uppercase tracking-wider mb-1" style="color: var(--color-text-muted)">Starting at</p>
+                  <p class="text-2xl font-black" style="color: var(--color-text)">₹499</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Categories - Bento Grid -->
+  <section class="py-24 sm:py-32 px-4">
+    <div class="max-w-7xl mx-auto">
+      <!-- Section Header -->
+      <div class="mb-16 reveal">
+        <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em] font-medium mb-4" style="background: rgba(8,117,245,0.1); color: #0875f5">
+          Categories
+        </div>
+        <h2 class="text-4xl sm:text-5xl font-black tracking-tight mb-4" style="color: var(--color-text)">Everything you need</h2>
+        <p class="text-xl max-w-2xl" style="color: var(--color-text-muted)">From business essentials to branded merchandise, we print it all with premium quality.</p>
+      </div>
+
+      <!-- Asymmetric Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+        <!-- Large Featured Card -->
+        <div class="reveal sm:col-span-2 sm:row-span-2">
+          <div class="double-bezel-outer h-full">
+            <div class="double-bezel-inner p-8 h-full flex flex-col">
+              <div class="flex-1 rounded-2xl overflow-hidden mb-6" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=600&q=90" alt="Custom T-shirts" class="w-full h-full object-cover min-h-[300px]"/>
+              </div>
+              <h3 class="text-2xl font-black mb-2" style="color: var(--color-text)">Custom T-shirts</h3>
+              <p class="mb-4" style="color: var(--color-text-muted)">Premium apparel printing</p>
+              <button class="magnetic-btn rounded-full bg-[#0875f5] px-6 py-3 text-white font-bold text-sm flex items-center gap-2 w-max">
+                <span>Shop Now</span>
+                <div class="btn-icon w-6 h-6 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.2)">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Small Cards -->
+        <div class="reveal delay-100">
+          <div class="double-bezel-outer">
+            <div class="double-bezel-inner p-6">
+              <div class="aspect-square rounded-xl overflow-hidden mb-4" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)">
+                <img src="https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=400&q=90" alt="Business Cards" class="w-full h-full object-cover"/>
+              </div>
+              <h3 class="text-lg font-black mb-1" style="color: var(--color-text)">Business Cards</h3>
+              <p class="text-sm mb-3" style="color: var(--color-text-muted)">From ₹499</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal delay-150">
+          <div class="double-bezel-outer">
+            <div class="double-bezel-inner p-6">
+              <div class="aspect-square rounded-xl overflow-hidden mb-4" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)">
+                <img src="https://images.unsplash.com/photo-1621252756235-7f37e5e5125e?auto=format&fit=crop&w=400&q=90" alt="Stickers" class="w-full h-full object-cover"/>
+              </div>
+              <h3 class="text-lg font-black mb-1" style="color: var(--color-text)">Stickers</h3>
+              <p class="text-sm mb-3" style="color: var(--color-text-muted)">From ₹349</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal delay-200">
+          <div class="double-bezel-outer">
+            <div class="double-bezel-inner p-6">
+              <div class="aspect-square rounded-xl overflow-hidden mb-4" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%)">
+                <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=400&q=90" alt="Packaging" class="w-full h-full object-cover"/>
+              </div>
+              <h3 class="text-lg font-black mb-1" style="color: var(--color-text)">Packaging</h3>
+              <p class="text-sm mb-3" style="color: var(--color-text-muted)">From ₹1,299</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal delay-250">
+          <div class="double-bezel-outer">
+            <div class="double-bezel-inner p-6">
+              <div class="aspect-square rounded-xl overflow-hidden mb-4" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%)">
+                <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=90" alt="Brochures" class="w-full h-full object-cover"/>
+              </div>
+              <h3 class="text-lg font-black mb-1" style="color: var(--color-text)">Brochures</h3>
+              <p class="text-sm mb-3" style="color: var(--color-text-muted)">From ₹899</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-24 sm:py-32 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid lg:grid-cols-3 gap-6">
+        <div class="reveal">
+          <div class="double-bezel-outer">
+            <div class="double-bezel-inner p-8 sm:p-12">
+              <div class="w-12 h-12 rounded-full bg-[#0875f5] flex items-center justify-center mb-6">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-black mb-4" style="color: var(--color-text)">Quality Guaranteed</h3>
+              <p class="leading-relaxed" style="color: var(--color-text-muted)">Every product is printed with premium materials and checked for quality before shipping.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal delay-100">
+          <div class="double-bezel-outer">
+            <div class="double-bezel-inner p-8 sm:p-12">
+              <div class="w-12 h-12 rounded-full bg-[#0875f5] flex items-center justify-center mb-6">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-black mb-4" style="color: var(--color-text)">Fast Turnaround</h3>
+              <p class="leading-relaxed" style="color: var(--color-text-muted)">Most orders ship within 2-3 business days with reliable delivery across India.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal delay-200">
+          <div class="double-bezel-outer">
+            <div class="double-bezel-inner p-8 sm:p-12">
+              <div class="w-12 h-12 rounded-full bg-[#0875f5] flex items-center justify-center mb-6">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-black mb-4" style="color: var(--color-text)">Best Prices</h3>
+              <p class="leading-relaxed" style="color: var(--color-text-muted)">Bulk discounts up to 25% off. Volume pricing that scales with your needs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-24 px-4" style="background: var(--color-surface)">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#0875f5] to-[#0a5cc5] flex items-center justify-center">
+              <span class="text-lg font-black text-white">P</span>
+            </div>
+            <span class="text-xl font-black tracking-tight" style="color: var(--color-text)">Printify</span>
+          </div>
+          <p class="mb-6 max-w-sm leading-relaxed" style="color: var(--color-text-muted)">Premium custom printing for businesses and creators. Quality you can see, service you can trust.</p>
+          <div class="flex gap-3">
+            <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center ease-premium duration-500 hover:scale-110" style="background: rgba(0,0,0,0.05)">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center ease-premium duration-500 hover:scale-110" style="background: rgba(0,0,0,0.05)">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full flex items-center justify-center ease-premium duration-500 hover:scale-110" style="background: rgba(0,0,0,0.05)">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Products -->
+        <div>
+          <h4 class="font-black mb-4" style="color: var(--color-text)">Products</h4>
+          <ul class="space-y-3 text-sm" style="color: var(--color-text-muted)">
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Business Cards</a></li>
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Custom Apparel</a></li>
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Stickers & Labels</a></li>
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Marketing Materials</a></li>
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Packaging</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div>
+          <h4 class="font-black mb-4" style="color: var(--color-text)">Company</h4>
+          <ul class="space-y-3 text-sm" style="color: var(--color-text-muted)">
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">About Us</a></li>
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Quality Promise</a></li>
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Reviews</a></li>
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Contact</a></li>
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Careers</a></li>
+          </ul>
+        </div>
+
+        <!-- Support -->
+        <div>
+          <h4 class="font-black mb-4" style="color: var(--color-text)">Support</h4>
+          <ul class="space-y-3 text-sm" style="color: var(--color-text-muted)">
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Help Center</a></li>
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Shipping Info</a></li>
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Returns</a></li>
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Track Order</a></li>
+            <li><a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">FAQs</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 border-t flex flex-col sm:flex-row justify-between items-center gap-4" style="border-color: var(--color-border)">
+        <p class="text-sm" style="color: var(--color-text-muted)">&copy; 2024 Printify. All rights reserved.</p>
+        <div class="flex gap-6 text-sm" style="color: var(--color-text-muted)">
+          <a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Privacy</a>
+          <a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Terms</a>
+          <a href="#" class="ease-premium duration-300 hover:text-[#0875f5]">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll Reveal Animation
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
