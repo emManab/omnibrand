@@ -6,6 +6,7 @@ import { useAuth } from "@/store/auth";
 import { formatInr } from "@/lib/money";
 import type { Order, OrderStatus } from "@/types";
 import { toast } from "sonner";
+import { ProductImage } from "@/components/ProductImage";
 
 const statuses: OrderStatus[] = [
   "pending_payment",
@@ -132,7 +133,7 @@ export function AdminPage() {
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {artwork.map(({ order, item }) => (
             <figure key={item.id} className="rounded-2xl border border-line p-3">
-              <img src={item.designDataUrl} alt="" className="aspect-square w-full rounded-xl object-cover" />
+              <ProductImage src={item.designDataUrl ?? ""} alt={item.name} className="aspect-square w-full rounded-xl object-cover" />
               <figcaption className="mt-2 text-sm">
                 {item.name}
                 <div className="text-xs text-muted">{order.id.slice(0, 8)}</div>
