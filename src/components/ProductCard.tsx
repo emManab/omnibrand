@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Star } from "lucide-react";
 import type { Product } from "@/types";
 import { formatInr } from "@/lib/money";
+import { ProductImage } from "@/components/ProductImage";
 
 export function ProductCard({ product }: { product: Product }) {
   return (
@@ -10,7 +11,7 @@ export function ProductCard({ product }: { product: Product }) {
         className="aspect-square overflow-hidden rounded-2xl border border-line"
         style={{ background: product.accent }}
       >
-        <img
+        <ProductImage
           src={product.image}
           alt={product.name}
           className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
