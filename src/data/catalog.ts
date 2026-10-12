@@ -1,4 +1,5 @@
 import type { CategorySlug, Product } from "@/types";
+import { categoryImages } from "@/data/storefrontImages";
 
 export const categories: {
   slug: CategorySlug;
@@ -11,63 +12,63 @@ export const categories: {
     name: "Business Cards",
     short: "Letterpress, silk, recycled stock",
     image:
-      "https://images.unsplash.com/photo-1623305465231-d884ce752d59?auto=format&fit=crop&w=600&q=85",
+      categoryImages.businessCards,
   },
   {
     slug: "apparel",
     name: "Custom T-shirts",
     short: "Tees, hoodies, polos",
     image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=85",
+      categoryImages.tshirts,
   },
   {
     slug: "apparel",
     name: "Hoodies & Sweatshirts",
     short: "Printed and embroidered fleece",
     image:
-      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=85",
+      categoryImages.hoodies,
   },
   {
     slug: "stickers",
     name: "Stickers & Labels",
     short: "Vinyl, kraft, hologram",
     image:
-      "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=600&q=85",
+      categoryImages.stickers,
   },
   {
     slug: "apparel",
     name: "Caps & Hats",
     short: "Embroidered and printed",
     image:
-      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=600&q=85",
+      categoryImages.caps,
   },
   {
     slug: "marketing",
     name: "Posters & Banners",
     short: "Fine art and office",
     image:
-      "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=600&q=85",
+      categoryImages.posters,
   },
   {
     slug: "stationery",
     name: "Office Stationery",
     short: "Letterheads, notepads",
     image:
-      "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=600&q=85",
+      categoryImages.stationery,
   },
   {
     slug: "packaging",
     name: "Packaging & Boxes",
     short: "Mailers, boxes, tape",
     image:
-      "https://images.unsplash.com/photo-1771848194269-2e3b89b6465b?auto=format&fit=crop&w=600&q=85",
+      categoryImages.packaging,
   },
   {
     slug: "gifts",
     name: "Drinkware",
     short: "Mugs, bottles, tumblers",
     image:
-      "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=85",
+      categoryImages.drinkware,
   },
 ];
 
