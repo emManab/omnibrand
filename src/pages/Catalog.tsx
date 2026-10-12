@@ -56,7 +56,16 @@ export function Catalog() {
       </div>
 
       <div className="mobile-catalog-controls">
-        <button type="button" onClick={() => setParams((current) => { const next = new URLSearchParams(current); next.set("category", category === "apparel" ? "all" : "apparel"); return next; }}><SlidersHorizontal size={17}/> Filter</button>
+        <button
+          type="button"
+          onClick={() => {
+            const next = new URLSearchParams(params);
+            next.set("category", category === "apparel" ? "all" : "apparel");
+            setParams(next);
+          }}
+        >
+          <SlidersHorizontal size={17} /> Filter
+        </button>
         <button type="button" onClick={() => setSort((value) => value === "recommended" ? "price" : "recommended")}><ArrowDownUp size={17}/> {sort === "price" ? "Price: low first" : "Sort"}</button>
         <button type="button" onClick={() => setUnder500((value) => !value)} className={under500 ? "is-selected" : ""}>Price <ChevronDown size={17}/></button>
       </div>
