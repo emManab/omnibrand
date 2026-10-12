@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Canvas, FabricImage, FabricText, type FabricObject } from "fabric";
 import { ImagePlus, Type, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 
 type Props = {
   background: string;
@@ -81,13 +82,31 @@ export function DesignEditor({ background, accent, onExport }: Props) {
   async function onFile(file: File) {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    const supportedTypes = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"];
+    if (!supportedTypes.includes(file.type)) {
+      toast.error("Choose a PNG, JPG, WebP, or SVG logo.");
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("Logo files must be smaller than 10 MB.");
+      return;
+    }
+
     const url = URL.createObjectURL(file);
-    const img = await FabricImage.fromURL(url);
-    img.scaleToWidth(180);
-    img.set({ left: 220, top: 200 });
-    canvas.add(img);
-    canvas.setActiveObject(img);
-    canvas.requestRenderAll();
+    try {
+      const img = await FabricImage.fromURL(url);
+      img.scaleToWidth(180);
+      img.set({ left: 220, top: 200 });
+      canvas.add(img);
+      canvas.setActiveObject(img);
+      canvas.requestRenderAll();
+      toast.success("Logo added to your design");
+    } catch {
+      toast.error("This image could not be opened. Try exporting it as PNG or JPG.");
+    } finally {
+      URL.revokeObjectURL(url);
+    }
   }
 
   function recolor() {
@@ -153,7 +172,7 @@ export function DesignEditor({ background, accent, onExport }: Props) {
           <input
             ref={fileRef}
             type="file"
-            accept="image/*"
+            accept="image/png,image/jpeg,image/webp,image/svg+xml"
             hidden
             onChange={(e) => {
               const file = e.target.files?.[0];
