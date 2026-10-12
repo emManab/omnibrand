@@ -11,7 +11,7 @@ export const categories: {
     name: "Business Cards",
     short: "Letterpress, silk, recycled stock",
     image:
-      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1623305465231-d884ce752d59?auto=format&fit=crop&w=600&q=80",
   },
   {
     slug: "apparel",
@@ -60,7 +60,7 @@ export const categories: {
     name: "Packaging & Boxes",
     short: "Mailers, boxes, tape",
     image:
-      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b6da?auto=format&fit=crop&w=600&q=80",
+      "https://images.unsplash.com/photo-1771848194269-2e3b89b6465b?auto=format&fit=crop&w=600&q=80",
   },
   {
     slug: "gifts",
@@ -97,7 +97,7 @@ export const products: Product[] = [
     rating: 4.8,
     reviews: 2140,
     image:
-      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1623305465231-d884ce752d59?auto=format&fit=crop&w=900&q=80",
     accent: "#EEF3FF",
     sizes: [
       { id: "85x55", label: "85 × 55 mm", multiplier: 1 },
@@ -353,7 +353,7 @@ export const products: Product[] = [
     rating: 4.8,
     reviews: 176,
     image:
-      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b6da?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1771848194269-2e3b89b6465b?auto=format&fit=crop&w=900&q=80",
     accent: "#FFF7ED",
     sizes: [
       { id: "s", label: "Small 20×12×8 cm", multiplier: 1 },
