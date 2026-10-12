@@ -52,7 +52,7 @@ export function Home() {
             </div>
             <div className="relative mx-auto h-[200px] w-full max-w-[600px] sm:h-[270px] lg:h-[350px]">
               <div className="absolute bottom-0 left-[8%] h-[70%] w-[76%] rounded-[40%] bg-white/35 blur-2xl"/>
-              <ProductImage src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=90" alt="Custom hoodie" className="absolute left-[22%] top-[2%] h-[82%] w-[45%] rounded-xl object-cover object-center shadow-xl ring-4 ring-white/60 sm:rounded-2xl"/>
+              <ProductImage src="https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?auto=format&fit=crop&w=900&q=90" alt="Custom hoodie" className="absolute left-[22%] top-[2%] h-[82%] w-[45%] rounded-xl object-cover object-center shadow-xl ring-4 ring-white/60 sm:rounded-2xl"/>
               <ProductImage src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=500&q=90" alt="Custom water bottle" className="absolute bottom-[3%] left-[1%] h-[44%] w-[25%] rounded-xl object-cover shadow-lg ring-4 ring-white/70"/>
               <ProductImage src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=500&q=90" alt="Custom cap" className="absolute bottom-[2%] right-[8%] h-[42%] w-[32%] rounded-xl object-cover shadow-lg ring-4 ring-white/70"/>
               <ProductImage src="https://images.unsplash.com/photo-1597484661643-2d57e7a3aca6?auto=format&fit=crop&w=500&q=90" alt="Canvas tote bag" className="absolute right-[0%] top-[3%] h-[43%] w-[27%] rounded-xl object-cover shadow-lg ring-4 ring-white/70"/>
