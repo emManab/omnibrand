@@ -26,8 +26,8 @@ export const storefrontImages = {
     tote: photo("photo-1597484661643-2d57e7a3aca6", 500),
   },
   promos: {
-    businessCards: photo("photo-1596526131083-e8c633c948d2", 900),
-    customApparel: photo("photo-1556821840-3a63f95609a7", 900),
+    businessCards: "/images/printly-business-cards.svg",
+    customApparel: "/images/printly-custom-apparel.svg",
     stickers: photo("photo-1611532736597-de2d4265fba3", 900),
     packaging: photo("photo-1607082349566-187342175e2f", 900),
   },
