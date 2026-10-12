@@ -12,7 +12,7 @@ export function Footer() {
   return <footer className="mt-5 border-t border-[#edf0f5] bg-white">
     <div className="mx-auto grid max-w-[1440px] gap-7 px-4 py-8 sm:grid-cols-2 sm:px-6 lg:grid-cols-[1.7fr_repeat(4,1fr)] lg:px-7 lg:py-10">
       <div>
-        <Link to="/" className="inline-flex items-center" aria-label="Printify home"><img src="/printify-logo.svg" alt="Printify" width="132" height="30" className="h-8 w-auto" /></Link>
+        <Link to="/" className="inline-flex items-center" aria-label="Printify home"><img src="/printify-logo.png" alt="Printify" width="132" height="30" className="h-8 w-auto" /></Link>
         <p className="mt-3 max-w-[230px] text-[0.75rem] leading-5 text-[#66758b]">Custom printing for businesses, creators and everyone in between.</p>
         <div className="mt-4 flex items-center gap-3 text-[#273b58]">
           <a href="https://www.instagram.com/" aria-label="Instagram" className="hover:text-[#0875f5]"><Instagram size={15}/></a>
