@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { BadgeCheck, ChevronRight, PenLine, ShieldCheck, Star, Truck } from "lucide-react";
-import { categories, products } from "@/data/catalog";
+import { BadgeCheck, PenLine, ShieldCheck, Star, Truck } from "lucide-react";
+import { products } from "@/data/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductImage } from "@/components/ProductImage";
 
