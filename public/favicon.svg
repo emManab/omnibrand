@@ -1,12 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <linearGradient id="brand" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#2878FF"/>
-      <stop offset="1" stop-color="#1242D8"/>
+    <linearGradient id="tile" x1="7" y1="3" x2="57" y2="61" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2695FF"/>
+      <stop offset="0.52" stop-color="#145BFA"/>
+      <stop offset="1" stop-color="#102FC7"/>
+    </linearGradient>
+    <linearGradient id="fold" x1="20" y1="18" x2="30" y2="31" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A2FFE0"/>
+      <stop offset="1" stop-color="#36E6C0"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="16" fill="url(#brand)"/>
-  <path d="M17 48V16h16.5C43.2 16 49 21.2 49 29.3S43.2 43 33.5 43H27v5H17Z" fill="#fff"/>
-  <path d="M27 25v9h6.4c3.8 0 5.7-1.5 5.7-4.6S37.2 25 33.4 25H27Z" fill="#1B4DFF"/>
-  <path d="M43.5 45.5 49 51l8-10" fill="none" stroke="#B9F7E4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect width="64" height="64" rx="15" fill="url(#tile)"/>
+  <path d="M16 49V15h17.2C43.6 15 50 20.9 50 30s-6.4 15-16.8 15H26v4H16Z" fill="#fff"/>
+  <path d="M26 24v12h7c4.1 0 6.2-2 6.2-6s-2.1-6-6.2-6h-7Z" fill="#1554EF"/>
+  <path d="M16 15h14.5L16 29.5V15Z" fill="url(#fold)"/>
 </svg>
