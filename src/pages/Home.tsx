@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { MobileHome } from "@/components/MobileHome";
 import { Link } from "react-router-dom";
-import { BadgeCheck, Truck, PenLine, ChevronRight, ChevronLeft, Star } from "lucide-react";
+import { BadgeCheck, Truck, PenLine, ChevronRight, ChevronLeft, Play, ArrowRight } from "lucide-react";
 import { categories, products } from "@/data/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductImage } from "@/components/ProductImage";
@@ -29,10 +29,12 @@ const heroSlides = [
   { eyebrow: "Small details. Big impact.", title: <>Make it<br/>personal.<br/>Make it pop.</>, description: "From stickers to drinkware, turn everyday products into your own.", cta: "Explore All Products", to: "/catalog", hoodie: "photo-1621252756235-7f37e5e5125e", bottle: "photo-1602143407151-7111542de6e8", cap: "photo-1597484661643-2d57e7a3aca6", extra: "photo-1588850561407-ed78c282e89b", label: "Your idea, your style ✦" },
 ];
 
-const reviews = [
-  { name: "Rohan Mehta", role: "Small Business Owner", text: "Amazing quality and super fast delivery! Our business cards turned out perfectly.", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" },
-  { name: "Priya Sharma", role: "Event Planner", text: "Loved the custom t-shirts for our event. Great print quality and easy ordering process.", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" },
-  { name: "Arjun Verma", role: "Entrepreneur", text: "Best place for custom printing. The packaging boxes were exactly what we needed.", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" },
+const creatorVideos = [
+  { handle: "@printlybusiness", category: "Business Cards", title: "First look at our new business cards", duration: "0:32", image: "https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=720&q=85", query: "custom business card unboxing", to: "/catalog?category=business-cards" },
+  { handle: "@smallbrandstudio", category: "Stickers & Labels", title: "Sticker order reveal", duration: "0:28", image: "https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&w=720&q=85", query: "custom sticker unboxing", to: "/catalog?category=stickers" },
+  { handle: "@thebrandmaker", category: "Packaging & Boxes", title: "Packaging that feels on-brand", duration: "0:45", image: "https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=720&q=85", query: "custom packaging unboxing small business", to: "/catalog?category=packaging" },
+  { handle: "@wearyourbrand", category: "Custom Apparel", title: "Custom apparel reveal", duration: "0:31", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=720&q=85", query: "custom printed t shirt unboxing", to: "/catalog?category=apparel" },
+  { handle: "@everydaycreative", category: "Office Stationery", title: "A fresh stationery setup", duration: "0:37", image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=720&q=85", query: "custom printed stationery unboxing", to: "/catalog?category=stationery" },
 ];
 
 export function Home() {
@@ -121,15 +123,25 @@ export function Home() {
 
       <TrustBadges />
 
-      <section className="mx-auto max-w-[1440px] px-4 py-6 sm:px-6 lg:px-7">
-        <SectionHeading title="Trusted by Businesses and Creators" to="/help" linkLabel="See All Reviews"/>
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          {reviews.map((r) => <blockquote key={r.name} className="rounded-xl border border-[#e6eaf2] bg-white p-4 shadow-sm">
-            <div className="flex items-center gap-2.5"><img src={r.avatar} alt="" className="h-9 w-9 rounded-full object-cover" loading="lazy"/><div><p className="text-[0.8125rem] font-bold text-[#182b48]">{r.name}</p><p className="text-[0.6875rem] text-muted">{r.role}</p></div></div>
-            <div className="mt-2 flex gap-0.5 text-[#ffad0a]" aria-label="5 out of 5 stars">{[1,2,3,4,5].map(n=><Star key={n} size={11} fill="currentColor" strokeWidth={0}/>)}</div>
-            <p className="mt-2 text-[0.75rem] leading-4 text-[#46556d]">{r.text}</p>
-          </blockquote>)}
+      <section className="creator-video-section mx-auto max-w-[1440px] px-4 py-7 sm:px-6 sm:py-9 lg:px-7">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div><p className="text-[0.6875rem] font-extrabold uppercase tracking-[0.2em] text-[#0875f5] sm:text-xs">From our creators</p><h2 className="mt-1 text-2xl font-extrabold leading-tight tracking-[-0.04em] text-[#102748] sm:text-3xl lg:text-[2.5rem]">Real businesses. <span className="text-[#0875f5]">Real unboxings.</span></h2><p className="mt-2 text-sm text-[#66758b] sm:text-base">See ideas come to life with custom print products.</p></div>
+          <a href="https://www.youtube.com/results?search_query=custom+printing+unboxing+small+business" target="_blank" rel="noreferrer" className="mb-1 inline-flex items-center gap-2 text-sm font-semibold text-[#0875f5] transition hover:gap-3">View videos <ArrowRight size={17}/></a>
         </div>
+        <div className="creator-video-rail mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {creatorVideos.map((video) => <article key={video.handle} className="group min-w-0 overflow-hidden rounded-2xl border border-[#e8edf5] bg-white shadow-[0_5px_22px_rgba(22,48,82,.06)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_14px_32px_rgba(22,48,82,.12)]">
+            <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent(video.query)}`} target="_blank" rel="noreferrer" aria-label={`Find videos: ${video.title}`} className="relative block aspect-[4/5] overflow-hidden bg-[#edf2f8]">
+              <img src={video.image} alt={video.title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"/>
+              <span className="absolute right-3 top-3 rounded-lg bg-black/70 px-2 py-1 text-xs font-semibold text-white backdrop-blur">{video.duration}</span>
+              <span className="absolute inset-0 grid place-items-center bg-[#0b1d36]/0 transition group-hover:bg-[#0b1d36]/15"><span className="grid h-14 w-14 place-items-center rounded-full border border-white/70 bg-black/45 text-white shadow-lg backdrop-blur-sm transition group-hover:scale-110"><Play size={23} fill="currentColor" className="ml-1"/></span></span>
+            </a>
+            <div className="p-3.5 sm:p-4">
+              <p className="truncate text-sm font-bold text-[#102748]">{video.handle}</p><p className="mt-0.5 text-xs text-[#66758b]">{video.category}</p>
+              <Link to={video.to} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#0875f5] hover:gap-3">Shop this product <ArrowRight size={16}/></Link>
+            </div>
+          </article>)}
+        </div>
+        <p className="mt-3 text-[0.6875rem] text-[#8995a7]">Explore creator videos from across the web. Video thumbnails are illustrative; featured links open relevant video searches.</p>
       </section>
 
       <section className="mx-auto max-w-[1440px] px-4 py-5 sm:px-6 lg:px-7">
