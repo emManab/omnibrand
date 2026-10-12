@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { BadgeCheck, ChevronRight, PenLine, ShieldCheck, Star, Truck } from "lucide-react";
 import { categories, products } from "@/data/catalog";
@@ -21,7 +22,7 @@ const benefits = [
   {Icon:PenLine,label:"Design Online"},
   {Icon:ShieldCheck,label:"No Minimum Order"},
 ];
-function Title({children,to="/catalog"}:{children:React.ReactNode;to?:string}) {
+function Title({children,to="/catalog"}:{children:ReactNode;to?:string}) {
   return <div className="flex items-center justify-between gap-2"><h2 className="text-[19px] font-extrabold tracking-tight text-[#101e39]">{children}</h2><Link to={to} className="flex shrink-0 items-center gap-1 text-[13px] font-bold text-[#0875f5]">View All <span aria-hidden="true">→</span></Link></div>;
 }
 function Banner({eyebrow,title,description,cta,to,src,tone}:{eyebrow:string;title:string;description?:string;cta:string;to:string;src:string;tone:string}) {
@@ -30,7 +31,7 @@ function Banner({eyebrow,title,description,cta,to,src,tone}:{eyebrow:string;titl
    <p className="text-[10px] font-bold uppercase tracking-[.09em] text-[#354967]">{eyebrow}</p>
    <h3 className="mt-1 text-[23px] font-extrabold leading-[1.05] tracking-tight text-[#0c1d3c]">{title}</h3>
    {description&&<p className="mt-2 text-[12px] leading-[1.35] text-[#33445d]">{description}</p>}
-   <span className="mt-4 inline-flex min-h-40px items-center gap-2 rounded-lg bg-[#071b3d] px-4 py-2.5 text-[12px] font-bold text-white">{cta} <span>→</span></span>
+   <span className="mt-4 inline-flex min-h-[40px] items-center gap-2 rounded-lg bg-[#071b3d] px-4 py-2.5 text-[12px] font-bold text-white">{cta} <span>→</span></span>
   </div>
   <ProductImage src={src} alt="" className="h-full min-h-[205px] w-full object-cover object-center"/>
  </Link>;
