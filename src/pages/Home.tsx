@@ -85,7 +85,7 @@ export function Home() {
       <ProductRail title="Trending Now" items={trending} to="/catalog"/>
 
       <section className="mx-auto grid max-w-[1440px] gap-3 px-4 py-4 sm:grid-cols-2 sm:px-6 lg:px-7">
-        <Promo title="Small Details. Big Impact." kicker="Stickers & Labels" to="/catalog?category=stickers" cta="Shop Stickers" image="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=900&q=85" tone="from-[#102748] to-[#183c69]" dark/>
+        <Promo title="Small Details. Big Impact." kicker="Stickers & Labels" to="/catalog?category=stickers" cta="Shop Stickers" image="https://images.unsplash.com/photo-1621252756235-7f37e5e5125e?auto=format&fit=crop&w=900&q=85" tone="from-[#102748] to-[#183c69]" dark/>
         <Promo title="Custom Packaging for Your Brand" kicker="Packaging & Boxes" to="/catalog?category=packaging" cta="Shop Packaging" image="https://images.unsplash.com/photo-1771848194269-2e3b89b6465b?auto=format&fit=crop&w=900&q=85" tone="from-[#f0f3fa] to-[#e4eafa]"/>
       </section>
 
