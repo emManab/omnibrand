@@ -44,7 +44,7 @@ export function Footer() {
         <div className="lg:col-span-2">
           <div className="flex items-center gap-2">
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand text-sm font-bold text-white">
-              O
+              P
             </span>
             <span className="text-lg font-semibold">Printify</span>
           </div>
