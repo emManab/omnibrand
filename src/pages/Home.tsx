@@ -47,7 +47,7 @@ export function Home() {
   const [email, setEmail] = useState("");
   const [joined, setJoined] = useState(false);
   const popular = products.filter((p) => p.featured);
-  const shown = tab === "all" ? popular : popular.filter((p) => p.category === tab);
+  const shown = tab === "all" ? popular : products.filter((p) => p.category === tab);
   const trending = products.filter((p) => p.trending);
   const arrivals = products.filter((p) => p.newArrival);
 
