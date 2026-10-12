@@ -24,16 +24,23 @@ export function Header() {
     navigate(`/catalog?q=${encodeURIComponent(q.trim())}`);
     setOpen(false);
   }
-  const navLinkClass = ({ isActive }: { isActive: boolean }) => cn("whitespace-nowrap border-b-2 border-transparent px-2.5 py-2.5 text-[0.75rem] font-semibold text-[#34445e] transition hover:text-[#0875f5] sm:text-[0.8125rem]", isActive && "border-[#0875f5] text-[#0875f5]");
+  const navLinkClass = ({ isActive }: { isActive: boolean }) => cn("whitespace-nowrap rounded-md px-3 py-3 text-[0.8125rem] font-semibold text-[#34445e] transition-colors hover:bg-[#f3f7ff] hover:text-[#0875f5]", isActive && "bg-[#eef5ff] text-[#0875f5]");
 
   return <header className="sticky top-0 z-40 border-b border-[#e8edf4] bg-white/95 backdrop-blur">
-    <div className="mx-auto flex max-w-[1440px] items-center gap-3 px-4 py-2 sm:px-6 lg:px-7">
+    <div className="header-utility-bar border-b border-[#f0f2f6] bg-[#f8f9fb]">
+      <div className="mx-auto flex h-8 max-w-[1440px] items-center justify-end gap-5 px-4 text-[0.6875rem] font-medium text-[#5c6b80] sm:px-6 lg:px-7">
+        <Link to="/help" className="inline-flex items-center gap-1.5 transition hover:text-[#0875f5]"><HelpCircle size={12}/> Help & support</Link>
+        <Link to="/account" className="transition hover:text-[#0875f5]">My Projects</Link>
+        <Link to="/login" className="transition hover:text-[#0875f5]">My Favourites</Link>
+      </div>
+    </div>
+    <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-4 py-3 sm:px-6 lg:gap-6 lg:px-7">
       <button className="rounded-lg p-1.5 text-ink lg:hidden" onClick={()=>setOpen(v=>!v)} aria-label={open?"Close menu":"Open menu"} aria-expanded={open}>{open?<X size={18}/>:<Menu size={18}/>}</button>
       <Link to="/" className="flex shrink-0 items-center" aria-label="Printify home"><img src="/printify-logo.png" alt="Printify" width="132" height="30" className="h-[30px] w-auto sm:h-[30px]" /></Link>
-      <form onSubmit={onSearch} className="mx-2 hidden min-w-0 max-w-[590px] flex-1 md:flex">
-        <label className="flex w-full items-center gap-2 rounded-full bg-[#f3f5f9] px-4 py-2">
-          <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search for products, templates or ideas..." aria-label="Search products" className="w-full bg-transparent text-[0.75rem] outline-none placeholder:text-[#8490a3] sm:text-[0.8125rem]"/>
-          <button type="submit" aria-label="Submit search" className="text-[#65738a] hover:text-[#0875f5]"><Search size={15}/></button>
+      <form onSubmit={onSearch} className="mx-2 hidden min-w-0 max-w-[640px] flex-1 md:flex">
+        <label className="flex w-full items-center gap-3 rounded-full border border-[#e7ebf2] bg-[#f7f8fa] px-4 py-2.5 transition focus-within:border-[#9dc6ff] focus-within:bg-white focus-within:ring-4 focus-within:ring-[#0875f5]/10">
+          <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search for products, templates or ideas..." aria-label="Search products" className="w-full bg-transparent text-[0.8125rem] outline-none placeholder:text-[#8490a3]"/>
+          <button type="submit" aria-label="Submit search" className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#0875f5] text-white transition hover:bg-[#075fd0]"><Search size={15}/></button>
         </label>
       </form>
       <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
@@ -47,10 +54,10 @@ export function Header() {
     <form onSubmit={onSearch} className="mobile-search-row">
       <label className="flex w-full items-center gap-2 rounded-full bg-[#f3f5f9] px-4 py-3"><Search size={19} className="shrink-0 text-[#102748]"/><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search for products, templates or ideas..." aria-label="Search products" className="w-full bg-transparent text-sm outline-none placeholder:text-[#7d899c]"/><button type="submit" aria-label="Submit search" className="text-[#65738a]"><Search size={17}/></button></label>
     </form>
-    <nav aria-label="Product categories" className="hidden border-t border-[#f3f5f8] lg:block">
-      <div className="mx-auto flex max-w-[1440px] items-center gap-0.5 overflow-x-auto px-4 sm:px-6 lg:px-7">
+    <nav aria-label="Product categories" className="hidden border-t border-[#edf0f5] bg-white lg:block">
+      <div className="mx-auto flex max-w-[1440px] items-center gap-1 overflow-x-auto px-4 sm:px-6 lg:px-7">
         {navCategories.map(c=><NavLink key={c.slug} to={c.slug==="all"?"/catalog":`/catalog?category=${c.slug}`} className={navLinkClass}>{c.label}</NavLink>)}
-        {extraLinks.map(c=><Link key={c.slug} to={c.slug==="inspiration"?"/catalog":`/catalog?category=${c.slug}`} className="whitespace-nowrap border-b-2 border-transparent px-2.5 py-2.5 text-[0.75rem] font-semibold text-[#34445e] hover:text-[#0875f5] sm:text-[0.8125rem]">{c.label}</Link>)}
+        {extraLinks.map(c=><Link key={c.slug} to={c.slug==="inspiration"?"/catalog":`/catalog?category=${c.slug}`} className="whitespace-nowrap rounded-md px-3 py-3 text-[0.8125rem] font-semibold text-[#34445e] transition-colors hover:bg-[#f3f7ff] hover:text-[#0875f5]">{c.label}</Link>)}
       </div>
     </nav>
     {open&&<div className="border-t border-[#e8edf4] bg-white px-4 py-4 lg:hidden">
