@@ -134,7 +134,7 @@ export function Header() {
     </form>
     <nav aria-label="Product categories" className="hidden border-t border-[#edf0f5] bg-white lg:block" onMouseLeave={() => setActiveMega(null)}>
       <div className="mx-auto flex max-w-[1560px] items-stretch justify-between gap-1 overflow-x-auto px-4 xl:px-7">
-        {[{ slug: "all", label: "All Products" }, ...navCategories.filter(c => c.slug !== "all"), { slug: "stationery", label: "Office Stationery" }, { slug: "gifts", label: "Gifts" }, { slug: "inspiration", label: "Inspiration" }].map((item) => {
+        {[{ slug: "all", label: "All Products" }, ...navCategories.filter(c => c.slug !== "all"), { slug: "stationery", label: "Office Stationery" }, { slug: "inspiration", label: "Inspiration" }].map((item) => {
           const key = item.label;
           const target = item.slug === "inspiration" ? "/catalog" : `/catalog?category=${item.slug}`;
           return <Link key={key} to={target} onMouseEnter={() => setActiveMega(megaMenus[key] ? key : null)} onFocus={() => setActiveMega(megaMenus[key] ? key : null)} onClick={() => setActiveMega(null)} className={cn("relative flex shrink-0 items-center gap-1 whitespace-nowrap border-b-2 px-3 py-4 text-[0.8125rem] font-medium transition-colors", activeMega === key ? "border-[#0875f5] text-[#0875f5]" : "border-transparent text-[#253854] hover:text-[#0875f5]")}>{item.label}{megaMenus[key] && <span className={cn("text-[0.7rem] transition-transform",activeMega === key && "rotate-180")}>⌄</span>}</Link>;
