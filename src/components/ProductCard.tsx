@@ -12,18 +12,7 @@ export function ProductCard({ product }: { product: Product }) {
     const size = product.sizes[0];
     const material = product.materials[0];
     const finish = product.finishes[0];
-    add({
-      id: crypto.randomUUID(),
-      productId: product.id,
-      name: product.name,
-      image: product.image,
-      quantity: 1,
-      size: size.label,
-      material: material.label,
-      finish: finish.label,
-      unitPrice: product.fromPrice,
-      lineTotal: product.fromPrice,
-    });
+    add({ id: crypto.randomUUID(), productId: product.id, name: product.name, image: product.image, quantity: 1, size: size.label, material: material.label, finish: finish.label, unitPrice: product.fromPrice, lineTotal: product.fromPrice });
     toast.success(`${product.name} added to cart`);
   }
 
@@ -40,7 +29,10 @@ export function ProductCard({ product }: { product: Product }) {
     <Link to={`/product/${product.slug}`} className="flex flex-1 flex-col px-0.5 pb-1 pt-2">
       <p className="line-clamp-2 min-h-7 text-[0.6875rem] font-bold leading-3 text-[#182b48] sm:text-[0.75rem] sm:leading-3.5">{product.name}</p>
       <div className="mt-1 flex items-center gap-0.5 text-[0.625rem] text-muted"><Star size={9} className="fill-[#ffb21a] text-[#ffb21a]"/><span className="font-bold text-[#283b57]">{product.rating}</span><span className="truncate">({product.reviews.toLocaleString("en-IN")})</span></div>
-      <div className="mt-auto flex items-end justify-between gap-1 pt-1.5"><div><p className="text-[0.5625rem] text-muted">From</p><p className="text-[0.75rem] font-extrabold text-[#14284b] sm:text-[0.8125rem]">{formatInr(product.fromPrice)}</p></div><button type="button" aria-label={`Quick add ${product.name} to cart`} className="mobile-product-add" onClick={(event) => { event.preventDefault(); event.stopPropagation(); addQuickly(); }}><Plus size={19}/></button></div>
     </Link>
+    <div className="mt-auto flex items-end justify-between gap-1 px-0.5 pb-1 pt-1.5">
+      <div><p className="text-[0.5625rem] text-muted">From</p><p className="text-[0.75rem] font-extrabold text-[#14284b] sm:text-[0.8125rem]">{formatInr(product.fromPrice)}</p></div>
+      <button type="button" aria-label={`Quick add ${product.name} to cart`} className="mobile-product-add" onClick={addQuickly}><Plus size={19}/></button>
+    </div>
   </article>;
 }
