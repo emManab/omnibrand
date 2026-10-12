@@ -22,8 +22,8 @@ const benefits = [
   {Icon:PenLine,label:"Design Online"},
   {Icon:ShieldCheck,label:"No Minimum Order"},
 ];
-function Title({children,to="/catalog"}:{children:ReactNode;to?:string}) {
-  return <div className="flex items-center justify-between gap-2"><h2 className="text-[19px] font-extrabold tracking-tight text-[#101e39]">{children}</h2><Link to={to} className="flex shrink-0 items-center gap-1 text-[13px] font-bold text-[#0875f5]">View All <span aria-hidden="true">→</span></Link></div>;
+function Title({children,to="/catalog",showLink=true}:{children:ReactNode;to?:string;showLink?:boolean}) {
+  return <div className="flex items-center justify-between gap-2"><h2 className="text-[19px] font-extrabold tracking-tight text-[#101e39]">{children}</h2>{showLink&&<Link to={to} className="flex shrink-0 items-center gap-1 text-[13px] font-bold text-[#0875f5]">View All <span aria-hidden="true">→</span></Link>}</div>;
 }
 function Banner({eyebrow,title,description,cta,to,src,tone}:{eyebrow:string;title:string;description?:string;cta:string;to:string;src:string;tone:string}) {
  return <Link to={to} className={`mobile-reference-banner ${tone}`}>
@@ -60,7 +60,7 @@ export function MobileHome() {
    <div className="flex justify-center gap-1.5 py-3"><span className="h-2 w-2 rounded-full bg-[#0c1d3c]"/>{[1,2,3].map(i=><span key={i} className="h-2 w-2 rounded-full bg-[#d6dce7]"/>)}</div>
   </section>
   <section className="grid grid-cols-4 gap-2 px-4 py-4">{benefits.map(({Icon,label})=><div key={label} className="flex flex-col items-center gap-2 text-center"><Icon size={23} strokeWidth={1.9} className="text-[#102748]"/><span className="text-[11px] font-medium leading-[1.25] text-[#192c49]">{label}</span></div>)}</section>
-  <section className="px-4 pb-3 pt-7"><Title>Shop by Category</Title><div className="mt-4 grid grid-cols-4 gap-x-2.5 gap-y-5">{tiles.map((tile,i)=><Link key={i} to={`/catalog?category=${tile.slug}`} className="min-w-0 text-center"><div className="aspect-square overflow-hidden rounded-xl bg-[#f1f3f7]"><ProductImage src={tile.src} alt={tile.label} className="h-full w-full object-cover"/></div><p className="mt-2 text-[11px] font-medium leading-[1.25] text-[#192c49]">{tile.label}</p></Link>)}</div></section>
+  <section className="px-4 pb-3 pt-7"><Title showLink={false}>Shop by Category</Title><div className="mt-4 grid grid-cols-4 gap-x-2.5 gap-y-5">{tiles.map((tile,i)=><Link key={i} to={`/catalog?category=${tile.slug}`} className="min-w-0 text-center"><div className="aspect-square overflow-hidden rounded-xl bg-[#f1f3f7]"><ProductImage src={tile.src} alt={tile.label} className="h-full w-full object-cover"/></div><p className="mt-2 text-[11px] font-medium leading-[1.25] text-[#192c49]">{tile.label}</p></Link>)}</div></section>
   <section className="space-y-4 px-4 pt-6"><Banner eyebrow="Business Cards" title="Make a lasting first impression." description="Premium cards for your brand, your way." cta="Shop Business Cards" to="/catalog?category=business-cards" src={image("photo-1623305465231-d884ce752d59")} tone="mobile-reference-peach"/></section>
   <Rail title="Popular Products" items={popular}/>
   <Rail title="Trending Now" items={trending}/>
