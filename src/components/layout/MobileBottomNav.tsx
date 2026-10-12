@@ -1,20 +1,20 @@
 import { Heart, Home, LayoutGrid, Sparkles, UserRound } from "lucide-react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/cn";
 
 const links = [
-  { label: "Home", to: "/", icon: Home, end: true },
-  { label: "Categories", to: "/catalog", icon: LayoutGrid, end: false },
-  { label: "Design", to: "/catalog", icon: Sparkles, end: false },
-  { label: "Wishlist", to: "/login", icon: Heart, end: false },
-  { label: "Account", to: "/account", icon: UserRound, end: false },
+  { label: "Home", to: "/", icon: Home },
+  { label: "Categories", to: "/catalog", icon: LayoutGrid },
+  { label: "Design", to: "/editor/custom-t-shirts", icon: Sparkles },
+  { label: "Wishlist", to: "/login", icon: Heart },
+  { label: "Account", to: "/account", icon: UserRound },
 ];
 
 export function MobileBottomNav() {
-  const navigate = useNavigate();
+  const { pathname } = useLocation();
   return <nav aria-label="Mobile navigation" className="mobile-bottom-nav">
-    {links.map((item, index) => <NavLink key={item.label} to={item.to} end={item.end} onClick={index === 2 ? (e) => { e.preventDefault(); navigate("/catalog"); } : undefined} className={({isActive}) => cn("mobile-bottom-nav__item", isActive && "is-active")}>
-      <item.icon aria-hidden="true" size={21} strokeWidth={index === 0 ? 2.4 : 2} />
+    {links.map((item) => <NavLink key={item.label} to={item.to} className={cn("mobile-bottom-nav__item", (item.label === "Home" ? pathname === "/" : item.label === "Categories" ? pathname === "/catalog" : item.label === "Design" ? pathname.startsWith("/editor/") : pathname === item.to) && "is-active")}>
+      <item.icon aria-hidden="true" size={21} strokeWidth={2} />
       <span>{item.label}</span>
     </NavLink>)}
   </nav>;
