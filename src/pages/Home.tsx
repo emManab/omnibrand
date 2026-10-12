@@ -10,6 +10,7 @@ import {
 import { categories, products } from "@/data/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { StarRow } from "@/components/StarRow";
+import { ProductImage } from "@/components/ProductImage";
 
 const tabs = [
   { id: "all", label: "All" },
@@ -91,22 +92,22 @@ export function Home() {
             </div>
           </div>
           <div className="relative min-h-[340px]">
-            <img
+            <ProductImage
               src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=700&q=80"
               alt="Custom hoodie"
               className="absolute left-0 top-6 h-56 w-44 rounded-2xl object-cover shadow-xl sm:h-72 sm:w-52"
             />
-            <img
+            <ProductImage
               src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=500&q=80"
               alt="Water bottle"
               className="absolute left-[38%] top-0 h-40 w-28 rounded-2xl object-cover shadow-lg sm:h-48 sm:w-32"
             />
-            <img
+            <ProductImage
               src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=500&q=80"
               alt="Cap"
               className="absolute right-2 top-10 h-32 w-36 rounded-2xl object-cover shadow-lg sm:h-40 sm:w-44"
             />
-            <img
+            <ProductImage
               src="https://images.unsplash.com/photo-1597484661643-2d57e7a3aca6?auto=format&fit=crop&w=600&q=80"
               alt="Tote bag"
               className="absolute bottom-0 right-6 h-48 w-40 rounded-2xl object-cover shadow-xl sm:h-56 sm:w-48"
@@ -129,7 +130,7 @@ export function Home() {
           {categories.map((c) => (
             <Link key={c.name} to={`/catalog?category=${c.slug}`} className="group text-center">
               <div className="aspect-square overflow-hidden rounded-2xl bg-paper">
-                <img
+                <ProductImage
                   src={c.image}
                   alt={c.name}
                   className="h-full w-full object-cover transition group-hover:scale-105"
@@ -289,7 +290,7 @@ function Promo({
           {cta}
         </span>
       </div>
-      <img src={image} alt="" className="h-56 w-full object-cover sm:h-full" />
+      <ProductImage src={image} alt="" className="h-56 w-full object-cover sm:h-full" />
     </Link>
   );
 }
