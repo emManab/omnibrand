@@ -177,7 +177,7 @@ canvas {
   .product-card p { font-size: .78rem !important; line-height: 1.05rem !important; }
   .product-card a:last-child > div > div p:last-child { font-size: .9rem !important; }
   .mobile-product-heart { position: absolute; z-index: 2; top: .4rem; right: .4rem; display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid #e9edf4; border-radius: 999px; background: rgba(255,255,255,.95); color: #253a59; }
-  .mobile-product-add { display: none; }
+  .mobile-product-add { display: grid; width: 36px; height: 36px; flex-shrink: 0; place-items: center; border-radius: 999px; background: #0875f5; color: #fff; box-shadow: 0 2px 7px rgba(8,117,245,.2); }
   .mobile-design-help { display: none; }
   .catalog-page .mobile-design-help { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .6rem; margin-top: 1.2rem; padding: 1.1rem; border-radius: 1rem; background: linear-gradient(135deg,#e3efff,#d4e4ff); color: #102748; text-decoration: none; }
   .mobile-design-help__art { color: #0875f5; opacity: .75; transform: rotate(-8deg); }
