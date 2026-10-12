@@ -282,3 +282,20 @@ input:focus, select:focus, textarea:focus {
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Keep the search input itself free of the global keyboard-focus outline.
+   The search container provides the visible focus treatment instead. */
+.printify-search input,
+.printify-search input:focus,
+.printify-search input:focus-visible,
+.mobile-search-row input,
+.mobile-search-row input:focus,
+.mobile-search-row input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.printify-search input:focus-visible,
+.mobile-search-row input:focus-visible {
+  outline: none !important;
+}
