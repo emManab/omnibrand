@@ -81,12 +81,19 @@ export function Home() {
       </section>
 
       <section className="mx-auto max-w-[1440px] px-4 py-5 sm:px-6 lg:px-7">
-        <SectionHeading title="Shop by Category" to="/catalog"/>
-        <div className="category-strip mt-3 flex gap-3 overflow-x-auto pb-2">
-          {categories.map((c) => <Link key={c.name} to={`/catalog?category=${c.slug}`} className="group w-[78px] shrink-0 text-center sm:w-[100px]">
-            <div className="aspect-square overflow-hidden rounded-xl bg-[#f3f5f8]"><ProductImage src={c.image} alt={c.name} className="h-full w-full object-cover transition group-hover:scale-105"/></div>
-            <p className="mt-1.5 text-[0.6875rem] font-semibold leading-3 text-[#24334d] sm:text-[0.75rem]">{c.name}</p>
-          </Link>)}
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-base font-extrabold tracking-tight text-[#182b48] sm:text-lg">Shop by Category</h2>
+        </div>
+        <div className="category-strip relative mt-3">
+          <div className="grid grid-cols-3 gap-x-3 gap-y-4 sm:grid-cols-5 lg:grid-cols-9 lg:gap-x-3">
+            {categories.map((c) => <Link key={c.name} to={`/catalog?category=${c.slug}`} className="group min-w-0 text-center">
+              <div className="aspect-square overflow-hidden rounded-xl bg-[#f3f5f8] ring-1 ring-black/[0.025]">
+                <ProductImage src={c.image} alt={c.name} className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.04]"/>
+              </div>
+              <p className="mx-auto mt-2 max-w-[125px] text-[0.6875rem] font-semibold leading-[1.2] text-[#182b48] sm:text-[0.75rem]">{c.name}</p>
+            </Link>)}
+          </div>
+          <button type="button" aria-label="Browse categories" onClick={() => document.querySelector('.category-strip')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })} className="absolute -right-3 top-[34%] z-10 grid h-9 w-9 place-items-center rounded-full border border-[#edf0f5] bg-white text-[#102748] shadow-md transition hover:shadow-lg lg:hidden"><ChevronRight size={19}/></button>
         </div>
       </section>
 
