@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import { BadgeCheck, Clock, Package, PenLine, Truck, ChevronRight, ChevronLeft, Star, Instagram, Linkedin, Youtube } from "lucide-react";
+import { BadgeCheck, Package, PenLine, Truck, ChevronRight, ChevronLeft, Star } from "lucide-react";
 import { categories, products } from "@/data/catalog";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductImage } from "@/components/ProductImage";
