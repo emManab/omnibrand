@@ -6,6 +6,7 @@ import { priceFor } from "@/lib/pricing";
 import { formatInr } from "@/lib/money";
 import { useCart } from "@/store/cart";
 import { StarRow } from "@/components/StarRow";
+import { ProductImage } from "@/components/ProductImage";
 
 export function ProductPage() {
   const { slug } = useParams();
@@ -57,7 +58,7 @@ export function ProductPage() {
         className="overflow-hidden rounded-3xl border border-line"
         style={{ background: product.accent }}
       >
-        <img src={product.image} alt={product.name} className="aspect-square w-full object-cover" />
+        <ProductImage src={product.image alt={product.name} className="aspect-square w-full object-cover" />
       </div>
       <div>
         <p className="text-sm capitalize text-muted">{product.category.replace("-", " ")}</p>
