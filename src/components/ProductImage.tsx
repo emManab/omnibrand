@@ -11,7 +11,7 @@ type ProductImageProps = {
 const fallbackPhotos = {
   cards: "https://images.unsplash.com/photo-1623305465231-d884ce752d59?auto=format&fit=crop&w=900&q=85",
   apparel: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=85",
-  hoodie: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=85",
+  hoodie: "https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?auto=format&fit=crop&w=900&q=85",
   stickers: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=900&q=85",
   packaging: "https://images.unsplash.com/photo-1771848194269-2e3b89b6465b?auto=format&fit=crop&w=900&q=85",
   drinkware: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=900&q=85",
