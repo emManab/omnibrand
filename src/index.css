@@ -77,16 +77,18 @@ canvas {
 
 @media (max-width: 767px) {
   body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
-  header.sticky { position: sticky; top: 0; }
+  header.sticky { position: sticky; top: 0; z-index: 70; box-shadow: 0 2px 12px rgba(16,40,76,.05); }
   .header-utility-bar { display: none; }
-  header.sticky > div:nth-child(2) { min-height: 58px; padding: 0.65rem 1rem; gap: 0.65rem; }
-  header.sticky > div:nth-child(2) > button { min-width: 40px; min-height: 40px; display: grid; place-items: center; }
-  header.sticky > div:nth-child(2) > a img { height: 29px; max-width: 132px; }
-  header.sticky > div:nth-child(2) > form { display: none; }
+  header.sticky > div:first-child { min-height: 58px; padding: 0.55rem 1rem; gap: 0.65rem; }
+  header.sticky > div:first-child > button { min-width: 40px; min-height: 40px; display: grid; place-items: center; }
+  header.sticky > div:first-child > a img { height: 29px; max-width: 132px; }
+  header.sticky > div:first-child > form { display: none; }
   .mobile-header-icon { display: inline-flex; align-items: center; justify-content: center; min-width: 38px; min-height: 38px; color: #102748; }
-  header.sticky > div:nth-child(2) > div a[aria-label^="Cart"] { background: transparent; color: #102748; padding: 0.4rem; min-height: 40px; min-width: 38px; justify-content: center; }
-  header.sticky > div:nth-child(2) > div a[aria-label^="Cart"] svg { width: 22px; height: 22px; }
-  header.sticky > div:nth-child(2) > div a[aria-label^="Cart"] span:not(.grid) { display: none; }
+  header.sticky > div:first-child > div a[aria-label^="Cart"] { background: transparent; color: #102748; padding: 0.4rem; min-height: 40px; min-width: 38px; justify-content: center; }
+  header.sticky > div:first-child > div a[aria-label^="Cart"] svg { width: 22px; height: 22px; }
+  header.sticky > div:first-child > div a[aria-label^="Cart"] span:not(.grid) { display: none; }
+  .mobile-search-row { padding: 0 1rem 0.65rem; }
+  .mobile-search-row label { min-height: 42px; }
   .mobile-search-row { display: block; padding: 0 1rem 0.75rem; background: #fff; }
   .mobile-search-row label { min-height: 44px; }
   .mobile-bottom-nav {
