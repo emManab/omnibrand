@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { MobileHome } from "@/components/MobileHome";
 import { Link } from "react-router-dom";
 import { BadgeCheck, Package, PenLine, Truck, ChevronRight, ChevronLeft, Star } from "lucide-react";
 import { categories, products } from "@/data/catalog";
@@ -32,7 +33,9 @@ export function Home() {
   function subscribe(e: FormEvent) { e.preventDefault(); if (email.includes("@")) setJoined(true); }
 
   return (
-    <div className="bg-white">
+    <>
+    <MobileHome />
+    <div className="hidden bg-white md:block">
       <section className="mx-auto max-w-[1440px] px-4 pt-4 sm:px-6 lg:px-7">
         <div className="relative isolate overflow-hidden rounded-2xl bg-gradient-to-br from-[#dceeff] via-[#c5e0ff] to-[#9fc9ff]">
           <div className="absolute -right-12 top-0 -z-10 h-72 w-72 rounded-full bg-white/40 blur-3xl" />
@@ -120,6 +123,7 @@ export function Home() {
         </div>
       </section>
     </div>
+    </>
   );
 }
 
