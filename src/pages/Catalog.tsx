@@ -27,7 +27,7 @@ export function Catalog() {
     const paperStyles = [
       { title: "Matte", note: "Smooth, low-glare finish", image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=720&q=85" },
       { title: "Soft-touch", note: "A refined, velvety feel", image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=720&q=85" },
-      { title: "Uncoated", note: "Natural texture, easy to write on", image: "https://images.unsplash.com/photo-1455390582262-044c kter?auto=format&fit=crop&w=720&q=85" },
+      { title: "Uncoated", note: "Natural texture, easy to write on", image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=720&q=85" },
     ];
     const cardProduct = products.find((p) => p.category === "business-cards");
     return (
