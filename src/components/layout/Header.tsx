@@ -105,7 +105,7 @@ export function Header() {
   return <header className="sticky top-0 z-40 border-b border-[#e8edf4] bg-white/95 backdrop-blur">
     <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-4 py-3 sm:px-6 lg:gap-7 lg:px-7">
       <button className="rounded-lg p-1.5 text-ink lg:hidden" onClick={()=>setOpen(v=>!v)} aria-label={open?"Close menu":"Open menu"} aria-expanded={open}>{open?<X size={18}/>:<Menu size={18}/>}</button>
-      <Link to="/" className="flex shrink-0 items-center" aria-label="Calcuttapress home"><img src="/calcuttapress-logo.png" alt="Calcuttapress" width="132" height="34" className="h-[34px] w-auto sm:h-[36px]" /></Link>
+      <Link to="/" className="flex shrink-0 items-center" aria-label="Calcuttapress home"><img src="/calcuttapress-logo.svg" alt="Calcuttapress" width="132" height="34" className="h-[34px] w-auto sm:h-[36px]" /></Link>
       <div ref={searchRef} className="printify-search relative mx-2 hidden min-w-0 max-w-[640px] flex-1 md:block">
         <form onSubmit={onSearch} role="search" className={cn("flex w-full items-center gap-3 rounded-full border bg-white px-4 py-2 transition-all duration-150", searchFocused ? "border-[#a9cfff] shadow-[0_0_0_3px_rgba(8,117,245,0.09)]" : "border-[#dfe5ee] hover:border-[#b9c5d5]")}>
           <input value={q} onFocus={() => setSearchFocused(true)} onChange={e=>{setQ(e.target.value);setSearchFocused(true);}} placeholder="Search for products, templates or ideas..." aria-label="Search products" aria-expanded={searchFocused && !!q.trim()} aria-controls="search-suggestions" className="min-w-0 w-full border-0 bg-transparent py-1.5 text-[0.875rem] text-[#263b5c] outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:outline-none placeholder:text-[#8793a7]"/>
