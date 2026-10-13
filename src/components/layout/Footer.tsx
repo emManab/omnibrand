@@ -12,7 +12,7 @@ export function Footer() {
   return <footer className="mt-5 border-t border-[#edf0f5] bg-white">
     <div className="mx-auto grid max-w-[1280px] gap-x-10 gap-y-8 px-5 py-9 sm:grid-cols-2 sm:px-7 lg:grid-cols-[1.45fr_repeat(4,minmax(0,1fr))] lg:px-8 lg:py-10">
       <div>
-        <Link to="/" className="inline-flex items-center" aria-label="Calcuttapress home"><img src="/calcuttapress-logo.png" alt="Calcuttapress" width="132" height="30" className="h-[34px] w-auto object-contain object-left transition-opacity hover:opacity-80 sm:h-[36px]" /></Link>
+        <Link to="/" className="inline-flex items-center" aria-label="Calcuttapress home"><img src="/calcuttapress-logo.png" alt="Calcuttapress" className="h-[40px] w-auto object-contain object-left transition-opacity hover:opacity-80 sm:h-[44px]" /></Link>
         <p className="mt-4 max-w-[250px] text-[0.875rem] leading-[1.65] tracking-[-0.01em] text-[#66758b]">Custom printing for businesses, creators and everyone in between.</p>
         <div className="mt-5 flex items-center gap-3.5 text-[#273b58]">
           <a href="https://www.instagram.com/" aria-label="Instagram" className="hover:text-[#0875f5]"><Instagram size={15}/></a>
