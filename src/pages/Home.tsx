@@ -9,7 +9,6 @@ import { storefrontImages } from "@/data/storefrontImages";
 import { ProductRecommendations } from "@/components/ProductRecommendations";
 import { QuickReorder } from "@/components/QuickReorder";
 import { LiveChat } from "@/components/LiveChat";
-import { TrustBadges } from "@/components/TrustBadges";
 
 const tabs = [
   { id: "all", label: "All" },
@@ -120,8 +119,6 @@ export function Home() {
       </section>
 
       <ProductRail title="New Arrivals" items={arrivals} to="/catalog"/>
-
-      <TrustBadges />
 
       <section className="creator-video-section mx-auto max-w-[1440px] px-4 py-7 sm:px-6 sm:py-9 lg:px-7">
         <div className="flex flex-wrap items-end justify-between gap-4">
