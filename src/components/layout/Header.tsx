@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowUpRight, Heart, Menu, Search, ShoppingBag, User, X, PackageCheck, ArrowRight } from "lucide-react";
 import { navCategories, products } from "@/data/catalog";
 import { useCart } from "@/store/cart";
@@ -101,7 +101,6 @@ export function Header() {
     navigate(`/catalog?q=${encodeURIComponent(q.trim())}`);
     setOpen(false);
   }
-  const navLinkClass = ({ isActive }: { isActive: boolean }) => cn("whitespace-nowrap border-b-2 border-transparent px-3 py-3 text-[0.8125rem] font-medium text-[#34445e] transition-colors hover:border-[#0875f5] hover:text-[#0875f5]", isActive && "border-[#0875f5] text-[#0875f5]");
 
   return <header className="sticky top-0 z-40 border-b border-[#e8edf4] bg-white/95 backdrop-blur">
     <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-4 py-3 sm:px-6 lg:gap-7 lg:px-7">
