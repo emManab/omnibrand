@@ -84,6 +84,8 @@ canvas {
   header.sticky > div:first-child > a { display: flex; align-items: center; flex: 0 0 auto; min-width: 140px; min-height: 40px; overflow: visible; }
   header.sticky > div:first-child > a img { display: block; width: 140px; height: auto; max-height: 36px; max-width: none; object-fit: contain; object-position: left center; }
   header.sticky > div:first-child > a .mobile-brand-logo { display: block !important; }
+  header.sticky > div:first-child > a .mobile-brand-logo { width: 164px; height: auto; max-height: 36px; object-fit: contain; object-position: left center; }
+  @media (max-width: 370px) { header.sticky > div:first-child > a .mobile-brand-logo { width: 140px; } }
   header.sticky > div:first-child > a .desktop-brand-logo { display: none !important; }
   header.sticky > div:first-child > form { display: none; }
   .mobile-header-icon { display: inline-flex; align-items: center; justify-content: center; min-width: 38px; min-height: 38px; color: #102748; }
