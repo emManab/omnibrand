@@ -1,17 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="tile" x1="7" y1="3" x2="57" y2="61" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#2695FF"/>
-      <stop offset="0.52" stop-color="#145BFA"/>
-      <stop offset="1" stop-color="#102FC7"/>
-    </linearGradient>
-    <linearGradient id="fold" x1="20" y1="18" x2="30" y2="31" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#A2FFE0"/>
-      <stop offset="1" stop-color="#36E6C0"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="15" fill="url(#tile)"/>
-  <path d="M16 49V15h17.2C43.6 15 50 20.9 50 30s-6.4 15-16.8 15H26v4H16Z" fill="#fff"/>
-  <path d="M26 24v12h7c4.1 0 6.2-2 6.2-6s-2.1-6-6.2-6h-7Z" fill="#1554EF"/>
-  <path d="M16 15h14.5L16 29.5V15Z" fill="url(#fold)"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0875f5"/><stop offset="1" stop-color="#0052e8"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="#07152e"/><path d="M12 29 31 18 51 29 36 53Q34 57 29 55L18 49Z" fill="#122648"/><rect x="25" y="8" width="27" height="39" rx="6" transform="rotate(18 38 27)" fill="url(#blue)"/></svg>
