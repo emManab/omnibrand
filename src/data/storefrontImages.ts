@@ -26,8 +26,8 @@ export const storefrontImages = {
     tote: photo("photo-1597484661643-2d57e7a3aca6", 500),
   },
   promos: {
-    businessCards: "/images/printly-business-cards.svg",
-    customApparel: "/images/printly-custom-apparel.svg",
+    businessCards: "/images/calcuttapress-business-cards.svg",
+    customApparel: "/images/calcuttapress-custom-apparel.svg",
     stickers: photo("photo-1611532736597-de2d4265fba3", 900),
     packaging: photo("photo-1607082349566-187342175e2f", 900),
   },
