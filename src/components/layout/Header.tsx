@@ -106,12 +106,12 @@ export function Header() {
     <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-4 py-3 sm:px-6 lg:gap-7 lg:px-7">
       <button className="rounded-lg p-1.5 text-ink lg:hidden" onClick={()=>setOpen(v=>!v)} aria-label={open?"Close menu":"Open menu"} aria-expanded={open}>{open?<X size={18}/>:<Menu size={18}/>}</button>
       <Link to="/" className="flex shrink-0 items-center" aria-label="Calcuttapress home">
-        <svg className="block h-[36px] w-[152px] sm:hidden" viewBox="0 0 420 100" role="img" aria-label="Calcuttapress" xmlns="http://www.w3.org/2000/svg">
+        <svg className="mobile-brand-logo block h-[36px] w-[152px] sm:hidden" viewBox="0 0 420 100" role="img" aria-label="Calcuttapress" xmlns="http://www.w3.org/2000/svg">
           <g transform="translate(4 10)"><path d="M5 30 29 17 52 29 34 70Q32 75 27 72L12 65Z" fill="#07152e"/><rect x="23" y="5" width="35" height="49" rx="7" transform="rotate(18 40 30)" fill="#0875f5"/></g>
           <text x="73" y="64" fontFamily="Arial, Helvetica, sans-serif" fontSize="43" fontWeight="800" letterSpacing="-1.8" fill="#07152e">Calcutta</text>
           <text x="239" y="64" fontFamily="Arial, Helvetica, sans-serif" fontSize="43" fontWeight="800" letterSpacing="-1.8" fill="#0875f5">press</text>
         </svg>
-        <img src="/calcuttapress-logo.png" alt="Calcuttapress" className="hidden h-[42px] w-auto max-w-[214px] sm:block sm:max-w-none lg:h-[44px]" />
+        <img src="/calcuttapress-logo.png" alt="Calcuttapress" className="desktop-brand-logo hidden h-[42px] w-auto max-w-[214px] sm:block sm:max-w-none lg:h-[44px]" />
       </Link>
       <div ref={searchRef} className="printify-search relative mx-2 hidden min-w-0 max-w-[640px] flex-1 md:block">
         <form onSubmit={onSearch} role="search" className={cn("flex w-full items-center gap-3 rounded-full border bg-white px-4 py-2 transition-all duration-150", searchFocused ? "border-[#a9cfff] shadow-[0_0_0_3px_rgba(8,117,245,0.09)]" : "border-[#dfe5ee] hover:border-[#b9c5d5]")}>
