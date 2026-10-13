@@ -299,3 +299,52 @@ input:focus, select:focus, textarea:focus {
 .mobile-search-row input:focus-visible {
   outline: none !important;
 }
+
+
+/* Mobile-first B2B storefront refinements and scroll-led creator discovery */
+@media (max-width: 767px) {
+  .mobile-reference-home { overflow: clip; }
+  .mobile-reference-home .mobile-reference-hero { min-height: 250px; }
+  .mobile-reference-home .mobile-reference-banner { min-height: 192px; grid-template-columns: 1.04fr .96fr; }
+  .mobile-reference-home .mobile-reference-banner > div { min-width: 0; padding-left: 1rem; padding-right: .35rem; }
+  .mobile-reference-home .mobile-reference-banner h3 { font-size: clamp(1.15rem, 5.1vw, 1.4rem); overflow-wrap: anywhere; }
+  .mobile-reference-home .mobile-reference-banner p { max-width: 18rem; }
+  .mobile-reference-home .mobile-reference-banner > img { min-height: 192px; height: 100%; object-fit: cover; }
+  .mobile-reference-home .mobile-reference-rail { margin-right: -1rem; padding-right: 1rem; scroll-padding-left: 2px; }
+  .mobile-reference-home .mobile-reference-rail .product-card { flex: 0 0 min(43%, 178px); min-width: min(43%, 178px); }
+  .mobile-reference-home .mobile-reference-rail .product-card .mobile-product-add { width: 40px; height: 40px; }
+  .mobile-reference-home .mobile-creator-rail {
+    display: flex; gap: .75rem; margin-right: -1rem; overflow-x: auto; padding: 2px 1rem 1rem 2px;
+    overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+  }
+  .mobile-reference-home .mobile-creator-rail::-webkit-scrollbar { display: none; }
+  .mobile-reference-home .mobile-creator-card { flex: 0 0 min(62%, 235px); min-width: min(62%, 235px); scroll-snap-align: start; }
+  .mobile-reference-home .mobile-creator-card img { display: block; }
+  .mobile-reference-home .mobile-creator-card a:focus-visible,
+  .mobile-reference-home .mobile-reference-banner:focus-visible { outline-offset: -3px; }
+  .mobile-reference-home [data-scroll-reveal] {
+    opacity: 0; transform: translate3d(0, 18px, 0);
+    transition: opacity 520ms cubic-bezier(.2,.75,.25,1), transform 520ms cubic-bezier(.2,.75,.25,1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .mobile-reference-home [data-scroll-reveal].is-revealed { opacity: 1; transform: translate3d(0,0,0); }
+  .mobile-reference-home .mobile-creator-card:nth-child(2) { --reveal-delay: 55ms; }
+  .mobile-reference-home .mobile-creator-card:nth-child(3) { --reveal-delay: 110ms; }
+  .mobile-reference-home .mobile-creator-card:nth-child(4) { --reveal-delay: 165ms; }
+  .mobile-reference-home .mobile-creator-card:nth-child(5) { --reveal-delay: 220ms; }
+  .mobile-reference-home button, .mobile-reference-home a { touch-action: manipulation; }
+  .mobile-reference-home input { min-height: 44px; font-size: 16px; }
+  .mobile-reference-home .mobile-reference-hero h1 { overflow-wrap: normal; }
+}
+@media (max-width: 380px) {
+  .mobile-reference-home .mobile-reference-hero h1 { font-size: 25px; }
+  .mobile-reference-home .mobile-reference-banner { grid-template-columns: 1.08fr .92fr; }
+  .mobile-reference-home .mobile-reference-banner .mt-4 { padding-left: .65rem; padding-right: .65rem; font-size: 10px; }
+  .mobile-reference-home .mobile-reference-rail .product-card { flex-basis: 46%; min-width: 46%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mobile-reference-home [data-scroll-reveal],
+  .mobile-reference-home [data-scroll-reveal].is-revealed {
+    opacity: 1 !important; transform: none !important; transition: none !important;
+  }
+}
