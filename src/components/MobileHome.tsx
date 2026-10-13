@@ -1,16 +1,21 @@
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, BadgeCheck, PenLine, Play, ShieldCheck, Star, Truck } from "lucide-react";
+import { ArrowRight, BadgeCheck, Check, Copy, PenLine, Play, ShieldCheck, Star, Truck } from "lucide-react";
 import { categories, products } from "@/data/catalog";
-import { storefrontImages } from "@/data/storefrontImages";
+import { categoryMedia, heroOffers, promoMedia } from "@/data/mediaAssets";
+import { MediaDisplay } from "@/components/MediaDisplay";
 import { ProductCard } from "@/components/ProductCard";
-import { ProductImage } from "@/components/ProductImage";
+import { toast } from "sonner";
 
-const tiles = categories.map((category) => ({
-  label: category.name,
-  slug: category.slug,
-  src: category.image,
-}));
+const tiles = categories.map((category) => {
+  const media = categoryMedia[category.slug];
+  return {
+    label: category.name,
+    slug: category.slug,
+    src: category.image,
+    videoSrc: media?.video,
+  };
+});
 const creatorVideos = [
   { handle: "@calcuttapress", category: "Business Cards", title: "First look at our new business cards", duration: "0:32", image: "https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=720&q=85", query: "custom business card unboxing", to: "/catalog?category=business-cards" },
   { handle: "@smallbrandstudio", category: "Stickers & Labels", title: "Sticker order reveal", duration: "0:28", image: "https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&w=720&q=85", query: "custom sticker unboxing", to: "/catalog?category=stickers" },
@@ -27,7 +32,7 @@ const benefits = [
 function Title({children,to="/catalog",showLink=true}:{children:ReactNode;to?:string;showLink?:boolean}) {
   return <div className="flex items-center justify-between gap-2"><h2 className="text-[19px] font-extrabold tracking-tight text-[#101e39]">{children}</h2>{showLink&&<Link to={to} className="flex shrink-0 items-center gap-1 text-[13px] font-bold text-[#0875f5]">View All <span aria-hidden="true">→</span></Link>}</div>;
 }
-function Banner({eyebrow,title,description,cta,to,src,tone}:{eyebrow:string;title:string;description?:string;cta:string;to:string;src:string;tone:string}) {
+function Banner({eyebrow,title,description,cta,to,src,videoSrc,tone}:{eyebrow:string;title:string;description?:string;cta:string;to:string;src:string;videoSrc?:string;tone:string}) {
  return <Link to={to} className={`mobile-reference-banner ${tone}`}>
   <div className="relative z-10 flex flex-col items-start justify-center py-5 pl-5">
    <p className="text-[10px] font-bold uppercase tracking-[.09em] text-[#354967]">{eyebrow}</p>
@@ -35,7 +40,7 @@ function Banner({eyebrow,title,description,cta,to,src,tone}:{eyebrow:string;titl
    {description&&<p className="mt-2 text-[12px] leading-[1.35] text-[#33445d]">{description}</p>}
    <span className="mt-4 inline-flex min-h-[40px] items-center gap-2 rounded-lg bg-[#071b3d] px-4 py-2.5 text-[12px] font-bold text-white">{cta} <span>→</span></span>
   </div>
-  <ProductImage src={src} alt="" className="h-full min-h-[205px] w-full object-cover object-center"/>
+  <MediaDisplay src={src} videoSrc={videoSrc} alt="" className="h-full min-h-[205px] w-full" imgClassName="object-cover object-center" videoClassName="object-cover object-center" />
  </Link>;
 }
 function Rail({title,items}:{title:string;items:typeof products}) {
@@ -43,6 +48,16 @@ function Rail({title,items}:{title:string;items:typeof products}) {
 }
 export function MobileHome() {
  const revealRoot = useRef<HTMLDivElement>(null);
+ const [copied, setCopied] = useState(false);
+ const activeOffer = heroOffers[0];
+
+ const copyCode = (code: string) => {
+   navigator.clipboard.writeText(code);
+   setCopied(true);
+   toast.success(`Coupon code "${code}" copied!`);
+   setTimeout(() => setCopied(false), 2500);
+ };
+
  useEffect(() => {
   const root = revealRoot.current;
   if (!root) return;
@@ -64,29 +79,78 @@ export function MobileHome() {
  }, []);
  const popular = products.filter(p=>p.featured);
  const trending = products.filter(p=>p.trending);
+
  return <div ref={revealRoot} className="mobile-reference-home bg-white pb-5">
-  <section className="px-4 pt-3">
-   <div className="mobile-reference-hero relative overflow-hidden rounded-[15px] bg-gradient-to-br from-[#d9eaff] via-[#c5dfff] to-[#9fc7fa]">
-    <div className="relative z-10 w-[54%] px-4 py-6">
-     <h1 className="text-[29px] font-extrabold leading-[.98] tracking-[-.045em] text-[#0c1d3c]">Design it.<br/>Print it.<br/>Make it yours.</h1>
-     <p className="mt-3 text-[13px] leading-[1.4] text-[#273c59]">Custom products for your business, events and everyday moments.</p>
-     <Link to="/catalog" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#0c1d3c] px-4 py-3 text-[13px] font-bold text-white">Shop Now <span>→</span></Link>
+  {/* Top Mobile Announcement Bar */}
+  <div className="bg-[#111827] text-white px-3 py-1.5 text-[11px] font-medium flex items-center justify-between">
+    <span className="truncate">Festival Savings: Flat ₹300 off ₹2,499+</span>
+    <button
+      onClick={() => copyCode(activeOffer.code)}
+      className="inline-flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded text-[10px] font-bold text-white shrink-0 ml-2"
+    >
+      <span>{activeOffer.code}</span>
+      {copied ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
+    </button>
+  </div>
+
+  {/* Mobile Festive Offer Hero */}
+  <section className="px-3 pt-3">
+   <div className={`relative overflow-hidden rounded-[18px] bg-gradient-to-br ${activeOffer.gradient} p-4 text-center shadow-md`}>
+    {/* Subtle Watermark */}
+    <div className="absolute inset-0 flex flex-col justify-between pointer-events-none select-none opacity-10 text-black text-2xl font-black uppercase tracking-widest overflow-hidden">
+      <span>BUY MORE, SAVE MORE</span>
+      <span>BUY MORE, SAVE MORE</span>
+      <span>BUY MORE, SAVE MORE</span>
     </div>
-    <div className="absolute inset-y-0 right-0 w-[48%]">
-      <ProductImage src={storefrontImages.hero.hoodie} alt="White custom hoodie" className="absolute right-[9%] top-[9%] h-[70%] w-[75%] rounded-xl object-cover shadow-lg"/>
-      <ProductImage src={storefrontImages.hero.bottle} alt="Water bottle" className="absolute bottom-[4%] left-[-8%] h-[39%] w-[35%] rounded-lg object-cover shadow-lg"/>
-      <ProductImage src={storefrontImages.hero.cap} alt="Cap" className="absolute bottom-[2%] right-[0%] h-[31%] w-[49%] rounded-lg object-cover shadow-lg"/>
-      <span className="absolute right-[20%] top-[36%] border-2 border-[#0875f5] bg-white/95 px-2 py-2 text-center text-[10px] font-black leading-tight text-[#0c1d3c]">YOUR<br/>DESIGN<br/>HERE</span>
+
+    {/* Center Elevated Offer Card */}
+    <div className="relative z-10 rounded-2xl bg-[#faf9f4] p-5 shadow-lg border border-white/70">
+      <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-800">
+        {activeOffer.eyebrow}
+      </p>
+      <h1 className="mt-2 text-[20px] font-black leading-tight tracking-tight text-neutral-950">
+        {activeOffer.headline}
+      </h1>
+      <div className="mt-2.5 flex items-center justify-center gap-2 text-[11px] font-semibold text-neutral-600">
+        <span>{activeOffer.validUntil}</span>
+        <span>|</span>
+        <button
+          onClick={() => copyCode(activeOffer.code)}
+          className="inline-flex items-center gap-1 rounded bg-neutral-200 px-2 py-0.5 text-[10px] font-bold text-neutral-900"
+        >
+          <span>Code: {activeOffer.code}</span>
+          {copied ? <Check size={11} className="text-emerald-600" /> : <Copy size={11} />}
+        </button>
+      </div>
+
+      <div className="mt-4 flex flex-wrap justify-center gap-1.5">
+        {activeOffer.ctas.map((cta, i) => (
+          <Link
+            key={cta.label}
+            to={cta.to}
+            className={`rounded-lg px-3 py-2 text-[11px] font-bold transition ${
+              i === 0
+                ? "bg-black text-white"
+                : "border border-neutral-300 bg-white text-neutral-800"
+            }`}
+          >
+            {cta.label}
+          </Link>
+        ))}
+      </div>
+      <p className="mt-3 text-[10px] leading-relaxed text-neutral-500">
+        {activeOffer.footerText}
+      </p>
     </div>
    </div>
-   <div className="flex justify-center gap-1.5 py-3"><span className="h-2 w-2 rounded-full bg-[#0c1d3c]"/>{[1,2,3].map(i=><span key={i} className="h-2 w-2 rounded-full bg-[#d6dce7]"/>)}</div>
   </section>
+
   <section className="grid grid-cols-4 gap-2 px-4 py-4">{benefits.map(({Icon,label})=><div key={label} className="flex flex-col items-center gap-2 text-center"><Icon size={23} strokeWidth={1.9} className="text-[#102748]"/><span className="text-[11px] font-medium leading-[1.25] text-[#192c49]">{label}</span></div>)}</section>
-  <section className="px-4 pb-3 pt-7"><Title showLink={false}>Shop by Category</Title><div className="mt-4 grid grid-cols-4 gap-x-2.5 gap-y-5">{tiles.map((tile,i)=><Link key={i} to={`/catalog?category=${tile.slug}`} className="min-w-0 text-center"><div className="aspect-square overflow-hidden rounded-xl bg-[#f1f3f7]"><ProductImage src={tile.src} alt={tile.label} className="h-full w-full object-cover"/></div><p className="mt-2 text-[11px] font-medium leading-[1.25] text-[#192c49]">{tile.label}</p></Link>)}</div></section>
-  <section data-scroll-reveal className="space-y-4 px-4 pt-6"><Banner eyebrow="Business Cards" title="Make a lasting first impression." description="Premium cards for your brand, your way." cta="Shop Business Cards" to="/catalog?category=business-cards" src={storefrontImages.promos.businessCards} tone="mobile-reference-peach"/></section>
+  <section className="px-4 pb-3 pt-4"><Title showLink={false}>Explore all categories</Title><div className="mt-4 grid grid-cols-4 gap-x-2.5 gap-y-5">{tiles.map((tile,i)=><Link key={i} to={`/catalog?category=${tile.slug}`} className="min-w-0 text-center"><div className="aspect-square overflow-hidden rounded-xl bg-[#f1f3f7]"><MediaDisplay src={tile.src} videoSrc={tile.videoSrc} alt={tile.label} className="h-full w-full" imgClassName="object-cover" videoClassName="object-cover"/></div><p className="mt-2 text-[11px] font-medium leading-[1.25] text-[#192c49]">{tile.label}</p></Link>)}</div></section>
+  <section data-scroll-reveal className="space-y-4 px-4 pt-6"><Banner eyebrow="Business Cards" title="Make a lasting first impression." description="Premium cards for your brand, your way." cta="Shop Business Cards" to="/catalog?category=business-cards" src={promoMedia.businessCards.image} videoSrc={promoMedia.businessCards.video} tone="mobile-reference-peach"/></section>
   <Rail title="Popular Products" items={popular}/>
   <Rail title="Trending Now" items={trending}/>
-  <section data-scroll-reveal className="space-y-4 px-4 pt-6"><Banner eyebrow="Custom Apparel" title="Wear your brand proudly." description="T-shirts, hoodies, caps and more." cta="Shop Apparel" to="/catalog?category=apparel" src={storefrontImages.promos.customApparel} tone="mobile-reference-green"/></section>
+  <section data-scroll-reveal className="space-y-4 px-4 pt-6"><Banner eyebrow="Custom Apparel" title="Wear your brand proudly." description="T-shirts, hoodies, caps and more." cta="Shop Apparel" to="/catalog?category=apparel" src={promoMedia.customApparel.image} videoSrc={promoMedia.customApparel.video} tone="mobile-reference-green"/></section>
   <section data-scroll-reveal className="mobile-creator-section px-4 pt-8">
    <div className="flex items-end justify-between gap-3">
     <div><p className="text-[10px] font-extrabold uppercase tracking-[.18em] text-[#0875f5]">From our creators</p><h2 className="mt-1 text-[21px] font-extrabold leading-tight tracking-tight text-[#101e39]">Real businesses.<br/><span className="text-[#0875f5]">Real unboxings.</span></h2><p className="mt-2 max-w-[250px] text-[12px] leading-5 text-[#66758b]">Get inspired by the details behind standout brands.</p></div>
