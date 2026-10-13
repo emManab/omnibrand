@@ -79,6 +79,18 @@ export const categories: {
     short: "Mugs, frames, personalised gifts",
     image: categoryImages.photoGifts,
   },
+  {
+    slug: "apparel",
+    name: "Custom Tote Bags",
+    short: "Canvas totes for events and retail",
+    image: categoryImages.toteBags,
+  },
+  {
+    slug: "gifts",
+    name: "Custom Drinkware",
+    short: "Bottles, mugs and travel cups",
+    image: categoryImages.drinkware,
+  },
 ];
 
 export const navCategories = [
