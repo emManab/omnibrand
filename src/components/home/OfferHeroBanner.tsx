@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Copy, Check } from "lucide-react";
 import { heroOffers } from "@/data/mediaAssets";
@@ -8,8 +8,20 @@ import { toast } from "sonner";
 export function OfferHeroBanner() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const [isPaused, setIsPaused] = useState(false);
 
   const offer = heroOffers[currentIndex];
+  const heroImages = [
+    "/images/calcuttapress-business-cards.svg",
+    "/images/calcuttapress-custom-apparel.svg",
+    "https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?auto=format&fit=crop&w=900&q=85",
+  ];
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = window.setInterval(() => setCurrentIndex((prev) => (prev + 1) % heroOffers.length), 5200);
+    return () => window.clearInterval(timer);
+  }, [isPaused]);
 
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);
@@ -51,7 +63,17 @@ export function OfferHeroBanner() {
       <div className="mx-auto max-w-[1440px] px-4 pt-4 sm:px-6 lg:px-7">
         <div
           className={`relative overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-r ${offer.gradient} shadow-lg transition-colors duration-700 min-h-[380px] sm:min-h-[440px] md:min-h-[480px] flex items-center justify-center p-4 sm:p-8 md:p-12`}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocusCapture={() => setIsPaused(true)}
+          onBlurCapture={() => setIsPaused(false)}
+          aria-roledescription="carousel"
+          aria-label="Current promotional offer"
         >
+          <div className="pointer-events-none absolute -right-16 -bottom-20 z-[1] h-[330px] w-[330px] overflow-hidden rounded-[2rem] rotate-6 shadow-2xl ring-1 ring-white/30 sm:h-[430px] sm:w-[430px] md:-right-8 md:h-[500px] md:w-[500px]" key={offer.id}>
+            <img src={heroImages[currentIndex]} alt="" className="h-full w-full object-cover animate-[hero-image-in_700ms_cubic-bezier(.2,.75,.25,1)]" />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/5 to-black/20" />
+          </div>
           {/* Optional Ambient Background Video if provided by user */}
           {offer.videoSrc && (
             <div className="absolute inset-0 pointer-events-none opacity-25 mix-blend-overlay">
@@ -81,7 +103,7 @@ export function OfferHeroBanner() {
           </div>
 
           {/* Center Elevated Offer Card */}
-          <div className="relative z-10 w-full max-w-2xl bg-[#faf9f4] rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-12 text-center shadow-[0_20px_50px_rgba(0,0,0,0.18)] border border-white/60 backdrop-blur-sm transition-all duration-300">
+          <div key={offer.id} className="hero-slide-content relative z-10 w-full max-w-2xl bg-[#faf9f4] rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-12 text-center shadow-[0_20px_50px_rgba(0,0,0,0.18)] border border-white/60 backdrop-blur-sm transition-all duration-300">
             {/* Eyebrow */}
             <p className="text-xs sm:text-sm font-semibold tracking-wide text-neutral-800 uppercase mb-2 sm:mb-3">
               {offer.eyebrow}

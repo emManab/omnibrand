@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { PackageOpen } from "lucide-react";
 
 type ProductImageProps = {
   src: string;
@@ -44,7 +43,7 @@ export function ProductImage({ src, alt, className = "", accent = "#EEF3FF" }: P
 
   if (failed) {
     return <div className={`flex items-center justify-center overflow-hidden ${className}`} style={{background:`linear-gradient(135deg, ${accent}, #ffffff)`}} role="img" aria-label={alt || "Product image unavailable"}>
-      <span className="flex flex-col items-center gap-1 px-3 text-center text-brand/60"><PackageOpen aria-hidden="true" size={22} strokeWidth={1.5}/><span className="text-[10px] font-medium">Image coming soon</span></span>
+      <img src={fallback} alt={alt} className="h-full w-full object-cover opacity-90" loading="lazy" decoding="async" />
     </div>;
   }
 

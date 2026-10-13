@@ -11,6 +11,11 @@
   --color-paper: #f5f7fb;
   --color-line: #e6eaf2;
   --color-mist: #eef3ff;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f5f7fb;
+  --color-accent: #0875f5;
+  --color-accent-warm: #f0a15b;
+  --color-border-subtle: #e6eaf2;
 }
 
 html {
@@ -229,6 +234,15 @@ canvas {
   --ease-out: cubic-bezier(.2,.75,.25,1);
 }
 ::selection { background: #dce8ff; color: #102748; }
+@keyframes hero-image-in {
+  from { opacity: 0; transform: translateX(52px) rotate(6deg) scale(1.06); }
+  to { opacity: 1; transform: translateX(0) rotate(6deg) scale(1); }
+}
+@keyframes hero-content-in {
+  from { opacity: 0; transform: translateX(-18px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.hero-slide-content { animation: hero-content-in 520ms var(--ease-out) both; }
 a, button, [role="button"] {
   transition-property: color, background-color, border-color, box-shadow, transform, opacity;
   transition-duration: var(--motion-fast);
