@@ -129,7 +129,7 @@ export function Header() {
       </div>
     </div>
     <form onSubmit={onSearch} className="mobile-search-row">
-      <label className="flex w-full items-center gap-2 rounded-full border border-[#dfe5ee] bg-white px-4 py-2.5 transition focus-within:border-[#a9cfff] focus-within:shadow-[0_0_0_3px_rgba(8,117,245,0.08)]"><Search size={19} className="shrink-0 text-[#102748]"/><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search for products, templates or ideas..." aria-label="Search products" className="w-full border-0 bg-transparent text-sm outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:outline-none placeholder:text-[#7d899c]"/><button type="submit" aria-label="Submit search" className="text-[#65738a]"><Search size={17}/></button></label>
+      <label className="flex w-full items-center gap-2 rounded-full border border-[#dfe5ee] bg-white px-4 py-2.5 transition focus-within:border-[#a9cfff] focus-within:shadow-[0_0_0_3px_rgba(8,117,245,0.08)]"><Search size={19} className="shrink-0 text-[#102748]"/><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search for products, templates or ideas..." aria-label="Search products" className="w-full border-0 bg-transparent text-sm outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:outline-none placeholder:text-[#7d899c]"/></label>
     </form>
     <nav aria-label="Product categories" className="hidden border-t border-[#edf0f5] bg-white lg:block" onMouseLeave={() => setActiveMega(null)}>
       <div className="mx-auto flex max-w-[1560px] items-stretch justify-between gap-1 overflow-x-auto px-4 xl:px-7">
