@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, BadgeCheck, PenLine, Play, ShieldCheck, Star, Truck } from "lucide-react";
 import { categories, products } from "@/data/catalog";
@@ -93,7 +93,7 @@ export function MobileHome() {
     <a href="https://www.youtube.com/results?search_query=custom+printing+unboxing+small+business" target="_blank" rel="noreferrer" className="mb-1 inline-flex min-h-11 shrink-0 items-center gap-1 text-[12px] font-bold text-[#0875f5]">View all <ArrowRight size={14}/></a>
    </div>
    <div className="mobile-creator-rail mt-4">
-    {creatorVideos.map((video, index) => <article key={video.handle} data-scroll-reveal style={{"--reveal-delay": `${Math.min(index, 3) * 65}ms`} as React.CSSProperties} className="mobile-creator-card group overflow-hidden rounded-2xl border border-[#e7edf5] bg-white shadow-[0_5px_18px_rgba(16,40,76,.06)]">
+    {creatorVideos.map((video, index) => <article key={video.handle} data-scroll-reveal style={{"--reveal-delay": `${Math.min(index, 3) * 65}ms`} as CSSProperties} className="mobile-creator-card group overflow-hidden rounded-2xl border border-[#e7edf5] bg-white shadow-[0_5px_18px_rgba(16,40,76,.06)]">
      <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent(video.query)}`} target="_blank" rel="noreferrer" aria-label={`Find videos: ${video.title}`} className="relative block aspect-[4/5] overflow-hidden bg-[#edf2f8]">
       <img src={video.image} alt={video.title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"/>
       <span className="absolute right-2 top-2 rounded-md bg-black/70 px-2 py-1 text-[10px] font-bold text-white">{video.duration}</span>
