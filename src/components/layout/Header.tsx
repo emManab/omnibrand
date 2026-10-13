@@ -105,7 +105,7 @@ export function Header() {
   return <header className="sticky top-0 z-40 border-b border-[#e8edf4] bg-white/95 backdrop-blur">
     <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-4 py-3 sm:px-6 lg:gap-7 lg:px-7">
       <button className="rounded-lg p-1.5 text-ink lg:hidden" onClick={()=>setOpen(v=>!v)} aria-label={open?"Close menu":"Open menu"} aria-expanded={open}>{open?<X size={18}/>:<Menu size={18}/>}</button>
-      <Link to="/" className="flex shrink-0 items-center" aria-label="Calcuttapress home"><img src="/calcuttapress-logo.png" alt="Calcuttapress" width="132" height="34" className="h-[34px] w-auto sm:h-[36px]" /></Link>
+      <Link to="/" className="flex shrink-0 items-center" aria-label="Calcuttapress home"><img src="/calcuttapress-logo.png" alt="Calcuttapress" className="h-[38px] w-auto max-w-[214px] max-[360px]:h-[32px] sm:h-[42px] sm:max-w-none lg:h-[44px]" /></Link>
       <div ref={searchRef} className="printify-search relative mx-2 hidden min-w-0 max-w-[640px] flex-1 md:block">
         <form onSubmit={onSearch} role="search" className={cn("flex w-full items-center gap-3 rounded-full border bg-white px-4 py-2 transition-all duration-150", searchFocused ? "border-[#a9cfff] shadow-[0_0_0_3px_rgba(8,117,245,0.09)]" : "border-[#dfe5ee] hover:border-[#b9c5d5]")}>
           <input value={q} onFocus={() => setSearchFocused(true)} onChange={e=>{setQ(e.target.value);setSearchFocused(true);}} placeholder="Search for products, templates or ideas..." aria-label="Search products" aria-expanded={searchFocused && !!q.trim()} aria-controls="search-suggestions" className="min-w-0 w-full border-0 bg-transparent py-1.5 text-[0.875rem] text-[#263b5c] outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:outline-none placeholder:text-[#8793a7]"/>
@@ -121,10 +121,10 @@ export function Header() {
         </div>}
       </div>
       <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
-        <Link to="/login" aria-label="Wishlist" className="mobile-header-icon"><Heart size={22}/></Link>
+        <Link to="/login" aria-label="Wishlist" className="mobile-header-icon hidden sm:flex"><Heart size={22}/></Link>
         <Link to="/help" className="hidden items-center gap-1.5 px-2 py-2 text-[0.8125rem] font-medium text-[#34445e] transition hover:text-[#0875f5] sm:flex">Help</Link>
         <Link to={user?"/account":"/login"} className="hidden items-center gap-1.5 px-2 py-2 text-[0.8125rem] font-medium text-[#34445e] transition hover:text-[#0875f5] sm:flex"><PackageCheck size={15}/> Orders</Link>
-        <Link to={user?"/account":"/login"} className="flex items-center gap-1.5 px-2 py-2 text-[0.8125rem] font-medium text-[#34445e] transition hover:text-[#0875f5]"><User size={13}/><span className="hidden sm:inline">{user?user.fullName.split(" ")[0]:"Sign in"}</span></Link>
+        <Link to={user?"/account":"/login"} className="flex items-center gap-1.5 px-2 py-2 text-[0.8125rem] font-medium text-[#34445e] transition hover:text-[#0875f5] max-[360px]:hidden"><User size={13}/><span className="hidden sm:inline">{user?user.fullName.split(" ")[0]:"Sign in"}</span></Link>
         <Link to="/cart" aria-label={`Cart, ${count} items`} className="relative flex items-center gap-1.5 rounded-md border border-[#d9dee7] px-3 py-2 text-[0.8125rem] font-semibold text-[#243650] transition hover:border-[#0875f5] hover:text-[#0875f5]"><ShoppingBag size={14}/><span className="hidden sm:inline">Cart</span>{count>0&&<span className="grid h-4 min-w-4 place-items-center rounded-full bg-white px-1 text-[0.6875rem] text-[#0875f5]">{count}</span>}</Link>
       </div>
     </div>
