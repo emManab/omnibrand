@@ -55,7 +55,7 @@ export function PremiumHeader() {
                   to="/"
                   className="flex items-center gap-3 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:opacity-70"
                 >
-                  <img src="/calcuttapress-logo.png" alt="Calcuttapress" className="h-9 w-auto max-w-[190px]" />
+                  <img src="/calcuttapress-logo.png" alt="Calcuttapress" className="h-10 w-auto max-w-[205px] max-[360px]:h-8 sm:h-11 sm:max-w-[245px]" />
                 </Link>
 
                 {/* Desktop Navigation */}
