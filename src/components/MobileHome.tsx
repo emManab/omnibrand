@@ -42,6 +42,26 @@ function Rail({title,items}:{title:string;items:typeof products}) {
  return <section className="px-4 pt-7"><Title>{title}</Title><div className="mobile-reference-rail mt-3">{items.slice(0,8).map(p=><ProductCard key={p.id} product={p}/>)}</div></section>;
 }
 export function MobileHome() {
+ const revealRoot = useRef<HTMLDivElement>(null);
+ useEffect(() => {
+  const root = revealRoot.current;
+  if (!root) return;
+  const items = root.querySelectorAll<HTMLElement>("[data-scroll-reveal]");
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+   items.forEach((item) => item.classList.add("is-revealed"));
+   return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+   entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+     entry.target.classList.add("is-revealed");
+     observer.unobserve(entry.target);
+    }
+   });
+  }, { threshold: 0.12, rootMargin: "0px 0px -32px 0px" });
+  items.forEach((item) => observer.observe(item));
+  return () => observer.disconnect();
+ }, []);
  const popular = products.filter(p=>p.featured);
  const trending = products.filter(p=>p.trending);
  return <div ref={revealRoot} className="mobile-reference-home bg-white pb-5">
@@ -67,6 +87,23 @@ export function MobileHome() {
   <Rail title="Popular Products" items={popular}/>
   <Rail title="Trending Now" items={trending}/>
   <section data-scroll-reveal className="space-y-4 px-4 pt-6"><Banner eyebrow="Custom Apparel" title="Wear your brand proudly." description="T-shirts, hoodies, caps and more." cta="Shop Apparel" to="/catalog?category=apparel" src={storefrontImages.promos.customApparel} tone="mobile-reference-green"/></section>
+  <section data-scroll-reveal className="mobile-creator-section px-4 pt-8">
+   <div className="flex items-end justify-between gap-3">
+    <div><p className="text-[10px] font-extrabold uppercase tracking-[.18em] text-[#0875f5]">From our creators</p><h2 className="mt-1 text-[21px] font-extrabold leading-tight tracking-tight text-[#101e39]">Real businesses.<br/><span className="text-[#0875f5]">Real unboxings.</span></h2><p className="mt-2 max-w-[250px] text-[12px] leading-5 text-[#66758b]">Get inspired by the details behind standout brands.</p></div>
+    <a href="https://www.youtube.com/results?search_query=custom+printing+unboxing+small+business" target="_blank" rel="noreferrer" className="mb-1 inline-flex min-h-11 shrink-0 items-center gap-1 text-[12px] font-bold text-[#0875f5]">View all <ArrowRight size={14}/></a>
+   </div>
+   <div className="mobile-creator-rail mt-4">
+    {creatorVideos.map((video, index) => <article key={video.handle} data-scroll-reveal style={{"--reveal-delay": `${Math.min(index, 3) * 65}ms`} as React.CSSProperties} className="mobile-creator-card group overflow-hidden rounded-2xl border border-[#e7edf5] bg-white shadow-[0_5px_18px_rgba(16,40,76,.06)]">
+     <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent(video.query)}`} target="_blank" rel="noreferrer" aria-label={`Find videos: ${video.title}`} className="relative block aspect-[4/5] overflow-hidden bg-[#edf2f8]">
+      <img src={video.image} alt={video.title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"/>
+      <span className="absolute right-2 top-2 rounded-md bg-black/70 px-2 py-1 text-[10px] font-bold text-white">{video.duration}</span>
+      <span className="absolute inset-0 grid place-items-center bg-[#0b1d36]/10"><span className="grid h-11 w-11 place-items-center rounded-full border border-white/80 bg-black/45 text-white shadow-lg backdrop-blur-sm"><Play size={18} fill="currentColor" className="ml-0.5"/></span></span>
+     </a>
+     <div className="p-3"><p className="truncate text-[12px] font-extrabold text-[#102748]">{video.handle}</p><p className="mt-1 text-[10px] text-[#66758b]">{video.category}</p><Link to={video.to} className="mt-2 inline-flex min-h-10 items-center gap-1 text-[11px] font-bold text-[#0875f5]">Shop this product <ArrowRight size={13}/></Link></div>
+    </article>)}
+   </div>
+   <p className="mt-2 text-[10px] leading-4 text-[#8995a7]">Thumbnails are illustrative. Open a video search to explore creator unboxings.</p>
+  </section>
   <section className="grid grid-cols-4 gap-2 px-4 py-7">{[{Icon:PenLine,label:"Easy Online Design"},{Icon:Truck,label:"Fast Delivery"},{Icon:BadgeCheck,label:"High Quality Prints"},{Icon:ShieldCheck,label:"No Minimum Orders"}].map(({Icon,label})=><div key={label} className="flex flex-col items-center gap-2 text-center"><Icon size={23} className="text-[#0875f5]"/><span className="text-[11px] font-medium leading-4">{label}</span></div>)}</section>
   <section data-scroll-reveal className="px-4 pb-6"><Title to="/help">Trusted by Businesses and Creators</Title><div className="mt-4 grid gap-3">{[{name:"Rohan Mehta",role:"Small Business Owner",text:"Amazing quality and super fast delivery! Our business cards turned out perfectly."},{name:"Priya Sharma",role:"Event Planner",text:"Loved the custom t-shirts for our event. Great print quality and easy ordering process."},{name:"Arjun Verma",role:"Entrepreneur",text:"Best place for custom printing. The packaging boxes were exactly what we needed."}].map(r=><blockquote key={r.name} className="rounded-xl border border-[#e6eaf2] bg-white p-3 shadow-sm"><p className="text-[13px] font-bold text-[#182b48]">{r.name} · {r.role}</p><div className="mt-1 text-[#ffad0a]">★★★★★</div><p className="mt-2 text-[12px] leading-4 text-[#46556d]">{r.text}</p></blockquote>)}</div></section>
   <section className="px-4 pb-5"><div className="rounded-2xl bg-[#0c1d3c] p-5 text-white"><h2 className="text-[20px] font-extrabold">Get Inspired and Get 10% Off</h2><p className="mt-2 text-[12px] leading-4 text-white/75">Subscribe for new products, exclusive offers and design tips.</p><form className="mt-4 flex gap-2" onSubmit={e=>{e.preventDefault();const form=e.currentTarget;form.innerHTML='<p class=&quot;text-sm font-bold&quot;>Thanks for subscribing!</p>';}}><input name="email" type="email" required placeholder="Enter your email address" aria-label="Email address" className="min-w-0 flex-1 rounded-lg bg-white px-3 py-3 text-[12px] text-[#102748]"/><button className="rounded-lg bg-[#0875f5] px-3 text-[12px] font-bold">Subscribe</button></form></div></section>
