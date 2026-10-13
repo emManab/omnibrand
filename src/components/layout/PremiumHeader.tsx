@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, ShoppingBag, User } from "lucide-react";
 import { useCart } from "@/store/cart";
-import { useAuth } from "@/store/auth";
 
 export function PremiumHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,7 +9,6 @@ export function PremiumHeader() {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const items = useCart((s) => s.items);
-  const user = useAuth((s) => s.user);
   const cartCount = items.reduce((n, i) => n + i.quantity, 0);
 
   useEffect(() => {
@@ -87,14 +85,6 @@ export function PremiumHeader() {
                       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8793a7] transition-colors group-focus-within:text-[#0875f5]" />
                     </div>
                   </form>
-
-                  {/* User Account - Nested Island Button */}
-                  <Link
-                    to={user ? "/account" : "/login"}
-                    className="group hidden rounded-full bg-black/5 p-2.5 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-black/10 active:scale-[0.98] dark:bg-white/10 dark:hover:bg-white/20 md:block"
-                  >
-                    <User className="h-5 w-5 text-[#34445e] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105 dark:text-white/70" />
-                  </Link>
 
                   {/* Cart - Nested Island Button with Badge */}
                   <Link
