@@ -18,6 +18,7 @@ html {
   scroll-behavior: smooth;
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -304,6 +305,14 @@ input:focus, select:focus, textarea:focus {
 .mobile-search-row input:focus-visible {
   outline: none !important;
 }
+
+/* Hide scrollbar on the desktop nav category strip */
+.nav-category-strip { scrollbar-width: none; -ms-overflow-style: none; }
+.nav-category-strip::-webkit-scrollbar { display: none; }
+
+/* Hide scrollbar on the category carousel */
+.category-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+.category-scroll::-webkit-scrollbar { display: none; }
 
 
 /* Mobile-first B2B storefront refinements and scroll-led creator discovery */

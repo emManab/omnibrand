@@ -86,20 +86,19 @@ export function Home() {
         <div className="flex items-center justify-center gap-2 py-3" aria-label="Featured collection">{heroSlides.map((item, index) => <button key={item.eyebrow} type="button" onClick={() => setHeroIndex(index)} aria-label={`Show featured slide ${index + 1}`} aria-current={heroIndex === index ? "true" : undefined} className={`h-2.5 rounded-full transition-all ${heroIndex === index ? "w-2.5 bg-[#10284c]" : "w-2.5 bg-[#d5dce8] hover:bg-[#91a3bd]"}`} />)}</div>
       </section>
 
-      <section className="w-full px-4 py-5 sm:px-6 lg:px-10">
-        <div className="flex items-center justify-between gap-3">
-          <h2 className="text-base font-extrabold tracking-tight text-[#182b48] sm:text-lg">Shop by Category</h2>
-        </div>
+      <section className="mx-auto max-w-[1440px] px-4 py-5 sm:px-6 lg:px-7">
+        <h2 className="text-base font-extrabold tracking-tight text-[#182b48] sm:text-lg">Explore all categories</h2>
         <div className="category-strip relative mt-3">
-          <div className="grid grid-cols-3 gap-x-3 gap-y-4 sm:grid-cols-5 lg:grid-cols-9 lg:gap-x-3">
-            {categories.map((c) => <Link key={c.name} to={`/catalog?category=${c.slug}`} className="group min-w-0 text-center">
-              <div className="aspect-square overflow-hidden rounded-xl bg-[#f3f5f8] ring-1 ring-black/[0.025]">
+          <div id="category-scroll" className="category-scroll flex gap-3 overflow-x-auto scroll-smooth pb-2">
+            {categories.map((c) => <Link key={c.name} to={`/catalog?category=${c.slug}`} className="group flex-shrink-0 text-center" style={{ width: 'calc((100% - 7 * 0.75rem) / 8)' }}>
+              <div className="aspect-square overflow-hidden rounded-2xl bg-[#f3f5f8] ring-1 ring-black/[0.03]">
                 <ProductImage src={c.image} alt={c.name} className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.04]"/>
               </div>
-              <p className="mx-auto mt-2 max-w-[125px] text-[0.6875rem] font-semibold leading-[1.2] text-[#182b48] sm:text-[0.75rem]">{c.name}</p>
+              <p className="mx-auto mt-2.5 max-w-[125px] text-[0.75rem] font-semibold leading-[1.25] text-[#182b48]">{c.name}</p>
             </Link>)}
           </div>
-          <button type="button" aria-label="Browse categories" onClick={() => document.querySelector('.category-strip')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })} className="absolute -right-3 top-[34%] z-10 grid h-9 w-9 place-items-center rounded-full border border-[#edf0f5] bg-white text-[#102748] shadow-md transition hover:shadow-lg lg:hidden"><ChevronRight size={19}/></button>
+          <button type="button" aria-label="Scroll left" onClick={() => document.getElementById('category-scroll')?.scrollBy({ left: -300, behavior: 'smooth' })} className="absolute -left-3 top-[30%] z-10 grid h-9 w-9 place-items-center rounded-full border border-[#e4e9f1] bg-white text-[#102748] shadow-md transition hover:shadow-lg"><ChevronLeft size={19}/></button>
+          <button type="button" aria-label="Scroll right" onClick={() => document.getElementById('category-scroll')?.scrollBy({ left: 300, behavior: 'smooth' })} className="absolute -right-3 top-[30%] z-10 grid h-9 w-9 place-items-center rounded-full border border-[#e4e9f1] bg-white text-[#102748] shadow-md transition hover:shadow-lg"><ChevronRight size={19}/></button>
         </div>
       </section>
 

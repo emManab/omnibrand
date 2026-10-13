@@ -8,13 +8,19 @@ const photo = (id: string, width = 900) =>
  */
 export const categoryImages = {
   businessCards: photo("photo-1623305465231-d884ce752d59", 600),
+  poloShirts: photo("photo-1598033129183-c4f50c736c10", 600),
+  dressShirts: photo("photo-1602810318383-e386cc2a3ccf", 600),
   tshirts: photo("photo-1521572163474-6864f9cf17ab", 600),
-  hoodies: photo("photo-1556821840-3a63f95609a7", 600),
-  stickers: photo("photo-1611532736597-de2d4265fba3", 600),
-  caps: photo("photo-1588850561407-ed78c282e89b", 600),
+  winterWear: photo("photo-1544022613-e87ca75a784a", 600),
+  stamps: photo("photo-1586075574641-2f1499cf3751", 600),
   posters: photo("photo-1586281380349-632531db7ed4", 600),
-  stationery: photo("photo-1517842645767-c639042777db", 600),
+  marketing: photo("photo-1544816155-12df9643f363", 600),
+  stickers: photo("photo-1611532736597-de2d4265fba3", 600),
   packaging: photo("photo-1607082349566-187342175e2f", 600),
+  stationery: photo("photo-1517842645767-c639042777db", 600),
+  photoGifts: photo("photo-1514228742587-6b1558fcca3d", 600),
+  caps: photo("photo-1588850561407-ed78c282e89b", 600),
+  hoodies: photo("photo-1556821840-3a63f95609a7", 600),
   drinkware: photo("photo-1602143407151-7111542de6e8", 600),
 } as const;
 

@@ -9,66 +9,75 @@ export const categories: {
 }[] = [
   {
     slug: "business-cards",
-    name: "Business Cards",
+    name: "Visiting Cards",
     short: "Letterpress, silk, recycled stock",
-    image:
-      categoryImages.businessCards,
+    image: categoryImages.businessCards,
+  },
+  {
+    slug: "apparel",
+    name: "Custom Polo T-shirts",
+    short: "Embroidered and printed polos",
+    image: categoryImages.poloShirts,
+  },
+  {
+    slug: "apparel",
+    name: "Custom Dress Shirts",
+    short: "Formal and business shirts",
+    image: categoryImages.dressShirts,
   },
   {
     slug: "apparel",
     name: "Custom T-shirts",
     short: "Tees, hoodies, polos",
-    image:
-      categoryImages.tshirts,
+    image: categoryImages.tshirts,
   },
   {
     slug: "apparel",
-    name: "Hoodies & Sweatshirts",
-    short: "Printed and embroidered fleece",
-    image:
-      categoryImages.hoodies,
-  },
-  {
-    slug: "stickers",
-    name: "Stickers & Labels",
-    short: "Vinyl, kraft, hologram",
-    image:
-      categoryImages.stickers,
-  },
-  {
-    slug: "apparel",
-    name: "Caps & Hats",
-    short: "Embroidered and printed",
-    image:
-      categoryImages.caps,
-  },
-  {
-    slug: "marketing",
-    name: "Posters & Banners",
-    short: "Fine art and office",
-    image:
-      categoryImages.posters,
+    name: "Custom Winter Wear",
+    short: "Hoodies, jackets, sweatshirts",
+    image: categoryImages.winterWear,
   },
   {
     slug: "stationery",
-    name: "Office Stationery",
-    short: "Letterheads, notepads",
-    image:
-      categoryImages.stationery,
+    name: "Custom Stamps & Ink",
+    short: "Self-inking and rubber stamps",
+    image: categoryImages.stamps,
+  },
+  {
+    slug: "marketing",
+    name: "Signs & Posters",
+    short: "Fine art and office",
+    image: categoryImages.posters,
+  },
+  {
+    slug: "marketing",
+    name: "Marketing Materials",
+    short: "Brochures, flyers, booklets",
+    image: categoryImages.marketing,
+  },
+  {
+    slug: "stickers",
+    name: "Labels & Stickers",
+    short: "Vinyl, kraft, hologram",
+    image: categoryImages.stickers,
   },
   {
     slug: "packaging",
-    name: "Packaging & Boxes",
+    name: "Packaging",
     short: "Mailers, boxes, tape",
-    image:
-      categoryImages.packaging,
+    image: categoryImages.packaging,
+  },
+  {
+    slug: "stationery",
+    name: "Custom Stationery",
+    short: "Letterheads, notepads, envelopes",
+    image: categoryImages.stationery,
   },
   {
     slug: "gifts",
-    name: "Drinkware",
-    short: "Mugs, bottles, tumblers",
-    image:
-      categoryImages.drinkware,
+    name: "Photo Gifts",
+    short: "Mugs, frames, personalised gifts",
+    image: categoryImages.photoGifts,
   },
 ];
 

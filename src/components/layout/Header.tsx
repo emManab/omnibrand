@@ -102,7 +102,7 @@ export function Header() {
     setOpen(false);
   }
 
-  return <header className="sticky top-0 z-40 border-b border-[#e8edf4] bg-white/95 backdrop-blur">
+  return <header className="sticky top-0 z-40 overflow-x-clip border-b border-[#e8edf4] bg-white/95 backdrop-blur">
     <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-4 py-3 sm:px-6 lg:gap-7 lg:px-7">
       <button className="rounded-lg p-1.5 text-ink lg:hidden" onClick={()=>setOpen(v=>!v)} aria-label={open?"Close menu":"Open menu"} aria-expanded={open}>{open?<X size={18}/>:<Menu size={18}/>}</button>
       <Link to="/" className="flex shrink-0 items-center" aria-label="Calcuttapress home">
@@ -134,11 +134,11 @@ export function Header() {
       <label className="flex w-full items-center gap-2 rounded-full border border-[#dfe5ee] bg-white px-4 py-2.5 transition focus-within:border-[#a9cfff] focus-within:shadow-[0_0_0_3px_rgba(8,117,245,0.08)]"><Search size={19} className="shrink-0 text-[#102748]"/><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search for products, templates or ideas..." aria-label="Search products" className="w-full border-0 bg-transparent text-sm outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:outline-none placeholder:text-[#7d899c]"/></label>
     </form>
     <nav aria-label="Product categories" className="hidden border-t border-[#edf0f5] bg-white lg:block" onMouseLeave={() => setActiveMega(null)}>
-      <div className="mx-auto flex max-w-[1560px] items-stretch justify-between gap-1 overflow-x-auto px-4 xl:px-7">
+      <div className="nav-category-strip mx-auto flex max-w-[1560px] items-stretch justify-between gap-0.5 overflow-x-auto px-4 xl:px-7">
         {[{ slug: "all", label: "All Products" }, ...navCategories.filter(c => c.slug !== "all"), { slug: "stationery", label: "Office Stationery" }, { slug: "inspiration", label: "Inspiration" }].map((item) => {
           const key = item.label;
           const target = item.slug === "inspiration" ? "/catalog" : `/catalog?category=${item.slug}`;
-          return <Link key={key} to={target} onMouseEnter={() => setActiveMega(megaMenus[key] ? key : null)} onFocus={() => setActiveMega(megaMenus[key] ? key : null)} onClick={() => setActiveMega(null)} className={cn("relative flex shrink-0 items-center gap-1 whitespace-nowrap border-b-2 px-3 py-4 text-[0.8125rem] font-medium transition-colors", activeMega === key ? "border-[#0875f5] text-[#0875f5]" : "border-transparent text-[#253854] hover:text-[#0875f5]")}>{item.label}{megaMenus[key] && <span className={cn("text-[0.7rem] transition-transform",activeMega === key && "rotate-180")}>⌄</span>}</Link>;
+          return <Link key={key} to={target} onMouseEnter={() => setActiveMega(megaMenus[key] ? key : null)} onFocus={() => setActiveMega(megaMenus[key] ? key : null)} onClick={() => setActiveMega(null)} className={cn("relative flex shrink-0 items-center gap-1 whitespace-nowrap border-b-2 px-2 py-4 text-xs font-medium transition-colors xl:px-3 xl:text-[0.8125rem]", activeMega === key ? "border-[#0875f5] text-[#0875f5]" : "border-transparent text-[#253854] hover:text-[#0875f5]")}>{item.label}{megaMenus[key] && <span className={cn("text-[0.7rem] transition-transform",activeMega === key && "rotate-180")}>⌄</span>}</Link>;
         })}
       </div>
       {activeMega && <div className="absolute left-0 right-0 z-[75] border-y border-[#e7edf5] bg-white shadow-[0_22px_45px_rgba(19,39,70,.15)]" onMouseEnter={() => setActiveMega(activeMega)}>
