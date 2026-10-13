@@ -55,12 +55,7 @@ export function PremiumHeader() {
                   to="/"
                   className="flex items-center gap-3 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:opacity-70"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#0875f5] to-[#0a5cc5]">
-                    <span className="text-lg font-black text-white">P</span>
-                  </div>
-                  <span className="hidden text-xl font-black tracking-tight text-[#102748] dark:text-white sm:block" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                    Printify
-                  </span>
+                  <img src="/calcuttapress-logo.svg" alt="Calcuttapress" className="h-9 w-auto max-w-[190px]" />
                 </Link>
 
                 {/* Desktop Navigation */}
