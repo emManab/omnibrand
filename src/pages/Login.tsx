@@ -35,7 +35,7 @@ export function LoginPage() {
       <p className="mt-2 text-sm text-muted">
         {supabaseEnabled
           ? "Accounts live in your Supabase project."
-          : "Local demo mode. Admin: admin@omnibrand.com / admin123"}
+          : "Local demo mode. Admin: admin@calcuttapress.com / admin123"}
       </p>
       <form onSubmit={submit} className="mt-6 grid gap-3">
         {mode === "up" && (

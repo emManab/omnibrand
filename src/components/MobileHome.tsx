@@ -6,16 +6,10 @@ import { categoryMedia, heroOffers, promoMedia } from "@/data/mediaAssets";
 import { MediaDisplay } from "@/components/MediaDisplay";
 import { ProductCard } from "@/components/ProductCard";
 import { toast } from "sonner";
+import { supabaseEnabled } from "@/lib/supabase";
+import { useCategories, useProducts, useBanners } from "@/lib/queries";
+import type { Product } from "@/types";
 
-const tiles = categories.map((category) => {
-  const media = categoryMedia[category.slug];
-  return {
-    label: category.name,
-    slug: category.slug,
-    src: category.image,
-    videoSrc: media?.video,
-  };
-});
 const creatorVideos = [
   { handle: "@calcuttapress", category: "Business Cards", title: "First look at our new business cards", duration: "0:32", image: "https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=720&q=85", query: "custom business card unboxing", to: "/catalog?category=business-cards" },
   { handle: "@smallbrandstudio", category: "Stickers & Labels", title: "Sticker order reveal", duration: "0:28", image: "https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&w=720&q=85", query: "custom sticker unboxing", to: "/catalog?category=stickers" },
@@ -23,152 +17,381 @@ const creatorVideos = [
   { handle: "@wearyourbrand", category: "Custom Apparel", title: "Custom apparel reveal", duration: "0:31", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=720&q=85", query: "custom printed t shirt unboxing", to: "/catalog?category=apparel" },
   { handle: "@everydaycreative", category: "Office Stationery", title: "A fresh stationery setup", duration: "0:37", image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=720&q=85", query: "custom printed stationery unboxing", to: "/catalog?category=stationery" },
 ];
+
 const benefits = [
-  {Icon:Truck,label:"Fast Delivery"},
-  {Icon:Star,label:"High Quality Prints"},
-  {Icon:PenLine,label:"Design Online"},
-  {Icon:ShieldCheck,label:"No Minimum Order"},
+  { Icon: Truck, label: "Fast Delivery" },
+  { Icon: Star, label: "High Quality Prints" },
+  { Icon: PenLine, label: "Design Online" },
+  { Icon: ShieldCheck, label: "No Minimum Order" },
 ];
-function Title({children,to="/catalog",showLink=true}:{children:ReactNode;to?:string;showLink?:boolean}) {
-  return <div className="flex items-center justify-between gap-2"><h2 className="text-[19px] font-extrabold tracking-tight text-[#101e39]">{children}</h2>{showLink&&<Link to={to} className="flex shrink-0 items-center gap-1 text-[13px] font-bold text-[#0875f5]">View All <span aria-hidden="true">→</span></Link>}</div>;
-}
-function Banner({eyebrow,title,description,cta,to,src,videoSrc,tone}:{eyebrow:string;title:string;description?:string;cta:string;to:string;src:string;videoSrc?:string;tone:string}) {
- return <Link to={to} className={`mobile-reference-banner ${tone}`}>
-  <div className="relative z-10 flex flex-col items-start justify-center py-5 pl-5">
-   <p className="text-[10px] font-bold uppercase tracking-[.09em] text-[#354967]">{eyebrow}</p>
-   <h3 className="mt-1 text-[23px] font-extrabold leading-[1.05] tracking-tight text-[#0c1d3c]">{title}</h3>
-   {description&&<p className="mt-2 text-[12px] leading-[1.35] text-[#33445d]">{description}</p>}
-   <span className="mt-4 inline-flex min-h-[40px] items-center gap-2 rounded-lg bg-[#071b3d] px-4 py-2.5 text-[12px] font-bold text-white">{cta} <span>→</span></span>
-  </div>
-  <MediaDisplay src={src} videoSrc={videoSrc} alt="" className="h-full min-h-[205px] w-full" imgClassName="object-cover object-center" videoClassName="object-cover object-center" />
- </Link>;
-}
-function Rail({title,items}:{title:string;items:typeof products}) {
- return <section className="px-4 pt-7"><Title>{title}</Title><div className="mobile-reference-rail mt-3">{items.slice(0,8).map(p=><ProductCard key={p.id} product={p}/>)}</div></section>;
-}
-export function MobileHome() {
- const revealRoot = useRef<HTMLDivElement>(null);
- const [copied, setCopied] = useState(false);
- const activeOffer = heroOffers[0];
 
- const copyCode = (code: string) => {
-   navigator.clipboard.writeText(code);
-   setCopied(true);
-   toast.success(`Coupon code "${code}" copied!`);
-   setTimeout(() => setCopied(false), 2500);
- };
-
- useEffect(() => {
-  const root = revealRoot.current;
-  if (!root) return;
-  const items = root.querySelectorAll<HTMLElement>("[data-scroll-reveal]");
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-   items.forEach((item) => item.classList.add("is-revealed"));
-   return;
-  }
-  const observer = new IntersectionObserver((entries) => {
-   entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-     entry.target.classList.add("is-revealed");
-     observer.unobserve(entry.target);
-    }
-   });
-  }, { threshold: 0.12, rootMargin: "0px 0px -32px 0px" });
-  items.forEach((item) => observer.observe(item));
-  return () => observer.disconnect();
- }, []);
- const popular = products.filter(p=>p.featured);
- const trending = products.filter(p=>p.trending);
-
- return <div ref={revealRoot} className="mobile-reference-home bg-white pb-5">
-  {/* Top Mobile Announcement Bar */}
-  <div className="bg-[#111827] text-white px-3 py-1.5 text-[11px] font-medium flex items-center justify-between">
-    <span className="truncate">Festival Savings: Flat ₹300 off ₹2,499+</span>
-    <button
-      onClick={() => copyCode(activeOffer.code)}
-      className="inline-flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded text-[10px] font-bold text-white shrink-0 ml-2"
-    >
-      <span>{activeOffer.code}</span>
-      {copied ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
-    </button>
-  </div>
-
-  {/* Mobile Festive Offer Hero */}
-  <section className="px-3 pt-3">
-   <div className={`relative overflow-hidden rounded-[18px] bg-gradient-to-br ${activeOffer.gradient} p-4 text-center shadow-md`}>
-    {/* Subtle Watermark */}
-    <div className="absolute inset-0 flex flex-col justify-between pointer-events-none select-none opacity-10 text-black text-2xl font-black uppercase tracking-widest overflow-hidden">
-      <span>BUY MORE, SAVE MORE</span>
-      <span>BUY MORE, SAVE MORE</span>
-      <span>BUY MORE, SAVE MORE</span>
+function Title({ children, to = "/catalog", showLink = true }: { children: ReactNode; to?: string; showLink?: boolean }) {
+  return (
+    <div className="flex items-center justify-between gap-2">
+      <h2 className="text-[19px] font-extrabold tracking-tight text-[#101e39]">{children}</h2>
+      {showLink && (
+        <Link to={to} className="flex shrink-0 items-center gap-1 text-[13px] font-bold text-[#0875f5]">
+          View All <span aria-hidden="true">→</span>
+        </Link>
+      )}
     </div>
+  );
+}
 
-    {/* Center Elevated Offer Card */}
-    <div className="relative z-10 rounded-2xl bg-[#faf9f4] p-5 shadow-lg border border-white/70">
-      <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-800">
-        {activeOffer.eyebrow}
-      </p>
-      <h1 className="mt-2 text-[20px] font-black leading-tight tracking-tight text-neutral-950">
-        {activeOffer.headline}
-      </h1>
-      <div className="mt-2.5 flex items-center justify-center gap-2 text-[11px] font-semibold text-neutral-600">
-        <span>{activeOffer.validUntil}</span>
-        <span>|</span>
+function Banner({
+  eyebrow,
+  title,
+  description,
+  cta,
+  to,
+  src,
+  videoSrc,
+  tone,
+}: {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  cta: string;
+  to: string;
+  src: string;
+  videoSrc?: string;
+  tone: string;
+}) {
+  return (
+    <Link to={to} className={`mobile-reference-banner ${tone}`}>
+      <div className="relative z-10 flex flex-col items-start justify-center py-5 pl-5">
+        <p className="text-[10px] font-bold uppercase tracking-[.09em] text-[#354967]">{eyebrow}</p>
+        <h3 className="mt-1 text-[23px] font-extrabold leading-[1.05] tracking-tight text-[#0c1d3c]">{title}</h3>
+        {description && <p className="mt-2 text-[12px] leading-[1.35] text-[#33445d]">{description}</p>}
+        <span className="mt-4 inline-flex min-h-[40px] items-center gap-2 rounded-lg bg-[#071b3d] px-4 py-2.5 text-[12px] font-bold text-white">
+          {cta} <span>→</span>
+        </span>
+      </div>
+      <MediaDisplay
+        src={src}
+        videoSrc={videoSrc}
+        alt=""
+        className="h-full min-h-[205px] w-full"
+        imgClassName="object-cover object-center"
+        videoClassName="object-cover object-center"
+      />
+    </Link>
+  );
+}
+
+function Rail({ title, items }: { title: string; items: Product[] }) {
+  return (
+    <section className="px-4 pt-7">
+      <Title>{title}</Title>
+      <div className="mobile-reference-rail mt-3">
+        {items.slice(0, 8).map((p) => (
+          <ProductCard key={p.id} product={p} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function MobileHome() {
+  const revealRoot = useRef<HTMLDivElement>(null);
+  const [copied, setCopied] = useState(false);
+
+  const { data: dbCategories } = useCategories();
+  const cats = (supabaseEnabled && dbCategories && dbCategories.length > 0) ? dbCategories : categories;
+  const tiles = cats.map((category) => {
+    const media = categoryMedia[category.slug];
+    return {
+      label: category.name,
+      slug: category.slug,
+      src: category.image || media?.image,
+      videoSrc: media?.video,
+    };
+  });
+
+  const { data: dbBanners } = useBanners("home_hero");
+  const mappedBanners = (dbBanners ?? []).map((b) => ({
+    id: b.id,
+    eyebrow: b.subtitle || b.theme?.validUntil || "",
+    headline: b.title,
+    code: b.theme?.code || "",
+    validUntil: b.theme?.validUntil || "",
+    footerText: b.description,
+    watermarkText: b.theme?.watermark || b.title.toUpperCase(),
+    gradient: b.theme?.gradient || "from-[#297b8a] via-[#74876b] to-[#e48332]",
+    textColor: "#111827",
+    accentBg: "#faf9f5",
+    videoSrc: b.videoPath || undefined,
+    ctas: b.theme?.ctas || [{ label: b.ctaLabel, to: b.link }],
+  }));
+  const activeOffer = (supabaseEnabled && mappedBanners.length > 0) ? mappedBanners[0] : heroOffers[0];
+
+  const { data: dbProducts } = useProducts({ status: "published" });
+  const allProducts = (supabaseEnabled && dbProducts?.items && dbProducts.items.length > 0) ? dbProducts.items : products;
+  const popular = allProducts.filter((p) => p.featured);
+  const trending = allProducts.filter((p) => p.trending);
+
+  const copyCode = (code: string) => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    toast.success(`Coupon code "${code}" copied!`);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
+  useEffect(() => {
+    const root = revealRoot.current;
+    if (!root) return;
+    const items = root.querySelectorAll<HTMLElement>("[data-scroll-reveal]");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      items.forEach((item) => item.classList.add("is-revealed"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -32px 0px" },
+    );
+    items.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={revealRoot} className="mobile-reference-home bg-white pb-5">
+      {/* Top Mobile Announcement Bar */}
+      <div className="bg-[#111827] text-white px-3 py-1.5 text-[11px] font-medium flex items-center justify-between">
+        <span className="truncate">Festival Savings: Flat ₹300 off ₹2,499+</span>
         <button
           onClick={() => copyCode(activeOffer.code)}
-          className="inline-flex items-center gap-1 rounded bg-neutral-200 px-2 py-0.5 text-[10px] font-bold text-neutral-900"
+          className="inline-flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded text-[10px] font-bold text-white shrink-0 ml-2"
         >
-          <span>Code: {activeOffer.code}</span>
-          {copied ? <Check size={11} className="text-emerald-600" /> : <Copy size={11} />}
+          <span>{activeOffer.code}</span>
+          {copied ? <Check size={11} className="text-emerald-400" /> : <Copy size={11} />}
         </button>
       </div>
 
-      <div className="mt-4 flex flex-wrap justify-center gap-1.5">
-        {activeOffer.ctas.map((cta, i) => (
-          <Link
-            key={cta.label}
-            to={cta.to}
-            className={`rounded-lg px-3 py-2 text-[11px] font-bold transition ${
-              i === 0
-                ? "bg-black text-white"
-                : "border border-neutral-300 bg-white text-neutral-800"
-            }`}
-          >
-            {cta.label}
-          </Link>
-        ))}
-      </div>
-      <p className="mt-3 text-[10px] leading-relaxed text-neutral-500">
-        {activeOffer.footerText}
-      </p>
-    </div>
-   </div>
-  </section>
+      {/* Mobile Festive Offer Hero */}
+      <section className="px-3 pt-3">
+        <div className={`relative overflow-hidden rounded-[18px] bg-gradient-to-br ${activeOffer.gradient} p-4 text-center shadow-md`}>
+          {/* Subtle Watermark */}
+          <div className="absolute inset-0 flex flex-col justify-between pointer-events-none select-none opacity-10 text-black text-2xl font-black uppercase tracking-widest overflow-hidden">
+            <span>BUY MORE, SAVE MORE</span>
+            <span>BUY MORE, SAVE MORE</span>
+            <span>BUY MORE, SAVE MORE</span>
+          </div>
 
-  <section className="grid grid-cols-4 gap-2 px-4 py-4">{benefits.map(({Icon,label})=><div key={label} className="flex flex-col items-center gap-2 text-center"><Icon size={23} strokeWidth={1.9} className="text-[#102748]"/><span className="text-[11px] font-medium leading-[1.25] text-[#192c49]">{label}</span></div>)}</section>
-  <section className="px-4 pb-3 pt-4"><Title showLink={false}>Explore all categories</Title><div className="mt-4 grid grid-cols-4 gap-x-2.5 gap-y-5">{tiles.map((tile,i)=><Link key={i} to={`/catalog?category=${tile.slug}`} className="min-w-0 text-center"><div className="aspect-square overflow-hidden rounded-xl bg-[#f1f3f7]"><MediaDisplay src={tile.src} videoSrc={tile.videoSrc} alt={tile.label} className="h-full w-full" imgClassName="object-cover" videoClassName="object-cover"/></div><p className="mt-2 text-[11px] font-medium leading-[1.25] text-[#192c49]">{tile.label}</p></Link>)}</div></section>
-  <section data-scroll-reveal className="space-y-4 px-4 pt-6"><Banner eyebrow="Business Cards" title="Make a lasting first impression." description="Premium cards for your brand, your way." cta="Shop Business Cards" to="/catalog?category=business-cards" src={promoMedia.businessCards.image} videoSrc={promoMedia.businessCards.video} tone="mobile-reference-peach"/></section>
-  <Rail title="Popular Products" items={popular}/>
-  <Rail title="Trending Now" items={trending}/>
-  <section data-scroll-reveal className="space-y-4 px-4 pt-6"><Banner eyebrow="Custom Apparel" title="Wear your brand proudly." description="T-shirts, hoodies, caps and more." cta="Shop Apparel" to="/catalog?category=apparel" src={promoMedia.customApparel.image} videoSrc={promoMedia.customApparel.video} tone="mobile-reference-green"/></section>
-  <section data-scroll-reveal className="mobile-creator-section px-4 pt-8">
-   <div className="flex items-end justify-between gap-3">
-    <div><p className="text-[10px] font-extrabold uppercase tracking-[.18em] text-[#0875f5]">From our creators</p><h2 className="mt-1 text-[21px] font-extrabold leading-tight tracking-tight text-[#101e39]">Real businesses.<br/><span className="text-[#0875f5]">Real unboxings.</span></h2><p className="mt-2 max-w-[250px] text-[12px] leading-5 text-[#66758b]">Get inspired by the details behind standout brands.</p></div>
-    <a href="https://www.youtube.com/results?search_query=custom+printing+unboxing+small+business" target="_blank" rel="noreferrer" className="mb-1 inline-flex min-h-11 shrink-0 items-center gap-1 text-[12px] font-bold text-[#0875f5]">View all <ArrowRight size={14}/></a>
-   </div>
-   <div className="mobile-creator-rail mt-4">
-    {creatorVideos.map((video, index) => <article key={video.handle} data-scroll-reveal style={{"--reveal-delay": `${Math.min(index, 3) * 65}ms`} as CSSProperties} className="mobile-creator-card group overflow-hidden rounded-2xl border border-[#e7edf5] bg-white shadow-[0_5px_18px_rgba(16,40,76,.06)]">
-     <a href={`https://www.youtube.com/results?search_query=${encodeURIComponent(video.query)}`} target="_blank" rel="noreferrer" aria-label={`Find videos: ${video.title}`} className="relative block aspect-[4/5] overflow-hidden bg-[#edf2f8]">
-      <img src={video.image} alt={video.title} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"/>
-      <span className="absolute right-2 top-2 rounded-md bg-black/70 px-2 py-1 text-[10px] font-bold text-white">{video.duration}</span>
-      <span className="absolute inset-0 grid place-items-center bg-[#0b1d36]/10"><span className="grid h-11 w-11 place-items-center rounded-full border border-white/80 bg-black/45 text-white shadow-lg backdrop-blur-sm"><Play size={18} fill="currentColor" className="ml-0.5"/></span></span>
-     </a>
-     <div className="p-3"><p className="truncate text-[12px] font-extrabold text-[#102748]">{video.handle}</p><p className="mt-1 text-[10px] text-[#66758b]">{video.category}</p><Link to={video.to} className="mt-2 inline-flex min-h-10 items-center gap-1 text-[11px] font-bold text-[#0875f5]">Shop this product <ArrowRight size={13}/></Link></div>
-    </article>)}
-   </div>
-   <p className="mt-2 text-[10px] leading-4 text-[#8995a7]">Thumbnails are illustrative. Open a video search to explore creator unboxings.</p>
-  </section>
-  <section className="grid grid-cols-4 gap-2 px-4 py-7">{[{Icon:PenLine,label:"Easy Online Design"},{Icon:Truck,label:"Fast Delivery"},{Icon:BadgeCheck,label:"High Quality Prints"},{Icon:ShieldCheck,label:"No Minimum Orders"}].map(({Icon,label})=><div key={label} className="flex flex-col items-center gap-2 text-center"><Icon size={23} className="text-[#0875f5]"/><span className="text-[11px] font-medium leading-4">{label}</span></div>)}</section>
-  <section className="px-4 pb-5"><div className="rounded-2xl bg-[#0c1d3c] p-5 text-white"><h2 className="text-[20px] font-extrabold">Get Inspired and Get 10% Off</h2><p className="mt-2 text-[12px] leading-4 text-white/75">Subscribe for new products, exclusive offers and design tips.</p><form className="mt-4 flex gap-2" onSubmit={e=>{e.preventDefault();const form=e.currentTarget;form.innerHTML='<p class=&quot;text-sm font-bold&quot;>Thanks for subscribing!</p>';}}><input name="email" type="email" required placeholder="Enter your email address" aria-label="Email address" className="min-w-0 flex-1 rounded-lg bg-white px-3 py-3 text-[12px] text-[#102748]"/><button className="rounded-lg bg-[#0875f5] px-3 text-[12px] font-bold">Subscribe</button></form></div></section>
- </div>;
+          {/* Center Elevated Offer Card */}
+          <div className="relative z-10 rounded-2xl bg-[#faf9f4] p-5 shadow-lg border border-white/70">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-800">
+              {activeOffer.eyebrow}
+            </p>
+            <h1 className="mt-2 text-[20px] font-black leading-tight tracking-tight text-neutral-950">
+              {activeOffer.headline}
+            </h1>
+            <div className="mt-2.5 flex items-center justify-center gap-2 text-[11px] font-semibold text-neutral-600">
+              <span>{activeOffer.validUntil}</span>
+              <span>|</span>
+              <button
+                onClick={() => copyCode(activeOffer.code)}
+                className="inline-flex items-center gap-1 rounded bg-neutral-200 px-2 py-0.5 text-[10px] font-bold text-neutral-900"
+              >
+                <span>Code: {activeOffer.code}</span>
+                {copied ? <Check size={11} className="text-emerald-600" /> : <Copy size={11} />}
+              </button>
+            </div>
+
+            <div className="mt-4 flex flex-wrap justify-center gap-1.5">
+              {activeOffer.ctas.map((cta, i) => (
+                <Link
+                  key={cta.label}
+                  to={cta.to}
+                  className={`rounded-lg px-3 py-2 text-[11px] font-bold transition ${
+                    i === 0
+                      ? "bg-black text-white"
+                      : "border border-neutral-300 bg-white text-neutral-800"
+                  }`}
+                >
+                  {cta.label}
+                </Link>
+              ))}
+            </div>
+            <p className="mt-3 text-[10px] leading-relaxed text-neutral-500">
+              {activeOffer.footerText}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="grid grid-cols-4 gap-2 px-4 py-4">
+        {benefits.map(({ Icon, label }) => (
+          <div key={label} className="flex flex-col items-center gap-2 text-center">
+            <Icon size={23} strokeWidth={1.9} className="text-[#102748]" />
+            <span className="text-[11px] font-medium leading-[1.25] text-[#192c49]">{label}</span>
+          </div>
+        ))}
+      </section>
+
+      <section className="px-4 pb-3 pt-4">
+        <Title showLink={false}>Explore all categories</Title>
+        <div className="mt-4 grid grid-cols-4 gap-x-2.5 gap-y-5">
+          {tiles.map((tile, i) => (
+            <Link key={i} to={`/catalog?category=${tile.slug}`} className="min-w-0 text-center">
+              <div className="aspect-square overflow-hidden rounded-xl bg-[#f1f3f7]">
+                <MediaDisplay
+                  src={tile.src}
+                  videoSrc={tile.videoSrc}
+                  alt={tile.label}
+                  className="h-full w-full"
+                  imgClassName="object-cover"
+                  videoClassName="object-cover"
+                />
+              </div>
+              <p className="mt-2 text-[11px] font-medium leading-[1.25] text-[#192c49]">{tile.label}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section data-scroll-reveal className="space-y-4 px-4 pt-6">
+        <Banner
+          eyebrow="Business Cards"
+          title="Make a lasting first impression."
+          description="Premium cards for your brand, your way."
+          cta="Shop Business Cards"
+          to="/catalog?category=business-cards"
+          src={promoMedia.businessCards.image}
+          videoSrc={promoMedia.businessCards.video}
+          tone="mobile-reference-peach"
+        />
+      </section>
+
+      <Rail title="Popular Products" items={popular} />
+      <Rail title="Trending Now" items={trending} />
+
+      <section data-scroll-reveal className="space-y-4 px-4 pt-6">
+        <Banner
+          eyebrow="Custom Apparel"
+          title="Wear your brand proudly."
+          description="T-shirts, hoodies, caps and more."
+          cta="Shop Apparel"
+          to="/catalog?category=apparel"
+          src={promoMedia.customApparel.image}
+          videoSrc={promoMedia.customApparel.video}
+          tone="mobile-reference-green"
+        />
+      </section>
+
+      <section data-scroll-reveal className="mobile-creator-section px-4 pt-8">
+        <div className="flex items-end justify-between gap-3">
+          <div>
+            <p className="text-[10px] font-extrabold uppercase tracking-[.18em] text-[#0875f5]">From our creators</p>
+            <h2 className="mt-1 text-[21px] font-extrabold leading-tight tracking-tight text-[#101e39]">
+              Real businesses.<br /><span className="text-[#0875f5]">Real unboxings.</span>
+            </h2>
+            <p className="mt-2 max-w-[250px] text-[12px] leading-5 text-[#66758b]">
+              Get inspired by the details behind standout brands.
+            </p>
+          </div>
+          <a
+            href="https://www.youtube.com/results?search_query=custom+printing+unboxing+small+business"
+            target="_blank"
+            rel="noreferrer"
+            className="mb-1 inline-flex min-h-11 shrink-0 items-center gap-1 text-[12px] font-bold text-[#0875f5]"
+          >
+            View all <ArrowRight size={14} />
+          </a>
+        </div>
+        <div className="mobile-creator-rail mt-4">
+          {creatorVideos.map((video, index) => (
+            <article
+              key={video.handle}
+              data-scroll-reveal
+              style={{ "--reveal-delay": `${Math.min(index, 3) * 65}ms` } as CSSProperties}
+              className="mobile-creator-card group overflow-hidden rounded-2xl border border-[#e7edf5] bg-white shadow-[0_5px_18px_rgba(16,40,76,.06)]"
+            >
+              <a
+                href={`https://www.youtube.com/results?search_query=${encodeURIComponent(video.query)}`}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Find videos: ${video.title}`}
+                className="relative block aspect-[4/5] overflow-hidden bg-[#edf2f8]"
+              >
+                <img
+                  src={video.image}
+                  alt={video.title}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                />
+                <span className="absolute right-2 top-2 rounded-md bg-black/70 px-2 py-1 text-[10px] font-bold text-white">
+                  {video.duration}
+                </span>
+                <span className="absolute inset-0 grid place-items-center bg-[#0b1d36]/10">
+                  <span className="grid h-11 w-11 place-items-center rounded-full border border-white/80 bg-black/45 text-white shadow-lg backdrop-blur-sm">
+                    <Play size={18} fill="currentColor" className="ml-0.5" />
+                  </span>
+                </span>
+              </a>
+              <div className="p-3">
+                <p className="truncate text-[12px] font-extrabold text-[#102748]">{video.handle}</p>
+                <p className="mt-1 text-[10px] text-[#66758b]">{video.category}</p>
+                <Link to={video.to} className="mt-2 inline-flex min-h-10 items-center gap-1 text-[11px] font-bold text-[#0875f5]">
+                  Shop this product <ArrowRight size={13} />
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p className="mt-2 text-[10px] leading-4 text-[#8995a7]">
+          Thumbnails are illustrative. Open a video search to explore creator unboxings.
+        </p>
+      </section>
+
+      <section className="grid grid-cols-4 gap-2 px-4 py-7">
+        {[
+          { Icon: PenLine, label: "Easy Online Design" },
+          { Icon: Truck, label: "Fast Delivery" },
+          { Icon: BadgeCheck, label: "High Quality Prints" },
+          { Icon: ShieldCheck, label: "No Minimum Orders" },
+        ].map(({ Icon, label }) => (
+          <div key={label} className="flex flex-col items-center gap-2 text-center">
+            <Icon size={23} className="text-[#0875f5]" />
+            <span className="text-[11px] font-medium leading-4">{label}</span>
+          </div>
+        ))}
+      </section>
+
+      <section className="px-4 pb-5">
+        <div className="rounded-2xl bg-[#0c1d3c] p-5 text-white">
+          <h2 className="text-[20px] font-extrabold">Get Inspired and Get 10% Off</h2>
+          <p className="mt-2 text-[12px] leading-4 text-white/75">
+            Subscribe for new products, exclusive offers and design tips.
+          </p>
+          <form
+            className="mt-4 flex gap-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.currentTarget;
+              form.innerHTML = '<p class="text-sm font-bold">Thanks for subscribing!</p>';
+            }}
+          >
+            <input
+              name="email"
+              type="email"
+              required
+              placeholder="Enter your email address"
+              aria-label="Email address"
+              className="min-w-0 flex-1 rounded-lg bg-white px-3 py-3 text-[12px] text-[#102748]"
+            />
+            <button className="rounded-lg bg-[#0875f5] px-3 text-[12px] font-bold">
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
+  );
 }

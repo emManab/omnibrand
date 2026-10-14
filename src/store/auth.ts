@@ -14,7 +14,7 @@ type AuthState = {
 
 function localUsers() {
   try {
-    return JSON.parse(localStorage.getItem("omnibrand.users") || "[]") as {
+    return JSON.parse(localStorage.getItem("calcuttapress.users") || "[]") as {
       email: string;
       password: string;
       profile: Profile;
@@ -76,12 +76,12 @@ export const useAuth = create<AuthState>()(
         }
         const users = localUsers();
         const found = users.find((u) => u.email === email && u.password === password);
-        if (email === "admin@omnibrand.com" && password === "admin123") {
+        if ((email === "admin@calcuttapress.com" || email === "admin@omnibrand.com") && password === "admin123") {
           set({
             user: {
               id: "admin-local",
               email,
-              fullName: "Studio admin",
+              fullName: "Calcuttapress Admin",
               role: "admin",
             },
           });
@@ -121,7 +121,7 @@ export const useAuth = create<AuthState>()(
           role: "customer",
         };
         localStorage.setItem(
-          "omnibrand.users",
+          "calcuttapress.users",
           JSON.stringify([...users, { email, password, profile }]),
         );
         set({ user: profile });
@@ -131,6 +131,6 @@ export const useAuth = create<AuthState>()(
         set({ user: null });
       },
     }),
-    { name: "omnibrand.auth", partialize: (s) => ({ user: s.user }) },
+    { name: "calcuttapress.auth", partialize: (s) => ({ user: s.user }) },
   ),
 );

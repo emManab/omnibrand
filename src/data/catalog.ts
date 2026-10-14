@@ -1,4 +1,4 @@
-import type { CategorySlug, Product } from "@/types";
+import type { CategorySlug, EditorPreset, Product } from "@/types";
 import { categoryImages } from "@/data/storefrontImages";
 
 export const categories: {
@@ -94,7 +94,7 @@ export const navCategories = [
 
 const qty = [50, 100, 250, 500, 1000, 2500];
 
-export const products: Product[] = [
+const rawProducts = [
   {
     id: "bc-standard",
     slug: "standard-business-cards",
@@ -585,6 +585,34 @@ export const products: Product[] = [
     newArrival: true,
   },
 ];
+
+export const products: Product[] = rawProducts.map((p) => ({
+  ...p,
+  editorPreset: p.editorPreset as EditorPreset,
+  sku: p.id.toUpperCase(),
+  categoryIds: [],
+  primaryCategoryId: null,
+  regularPrice: p.fromPrice,
+  salePrice: null,
+  images: [{ id: `${p.id}-primary`, path: p.image, url: p.image, alt: p.name, sortOrder: 0, isPrimary: true }],
+  printOptions: {
+    sizes: p.sizes,
+    materials: p.materials,
+    finishes: p.finishes,
+    quantities: p.quantities,
+  },
+  status: "published",
+  trackInventory: true,
+  madeToOrder: true,
+  stock: 100,
+  lowStockThreshold: 5,
+  availability: "in_stock",
+  variants: [],
+  seoTitle: p.name,
+  seoDescription: p.tagline,
+  createdAt: "2024-01-01T00:00:00Z",
+  updatedAt: "2024-01-01T00:00:00Z",
+}));
 
 export function getProduct(slug: string) {
   return products.find((p) => p.slug === slug);

@@ -6,23 +6,35 @@ import { getProduct } from "@/data/catalog";
 import { priceFor } from "@/lib/pricing";
 import { formatInr } from "@/lib/money";
 import { useCart } from "@/store/cart";
+import { supabaseEnabled } from "@/lib/supabase";
+import { useProduct } from "@/lib/queries";
 
 export function EditorPage() {
   const { slug } = useParams();
   const [params] = useSearchParams();
-  const product = getProduct(slug ?? "");
+  const { data: dbProduct, isLoading } = useProduct(slug);
+  const staticProduct = getProduct(slug ?? "");
+  const product = (supabaseEnabled ? dbProduct : null) ?? staticProduct;
   const add = useCart((s) => s.add);
   const navigate = useNavigate();
 
-  const sizeId = params.get("size") ?? product?.sizes[0].id ?? "";
-  const materialId = params.get("material") ?? product?.materials[0].id ?? "";
-  const finishId = params.get("finish") ?? product?.finishes[0].id ?? "";
+  const sizeId = params.get("size") ?? product?.sizes[0]?.id ?? "";
+  const materialId = params.get("material") ?? product?.materials[0]?.id ?? "";
+  const finishId = params.get("finish") ?? product?.finishes[0]?.id ?? "";
   const quantity = Number(params.get("qty") ?? product?.quantities[0] ?? 1);
 
   const quote = useMemo(() => {
     if (!product) return null;
     return priceFor(product, { quantity, sizeId, materialId, finishId });
   }, [product, quantity, sizeId, materialId, finishId]);
+
+  if (supabaseEnabled && isLoading) {
+    return (
+      <div className="mx-auto flex min-h-[400px] max-w-3xl items-center justify-center px-4 py-16">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#0875f5] border-t-transparent" />
+      </div>
+    );
+  }
 
   if (!product || !quote) {
     return (

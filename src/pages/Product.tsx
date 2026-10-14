@@ -8,31 +8,46 @@ import { useCart } from "@/store/cart";
 import { StarRow } from "@/components/StarRow";
 import { ProductImage } from "@/components/ProductImage";
 import { BulkPriceCalculator } from "@/components/BulkPriceCalculator";
-import { ProductRecommendations } from "@/components/ProductRecommendations";
-import { trackProductView } from "@/components/ProductRecommendations";
+import { ProductRecommendations, trackProductView } from "@/components/ProductRecommendations";
 import { LiveChat } from "@/components/LiveChat";
+import { supabaseEnabled } from "@/lib/supabase";
+import { useProduct } from "@/lib/queries";
 
 export function ProductPage() {
   const { slug } = useParams();
-  const product = getProduct(slug ?? "");
+  const { data: dbProduct, isLoading } = useProduct(slug);
+  const staticProduct = getProduct(slug ?? "");
+  const product = (supabaseEnabled ? dbProduct : null) ?? staticProduct;
   const navigate = useNavigate();
   const add = useCart((s) => s.add);
 
-  const [sizeId, setSizeId] = useState(product?.sizes[0].id ?? "");
-  const [materialId, setMaterialId] = useState(product?.materials[0].id ?? "");
-  const [finishId, setFinishId] = useState(product?.finishes[0].id ?? "");
+  const [sizeId, setSizeId] = useState(product?.sizes[0]?.id ?? "");
+  const [materialId, setMaterialId] = useState(product?.materials[0]?.id ?? "");
+  const [finishId, setFinishId] = useState(product?.finishes[0]?.id ?? "");
   const [quantity, setQuantity] = useState(product?.quantities[0] ?? 1);
+
+  useEffect(() => {
+    if (product) {
+      setSizeId((prev) => (product.sizes.some((s) => s.id === prev) ? prev : product.sizes[0]?.id ?? ""));
+      setMaterialId((prev) => (product.materials.some((m) => m.id === prev) ? prev : product.materials[0]?.id ?? ""));
+      setFinishId((prev) => (product.finishes.some((f) => f.id === prev) ? prev : product.finishes[0]?.id ?? ""));
+      setQuantity((prev) => (product.quantities.includes(prev) ? prev : product.quantities[0] ?? 1));
+      trackProductView(product.id);
+    }
+  }, [product]);
 
   const quote = useMemo(() => {
     if (!product) return null;
     return priceFor(product, { quantity, sizeId, materialId, finishId });
   }, [product, quantity, sizeId, materialId, finishId]);
 
-  useEffect(() => {
-    if (product) {
-      trackProductView(product.id);
-    }
-  }, [product]);
+  if (supabaseEnabled && isLoading) {
+    return (
+      <div className="mx-auto flex min-h-[400px] max-w-7xl items-center justify-center px-4 py-20">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#0875f5] border-t-transparent" />
+      </div>
+    );
+  }
 
   if (!product || !quote) {
     return (

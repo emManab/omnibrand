@@ -4,3 +4,8 @@ dist
 .env.local
 *.local
 .DS_Store
+tsconfig.tsbuildinfo
+.agents/
+.claude/
+skills-lock.json
+supabase/.temp/

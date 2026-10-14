@@ -4,6 +4,8 @@ import { products } from "@/data/catalog";
 import { ProductCard } from "./ProductCard";
 import type { Product } from "@/types";
 import { Sparkles } from "lucide-react";
+import { supabaseEnabled } from "@/lib/supabase";
+import { useProducts } from "@/lib/queries";
 
 interface ProductRecommendationsProps {
   currentProduct?: Product;
@@ -14,11 +16,14 @@ interface ProductRecommendationsProps {
 export function ProductRecommendations({ currentProduct, category, title = "You might also like" }: ProductRecommendationsProps) {
   const [recommendations, setRecommendations] = useState<Product[]>([]);
 
+  const { data: dbProducts } = useProducts({ status: "published", pageSize: 50 });
+  const allProducts = (supabaseEnabled && dbProducts?.items && dbProducts.items.length > 0) ? dbProducts.items : products;
+
   useEffect(() => {
     const viewHistory = getViewHistory();
     const cartItems = getCartItems();
 
-    let scored = products.map(p => {
+    const scored = allProducts.map((p) => {
       let score = 0;
 
       if (currentProduct && p.id === currentProduct.id) return { product: p, score: -1000 };
@@ -45,8 +50,8 @@ export function ProductRecommendations({ currentProduct, category, title = "You 
     });
 
     scored.sort((a, b) => b.score - a.score);
-    setRecommendations(scored.slice(0, 6).map(s => s.product));
-  }, [currentProduct, category]);
+    setRecommendations(scored.slice(0, 6).map((s) => s.product));
+  }, [allProducts, currentProduct, category]);
 
   if (recommendations.length === 0) return null;
 
@@ -60,7 +65,7 @@ export function ProductRecommendations({ currentProduct, category, title = "You 
         <Link to="/catalog" className="text-xs font-bold text-[#0875f5] hover:underline">View all →</Link>
       </div>
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-        {recommendations.map(p => <ProductCard key={p.id} product={p} />)}
+        {recommendations.map((p) => <ProductCard key={p.id} product={p} />)}
       </div>
     </section>
   );
@@ -80,7 +85,7 @@ function getCartItems(): string[] {
     const cart = localStorage.getItem('cart');
     if (!cart) return [];
     const parsed = JSON.parse(cart);
-    return parsed.state?.items?.map((item: any) => item.productId) || [];
+    return parsed.state?.items?.map((item: { productId?: string }) => item.productId).filter(Boolean) || [];
   } catch {
     return [];
   }
@@ -89,7 +94,7 @@ function getCartItems(): string[] {
 export function trackProductView(productId: string) {
   try {
     const history = getViewHistory();
-    const updated = [productId, ...history.filter(id => id !== productId)].slice(0, 20);
+    const updated = [productId, ...history.filter((id) => id !== productId)].slice(0, 20);
     localStorage.setItem('product_views', JSON.stringify(updated));
   } catch {
     // Ignore storage errors

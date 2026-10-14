@@ -1,8 +1,8 @@
 export function HelpPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-14">
-      <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand">Printify support</p>
-      <h1 className="mt-2 font-display text-4xl font-semibold">How Printify prints</h1>
+      <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand">Calcuttapress support</p>
+      <h1 className="mt-2 font-display text-4xl font-semibold">How Calcuttapress prints</h1>
       <p className="mt-3 text-sm leading-6 text-muted">A quick guide to preparing artwork, production timelines and secure checkout.</p>
       <div className="mt-8 space-y-8 text-[15px] leading-7 text-muted">
         <section>

@@ -6,6 +6,8 @@ import { ProductCard } from "@/components/ProductCard";
 import { cn } from "@/lib/cn";
 import { ProductImage } from "@/components/ProductImage";
 import { LiveChat } from "@/components/LiveChat";
+import { supabaseEnabled } from "@/lib/supabase";
+import { useCategories, useProducts } from "@/lib/queries";
 
 export function Catalog() {
   const [params, setParams] = useSearchParams();
@@ -13,10 +15,43 @@ export function Catalog() {
   const [under500, setUnder500] = useState(false);
   const q = params.get("q") ?? "";
   const category = params.get("category") ?? "all";
+
+  const { data: dbCategories } = useCategories();
+  const navItems = useMemo(() => {
+    if (supabaseEnabled && dbCategories && dbCategories.length > 0) {
+      return [
+        { slug: "all", label: "All Products" },
+        ...dbCategories
+          .filter((c) => c.showInNav ?? true)
+          .map((c) => ({ slug: c.slug, label: c.navLabel || c.name })),
+      ];
+    }
+    return navCategories;
+  }, [dbCategories]);
+
+  const activeDbCategory = useMemo(() => {
+    if (!supabaseEnabled || !dbCategories || category === "all") return undefined;
+    return dbCategories.find((c) => c.slug === category);
+  }, [dbCategories, category]);
+
+  const { data: dbProducts } = useProducts(
+    {
+      status: "published",
+      search: q || undefined,
+      categoryIds: activeDbCategory ? [activeDbCategory.id] : undefined,
+      sort: sort === "price" ? "price" : "recommended",
+      maxPrice: under500 ? 500 : undefined,
+    },
+    { enabled: supabaseEnabled },
+  );
+
   const items = useMemo(() => {
+    if (supabaseEnabled && dbProducts) {
+      return dbProducts.items;
+    }
     const found = searchProducts(q, category).filter((p) => !under500 || p.fromPrice < 500);
     return sort === "price" ? [...found].sort((a, b) => a.fromPrice - b.fromPrice) : found;
-  }, [q, category, sort, under500]);
+  }, [q, category, sort, under500, dbProducts]);
 
   if (category === "business-cards" && !q) {
     const cardStyles = [
@@ -30,7 +65,10 @@ export function Catalog() {
       { title: "Soft-touch", note: "A refined, velvety feel", image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=720&q=85" },
       { title: "Uncoated", note: "Natural texture, easy to write on", image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=720&q=85" },
     ];
-    const cardProduct = products.find((p) => p.category === "business-cards");
+    const cardProduct =
+      (supabaseEnabled && dbProducts ? dbProducts.items : products).find((p) => p.category === "business-cards") ??
+      products.find((p) => p.category === "business-cards");
+
     return (
       <div className="business-cards-page mx-auto max-w-[1440px] px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
         <div className="business-cards-hero grid overflow-hidden rounded-2xl bg-[#263b5c] text-white md:grid-cols-[0.9fr_1.1fr]">
@@ -46,7 +84,10 @@ export function Catalog() {
           <div className="business-cards-hero-art relative min-h-[230px] overflow-hidden sm:min-h-[300px]">
             <img src="https://images.unsplash.com/photo-1504274066651-8d31a536b11a?auto=format&fit=crop&w=1200&q=90" alt="Premium business cards arranged on a desk" className="absolute inset-0 h-full w-full object-cover opacity-90" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#263b5c] via-[#263b5c]/25 to-transparent md:from-[#263b5c]/70 md:via-transparent" />
-            <div className="absolute bottom-5 right-5 rounded-xl border border-white/30 bg-white/90 px-4 py-3 text-[#172c4b] shadow-xl backdrop-blur"><p className="text-xs font-semibold">Printify quality</p><p className="mt-0.5 text-sm font-extrabold">Your brand, in hand.</p></div>
+            <div className="absolute bottom-5 right-5 rounded-xl border border-white/30 bg-white/90 px-4 py-3 text-[#172c4b] shadow-xl backdrop-blur">
+              <p className="text-xs font-semibold">Calcuttapress quality</p>
+              <p className="mt-0.5 text-sm font-extrabold">Your brand, in hand.</p>
+            </div>
           </div>
         </div>
         <section className="mt-9 sm:mt-12">
@@ -65,6 +106,11 @@ export function Catalog() {
     );
   }
 
+  const heroProduct =
+    (supabaseEnabled && dbProducts ? dbProducts.items : products).find(
+      (p) => p.category === (category === "all" ? "apparel" : category),
+    ) ?? products[1];
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 lg:px-6 catalog-page">
       <div className="mobile-catalog-hero">
@@ -73,7 +119,7 @@ export function Catalog() {
           <h1 className="mt-1 text-2xl font-extrabold leading-tight text-[#102748]">{category === "apparel" ? "Wear your brand proudly." : q ? `Results for “${q}”` : "Find your next favourite."}</h1>
           <p className="mt-2 text-sm leading-5 text-[#385577]">High quality custom products for your business, events and everyday style.</p>
         </div>
-        <ProductImage src={products.find((p) => p.category === (category === "all" ? "apparel" : category))?.image ?? products[1].image} alt="Custom printed products" className="h-full min-h-[160px] w-full rounded-xl object-cover"/>
+        <ProductImage src={heroProduct?.image ?? products[1].image} alt="Custom printed products" className="h-full min-h-[160px] w-full rounded-xl object-cover"/>
       </div>
       <p className="text-sm text-muted catalog-eyebrow">Catalogue</p>
       <h1 className="mt-1 font-display text-4xl font-semibold catalog-title">
@@ -84,7 +130,7 @@ export function Catalog() {
       </p>
 
       <div className="mt-6 flex flex-wrap gap-2 catalog-categories">
-        {navCategories.map((c) => (
+        {navItems.map((c) => (
           <button
             key={c.slug}
             onClick={() => {

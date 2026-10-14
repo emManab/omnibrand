@@ -10,6 +10,9 @@ import { OfferHeroBanner } from "@/components/home/OfferHeroBanner";
 import { ProductRecommendations } from "@/components/ProductRecommendations";
 import { QuickReorder } from "@/components/QuickReorder";
 import { LiveChat } from "@/components/LiveChat";
+import { supabaseEnabled } from "@/lib/supabase";
+import { useCategories, useProducts } from "@/lib/queries";
+import type { Product } from "@/types";
 
 const tabs = [
   { id: "all", label: "All" },
@@ -33,10 +36,18 @@ export function Home() {
   const [tab, setTab] = useState("all");
   const [email, setEmail] = useState("");
   const [joined, setJoined] = useState(false);
-  const popular = products.filter((p) => p.featured);
-  const shown = tab === "all" ? popular : products.filter((p) => p.category === tab);
-  const trending = products.filter((p) => p.trending);
-  const arrivals = products.filter((p) => p.newArrival);
+
+  const { data: dbCategories } = useCategories();
+  const cats = (supabaseEnabled && dbCategories && dbCategories.length > 0) ? dbCategories : categories;
+
+  const { data: dbProducts } = useProducts({ status: "published" });
+  const allProducts = (supabaseEnabled && dbProducts?.items && dbProducts.items.length > 0) ? dbProducts.items : products;
+
+  const popular = allProducts.filter((p) => p.featured);
+  const shown = tab === "all" ? popular : allProducts.filter((p) => p.category === tab);
+  const trending = allProducts.filter((p) => p.trending);
+  const arrivals = allProducts.filter((p) => p.newArrival);
+
   function subscribe(e: FormEvent) { e.preventDefault(); if (email.includes("@")) setJoined(true); }
 
   return (
@@ -49,13 +60,14 @@ export function Home() {
         <h2 className="text-base font-extrabold tracking-tight text-[#182b48] sm:text-lg">Explore all categories</h2>
         <div className="category-strip relative mt-3">
           <div id="category-scroll" className="category-scroll flex gap-3 overflow-x-auto scroll-smooth pb-2">
-            {categories.map((c) => {
+            {cats.map((c) => {
               const media = categoryMedia[c.slug] || { image: c.image };
+              const imgSrc = c.image || media.image;
               return (
                 <Link key={c.name} to={`/catalog?category=${c.slug}`} className="group flex-shrink-0 text-center" style={{ width: 'calc((100% - 7 * 0.75rem) / 8)' }}>
                   <div className="aspect-square overflow-hidden rounded-2xl bg-[#f3f5f8] ring-1 ring-black/[0.03]">
                     <MediaDisplay
-                      src={c.image}
+                      src={imgSrc}
                       videoSrc={media.video}
                       alt={c.name}
                       className="h-full w-full"
@@ -138,7 +150,7 @@ function Promo({title,kicker,to,cta,image,videoSrc,tone,dark}:{title:string;kick
   </Link>;
 }
 
-function ProductRail({title,items,tabs:railTabs,tab,onTab,to}:{title:string;items:typeof products;tabs?:{id:string;label:string}[];tab?:string;onTab?:(id:string)=>void;to:string}) {
+function ProductRail({title,items,tabs:railTabs,tab,onTab,to}:{title:string;items:Product[];tabs?:{id:string;label:string}[];tab?:string;onTab?:(id:string)=>void;to:string}) {
   return <section className="mx-auto max-w-[1440px] px-4 py-5 sm:px-6 lg:px-7">
     <SectionHeading title={title} to={to}/>
     {railTabs&&onTab&&<div className="mt-2.5 flex gap-1.5 overflow-x-auto pb-1">{railTabs.map(t=><button key={t.id} onClick={()=>onTab(t.id)} className={`shrink-0 rounded-full px-3 py-1.5 text-[0.6875rem] font-semibold sm:text-[0.75rem] ${tab===t.id?"bg-[#102748] text-white":"bg-[#f1f4f9] text-[#56657a] hover:bg-[#e6edf8]"}`}>{t.label}</button>)}</div>}

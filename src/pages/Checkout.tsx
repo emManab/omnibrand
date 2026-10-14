@@ -85,7 +85,7 @@ export function CheckoutPage() {
           key,
           amount: rz.amount,
           currency: "INR",
-          name: "Printify",
+          name: "Calcuttapress",
           description: "Print order",
           order_id: rz.orderId,
           prefill: { name: form.name, email: form.email, contact: form.phone },

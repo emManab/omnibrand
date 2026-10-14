@@ -1,15 +1,34 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Copy, Check } from "lucide-react";
-import { heroOffers } from "@/data/mediaAssets";
+import { heroOffers, type HeroOfferSlide } from "@/data/mediaAssets";
 import { MediaDisplay } from "@/components/MediaDisplay";
 import { toast } from "sonner";
+import { supabaseEnabled } from "@/lib/supabase";
+import { useBanners } from "@/lib/queries";
 
 export function OfferHeroBanner() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
-  const offer = heroOffers[currentIndex];
+  const { data: dbBanners } = useBanners("home_hero");
+  const mappedBanners: HeroOfferSlide[] = (dbBanners ?? []).map((b) => ({
+    id: b.id,
+    eyebrow: b.subtitle || b.theme?.validUntil || "",
+    headline: b.title,
+    code: b.theme?.code || "",
+    validUntil: b.theme?.validUntil || "",
+    footerText: b.description,
+    watermarkText: b.theme?.watermark || b.title.toUpperCase(),
+    gradient: b.theme?.gradient || "from-[#297b8a] to-[#e48332]",
+    textColor: "#111827",
+    accentBg: "#faf9f5",
+    videoSrc: b.videoPath || undefined,
+    ctas: b.theme?.ctas || [{ label: b.ctaLabel, to: b.link }],
+  }));
+
+  const slides = (supabaseEnabled && mappedBanners.length > 0) ? mappedBanners : heroOffers;
+  const offer = slides[currentIndex % slides.length] ?? heroOffers[0];
 
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);
@@ -19,11 +38,11 @@ export function OfferHeroBanner() {
   };
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % heroOffers.length);
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + heroOffers.length) % heroOffers.length);
+    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
   return (
@@ -155,7 +174,7 @@ export function OfferHeroBanner() {
 
         {/* Carousel indicator dots */}
         <div className="flex items-center justify-center gap-2 py-3" aria-label="Offer slides">
-          {heroOffers.map((item, index) => (
+          {slides.map((item, index) => (
             <button
               key={item.id}
               type="button"

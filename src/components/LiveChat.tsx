@@ -78,7 +78,7 @@ export function LiveChat() {
       return "You can track your order anytime from your account dashboard. You'll also receive email updates at each stage of production and shipping.";
     }
 
-    return "Thanks for your question! For detailed assistance, please email support@printify.com or call us at 1800-PRINT-NOW. Our team is available Mon-Fri, 9 AM - 6 PM IST.";
+    return "Thanks for your question! For detailed assistance, please email support@calcuttapress.com or call us at 1800-PRINT-NOW. Our team is available Mon-Fri, 9 AM - 6 PM IST.";
   };
 
   return (
@@ -99,7 +99,7 @@ export function LiveChat() {
             <div className="flex items-center gap-2">
               <Bot size={20} />
               <div>
-                <h3 className="text-sm font-bold">Printify Support</h3>
+                <h3 className="text-sm font-bold">Calcuttapress Support</h3>
                 <p className="text-xs opacity-90">Online now</p>
               </div>
             </div>
